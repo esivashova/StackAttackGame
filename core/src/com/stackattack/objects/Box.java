@@ -73,26 +73,23 @@ public class Box {
             switch (dir) {
                 case LEFT:
                     position.x--;
+                    break;
 
                 case RIGHT:
                     position.x++;
+                    break;
 
                 case UP: //fantstic
                     break;
 
                 case DOWN:
                     position.y--;
+                    break;
 
                 case LEFT_UP: //fantastic
                     break;
 
-                case LEFT_DOWN: //no
-                    break;
-
                 case RIGHT_UP: //fantastic
-                    break;
-
-                case RIGHT_DOWN: //no
                     break;
             }
             return true;
@@ -118,13 +115,7 @@ public class Box {
             case LEFT_UP: //fantastic
                 break;
                 
-            case LEFT_DOWN: //no
-                break;
-                
             case RIGHT_UP: //fantastic
-                break;
-                
-            case RIGHT_DOWN: //no
                 break;
         }
         
