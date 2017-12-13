@@ -5,6 +5,7 @@
  */
 package com.stackattack.managers;
 import com.stackattack.objects.Box;
+import com.stackattack.objects.Player;
 import java.util.ArrayList;
 import java.awt.Point;
 
@@ -53,6 +54,13 @@ public class GameField {
     }
     
     public ArrayList<Box> findNeighbour(Box box, DIRECTION dir) {
+        
+        ArrayList<Box> _neighbores = new ArrayList<Box>();
+        
+        return _neighbores;
+    }
+    
+    public ArrayList<Box> findNeighbour(Player player, DIRECTION dir) {
         
         ArrayList<Box> _neighbores = new ArrayList<Box>();
         
