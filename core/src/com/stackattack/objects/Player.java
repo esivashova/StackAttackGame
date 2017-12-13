@@ -15,7 +15,9 @@ import java.awt.Point;
  */
 public class Player {
     
-    public Player(int _liftedWeight, int _heightToJump) {
+    public Player(GameField f, int _liftedWeight, int _heightToJump) {
+        
+        field = f;
         
         if(_liftedWeight > 0)
             liftedWeight = _liftedWeight;
