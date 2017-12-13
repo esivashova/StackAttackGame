@@ -59,6 +59,11 @@ public class GameField {
     
     private ArrayList<ArrayList<Box>> boxes;
     
+    public ArrayList<ArrayList<Box>> getBoxes() {
+        
+        return boxes;
+    }
+    
     public boolean addBox(Box box, Point pos) {
         
         if(pos.x >= 0 && pos.x < width
