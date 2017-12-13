@@ -64,4 +64,8 @@ public class GameField {
     private void checkIfRowIsFilled() {
         
     }
+    
+    private void lowerFlyingObjects() {
+        
+    }
 }
