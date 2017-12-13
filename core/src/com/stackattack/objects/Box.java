@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.stackattack.objects;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.stackattack.managers.DIRECTION;
 import com.stackattack.managers.GameField;
 import java.awt.Point;
@@ -14,7 +16,7 @@ import java.awt.Point;
  */
 public class Box {
     
-    public Box(int _weight, String _color, GameField _field) {
+    public Box(GameField _field, int _weight, String _color) {
         if(_weight > 0)
             weight = _weight;
         else
@@ -22,7 +24,16 @@ public class Box {
         
         color = _color; 
         field = _field;
+        
+        subjtx = new Texture("color");
+        subject = new Sprite(subjtx);
     }
+    
+    //--------------------------------------
+    
+    private Texture subjtx;
+    
+    private Sprite subject; 
     
     //--------------------------------------
     
