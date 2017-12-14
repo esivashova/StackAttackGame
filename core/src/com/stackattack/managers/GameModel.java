@@ -150,19 +150,19 @@ public class GameModel {
         switch(num) {
             
             case 0:
-                return "graphic/grey";
+                return "graphic/grey.png";
                 
             case 1:
-                return "graphic/red";
+                return "graphic/red.png";
                 
             case 2:
-                return "graphic/blue";
+                return "graphic/blue.png";
              
             case 3:    
-                return "graphic/yellow";
+                return "graphic/yellow.png";
                 
             case 4:
-                return "graphic/green";
+                return "graphic/green.png";
         }
         
         return "";
