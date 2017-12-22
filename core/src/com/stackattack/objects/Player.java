@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package com.stackattack.objects;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.managers.DIRECTION;
 import com.stackattack.managers.GameField;
 import java.util.ArrayList;
@@ -28,6 +31,20 @@ public class Player {
             heightToJump = _heightToJump;
         else
             heightToJump = 1;
+        
+        subjtx = new Texture("graphic/player.png");
+        subject = new Sprite(subjtx);
+    }
+    
+    //--------------------------------------
+    
+    private Texture subjtx;
+    
+    private Sprite subject; 
+    
+    public void paint(SpriteBatch batch) {
+        
+        batch.draw(subjtx, position.x*48, position.y*64);
     }
     
     //---------------------------------------------------
@@ -65,8 +82,8 @@ public class Player {
     
     private boolean checkPosition(Point pos) {
         
-        return (pos.x > 0 && pos.x <= field.getWidth()-1
-                && pos.y > 0 && pos.y <= field.getHeight()-2);
+        return (pos.x >= 0 && pos.x < field.getWidth()
+                && pos.y >= 0 && pos.y < field.getHeight()-1);
     }
     
     //-----------------------------------------------
