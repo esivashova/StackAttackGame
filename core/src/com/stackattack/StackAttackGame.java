@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.stackattack.managers.GameModel;
 
 public class StackAttackGame extends Game{
 //	SpriteBatch batch;
@@ -34,8 +35,15 @@ public class StackAttackGame extends Game{
 //        public void update() {
 //            
 //        }
+    
+        private GameModel model;
         
-         public final int WIDTH = 1366;
+        public GameModel getGameModel() {
+            
+            return model;
+        }
+        
+        public final int WIDTH = 1366;
         public final int HEIGHT = 768;
 
         public SpriteBatch batch;
@@ -43,11 +51,16 @@ public class StackAttackGame extends Game{
         @Override
         public void create() {
             batch = new SpriteBatch();
+            
+            model = new GameModel(batch);
+            
             this.setScreen(new MainMenu(this));
         }
 
         @Override
         public void render() {
-            super.render();
+           // batch.begin();
+           super.render();
+          //  batch.end();
         }
 }
