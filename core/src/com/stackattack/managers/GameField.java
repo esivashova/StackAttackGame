@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.stackattack.StackAttackGame;
 import com.stackattack.objects.Box;
 import com.stackattack.objects.Player;
 import com.stackattack.events.GameEvent;
@@ -39,7 +40,7 @@ public class GameField implements Screen {
         batch = b;
     }
     
-    public GameField(GameModel _game, int _width, int _height) {
+    public GameField(StackAttackGame _game, int _width, int _height) {
         
         game = _game;
         
@@ -65,7 +66,7 @@ public class GameField implements Screen {
     
     //---------------------------------------------
     
-    private GameModel game;
+    private StackAttackGame game;
     
     //---------------------------------------------
     

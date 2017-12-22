@@ -52,38 +52,38 @@ public class MainMenu implements Screen {
     @Override
     public void render(float delta) {
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        game.getBatch().setProjectionMatrix(camera.combined);
         Gdx.gl.glClearColor((float) 100/ 255, (float) 200 / 255, (float) 189 / 255, 0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.begin();
-        game.batch.draw(title, 350, 350);
+        game.getBatch().begin();
+        game.getBatch().draw(title, 350, 350);
 
         int x1 = 250;
         if (Gdx.input.getX() < START_BUTTON_WIDTH && Gdx.input.getX() > x1 && Gdx.input.getY() < START_BUTTON_Y + START_BUTTON_HEIGHT && Gdx.input.getY()> START_BUTTON_Y) {
-            game.batch.draw(startbt_select, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
+            game.getBatch().draw(startbt_select, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                // game.getGameModel().setGameField(new GameField(game.getGameModel(), 16, 10));
-                game.setScreen(game.getGameModel().getField());
+                game.setScreen(game.getField());
             }
         } else {
-            game.batch.draw(startbt, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
+            game.getBatch().draw(startbt, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
         }
         int x2 = 700;
         if (Gdx.input.getX() < x2 + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x2 && Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT && Gdx.input.getY() > EXIT_BUTTON_Y) {
-            game.batch.draw(exitbt_select, x2, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+            game.getBatch().draw(exitbt_select, x2, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
 
                 Gdx.app.exit();
             }
         } else {
-            game.batch.draw(exitbt, x2, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+            game.getBatch().draw(exitbt, x2, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
         }
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 
             Gdx.app.exit();
         }
-        game.batch.end();
+        game.getBatch().end();
 
     }
 
