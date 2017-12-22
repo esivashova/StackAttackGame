@@ -15,13 +15,13 @@ public class MainMenu implements Screen {
     private final float appWidth = 1280;
     private final float appHeight = 720;
 
-    private static final int START_BUTTON_WIDTH = 220;
-    private static final int START_BUTTON_HEIGHT = 100;
-    private static final int EXIT_BUTTON_WIDTH = 220;
-    private static final int EXIT_BUTTON_HEIGHT = 100;
-    private static final int START_BUTTON_Y = 180;
-    private static final int EXIT_BUTTON_Y = 180;
-    StackAttackGame game;
+    private static final int START_BUTTON_WIDTH = 300;
+    private static final int START_BUTTON_HEIGHT = 150;
+    private static final int EXIT_BUTTON_WIDTH = 300;
+    private static final int EXIT_BUTTON_HEIGHT = 150;
+    private static final int START_BUTTON_Y = 200;
+    private static final int EXIT_BUTTON_Y = 200;
+    StackAttackGame game = new StackAttackGame();
 
     OrthographicCamera camera;
     BitmapFont debug;
@@ -57,20 +57,20 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        game.batch.draw(title, 325, 325);
+        game.batch.draw(title, 350, 350);
 
-        int x1 = 325;
-        if (Gdx.input.getX() < x1 + START_BUTTON_WIDTH & Gdx.input.getX() > x1 && Gdx.input.getY() - 280 < START_BUTTON_Y + START_BUTTON_HEIGHT && Gdx.input.getY() - 280 > START_BUTTON_Y) {
+        int x1 = 250;
+        if (Gdx.input.getX() < START_BUTTON_WIDTH && Gdx.input.getX() > x1 && Gdx.input.getY() < START_BUTTON_Y + START_BUTTON_HEIGHT && Gdx.input.getY()> START_BUTTON_Y) {
             game.batch.draw(startbt_select, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
-//            if (Gdx.input.isTouched()) {
-// !!!!!!!!!!!!!!!!!
-//                game.setScreen(new GameField(game));
-//            }
+            if (Gdx.input.isTouched()) {
+               // game.getGameModel().setGameField(new GameField(game.getGameModel(), 16, 10));
+                game.setScreen(game.getGameModel().getField());
+            }
         } else {
             game.batch.draw(startbt, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
         }
         int x2 = 700;
-        if (Gdx.input.getX() < x2 + EXIT_BUTTON_WIDTH & Gdx.input.getX() > x2 && Gdx.input.getY() - 280 < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT && Gdx.input.getY() - 280 > EXIT_BUTTON_Y) {
+        if (Gdx.input.getX() < x2 + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x2 && Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT && Gdx.input.getY() > EXIT_BUTTON_Y) {
             game.batch.draw(exitbt_select, x2, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
 
