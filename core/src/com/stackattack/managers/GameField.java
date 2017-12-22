@@ -4,8 +4,18 @@
  * and open the template in the editor.
  */
 package com.stackattack.managers;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.objects.Box;
 import com.stackattack.objects.Player;
+import com.stackattack.events.GameEvent;
+import com.stackattack.events.GameListener;
 import java.util.ArrayList;
 import java.awt.Point;
 
@@ -14,7 +24,20 @@ import java.awt.Point;
  *
  * @author User
  */
-public class GameField {
+public class GameField implements Screen {
+    
+    final float appWidth = 1280;
+    final float appHeight = 720;
+
+    private Texture backgroundTx;
+    private Sprite background;
+    
+    private SpriteBatch batch;
+    
+    public void setBatch(SpriteBatch b) {
+        
+        batch = b;
+    }
     
     public GameField(GameModel _game, int _width, int _height) {
         
@@ -32,6 +55,10 @@ public class GameField {
         
         for(int i = 0; i < height; i++) {
             boxes.add(i, new ArrayList<Box>());
+            
+            for(int j = 0; j < width; j++) {
+                boxes.get(i).add(j, null);
+            }
         }
         
     }
@@ -57,7 +84,7 @@ public class GameField {
     
     //----------------------------------------------
     
-    private ArrayList<ArrayList<Box>> boxes;
+    private ArrayList<ArrayList<Box>> boxes = new ArrayList<ArrayList<Box>>();
     
     public ArrayList<ArrayList<Box>> getBoxes() {
         
@@ -90,9 +117,20 @@ public class GameField {
     public Box findBox(Point pos) {
         
         if(pos.x >= 0 && pos.x < width
-                && pos.y >= 0 && pos.y < height)
+                && pos.y >= 0 && pos.y < height) {
             
-            return boxes.get(pos.y).get(pos.x);
+            if(boxes.get(pos.y).size() > 0) {
+                
+                if(boxes.get(pos.y).get(pos.x) != null)
+                    return boxes.get(pos.y).get(pos.x);
+                
+                else
+                    return null;
+            }
+            
+            else
+                return null;
+        }
         
         else
             return null;
@@ -347,6 +385,11 @@ public class GameField {
                 boxes.set(i, boxesCopy.get(i + 1));
             }
             
+            ArrayList<Box> temp = new ArrayList<Box>();
+            for(int i = 0; i < width; i++) {
+                temp.add(i, null);
+            }
+            
             boxes.set(height - 1, new ArrayList<Box>());
             
             for(ArrayList<Box> _boxes : boxes) {
@@ -373,5 +416,138 @@ public class GameField {
         if(game.getPlayer().getPosition().y != 0
                 && findNeighbour(game.getPlayer(), DIRECTION.DOWN).size() == 0)
             game.getPlayer().makeMove(DIRECTION.DOWN);
+    }
+    
+    @Override
+    public void show() {
+
+//        pref = Gdx.app.getPreferences("Score");
+//
+//        game.sc = new Score();
+//        score = new BitmapFont();
+//        score.setColor(Color.RED);
+//
+          backgroundTx = new Texture("graphic/background.png");
+          background = new Sprite(backgroundTx);
+          
+//          paint(game.getField().getBoxes());
+//          
+//          game.getPlayer().paint(game.getBatch());
+//
+//        snake = new Snake(game);
+//        snake.snakeBodyRectangle();
+//        snake.startCoordinate();
+//
+//        apple1 = new Apple1();
+//        apple2 = new Apple2();
+//        apple3 = new Apple3();
+//        stump = new Stump();
+//        regionAcceleration = new RegionAcceleration();
+//        regionSlowdown = new RegionSlowdown();
+//        pear = new Pear();
+//     
+//        snake.passSubjects(apple1,apple2,apple3,stump,regionAcceleration, regionSlowdown, pear);
+//        
+//        snake.snakeHeadRectangle();
+//
+//        snake.snakeSprites();
+
+    }
+    
+    public void paintBoxes() {
+        
+        for(ArrayList<Box> _boxes : boxes) {
+            for(Box b : _boxes) {
+                if(b != null)
+                    b.paint(game.getBatch());
+            }
+        }
+    }
+
+    @Override
+    public void render(float delta) {
+
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.getBatch().begin(); //BEGIN
+
+        drawBackground();
+        
+        paintBoxes();
+          
+       game.getPlayer().paint(game.getBatch());
+//        spawnSubjects();
+//        drawScore();
+//        snake.drawBody();
+//        snake.moveHead();
+//        snake.moveBody();
+//        snake.bodyRectangle();
+//        rectanglesPosition();
+//        snake.isPressed();
+//        snake.collisionWithSubjects();
+//        snake.collisionWithEdges();
+//        snake.collisionWithBody();
+        //snake.frameTimer();
+//        snake.snakeSize = snake.snake_body.size;
+        //gameOver();
+        game.getBatch().end();
+
+    }
+    
+   // private void
+    
+    public void drawBackground() {
+        
+        background.setPosition(0, 0);
+        background.draw(game.getBatch());
+    }
+    
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+    
+    @Override
+    public void dispose() {
+//        snake.snake_headtx.dispose();
+//        apple1.subjtx.dispose();
+//        apple2.subjtx.dispose();
+//        apple3.subjtx.dispose();
+//        stump.subjtx.dispose();
+//        regionAcceleration.subjtx.dispose();
+//        regionSlowdown.subjtx.dispose();
+//        pear.subjtx.dispose();
+        backgroundTx.dispose();
+//        score.dispose();
+    }
+    
+    
+     // ------------------------- Слушатели хода --------------------------------
+    
+    /**
+    * Класс представляет слушателя события, возникающего при при совершении хода.
+    */
+    public class GameEventObserver implements GameListener {
+
+        @Override
+        public void gameStarted(GameEvent e) {
+            
+        }
     }
 }
