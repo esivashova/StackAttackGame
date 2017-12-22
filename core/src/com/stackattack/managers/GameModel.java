@@ -6,6 +6,7 @@
 package com.stackattack.managers;
 import com.stackattack.objects.Player;
 import com.stackattack.objects.Box;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.TreeMap;
 import java.util.Random;
 import java.awt.Point;
@@ -17,8 +18,19 @@ import java.util.ArrayList;
  */
 public class GameModel {
     
-    public GameModel() {
+    public GameModel(SpriteBatch b) {
         
+        batch = b;
+        
+        start();
+        generateGame();
+    }
+    
+    private SpriteBatch batch;
+    
+    public SpriteBatch getBatch() {
+        
+        return batch;
     }
     
     //-------------------------------------
@@ -45,12 +57,13 @@ public class GameModel {
     
     public void setGameField(GameField f) {
         
+        f.setBatch(batch);
         field = f;
     }
     
     //----------------------------------------
     
-    public void start(TreeMap<String, Integer> attributes) {
+    public void start(/*TreeMap<String, Integer> attributes*/) {
         
         /*
             Состав атрибутов:
@@ -83,6 +96,7 @@ public class GameModel {
             for(int j = 0; j < columnHeight; j++) {
                 
                 Box newBox = generateRandomBox();
+                newBox.setPosition(new Point(sequence.get(i), j));
                 field.addBox(newBox, new Point(sequence.get(i), j));
             }
         }
@@ -99,7 +113,7 @@ public class GameModel {
                 break;
         }
         
-        player.setPosition(new Point(xPlayer, targetHeight));
+        player.setPosition(new Point(xPlayer, targetHeight + 1));
     }
     
     private void finish() {
