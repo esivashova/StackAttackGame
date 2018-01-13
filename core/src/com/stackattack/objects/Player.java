@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package com.stackattack.objects;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.stackattack.StackAttackGame;
 import com.stackattack.managers.DIRECTION;
 import com.stackattack.managers.GameField;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.awt.Point;
  */
 public class Player {
     
-    public Player(GameField f, int _liftedWeight, int _heightToJump) {
+    public Player(GameField f, int _liftedWeight, int _heightToJump, StackAttackGame _game) {
         
         field = f;
         
@@ -32,18 +34,24 @@ public class Player {
         else
             heightToJump = 1;
         
-        subjtx = new Texture("graphic/player.png");
-        subject = new Sprite(subjtx);
+        game = _game;
+       // subjtx = new Texture(Gdx.files.internal("graphic/player.png"));
+      //  subjtx = new Texture(Gdx.files.internal("C:\\Users\\User\\Documents\\GDX_projects\\core\\assets\\graphic\\player.png"));
+        //subject = new Sprite(subjtx);
     }
     
     //--------------------------------------
     
     private Texture subjtx;
-    
+    private StackAttackGame game; 
     private Sprite subject; 
     
     public void paint(SpriteBatch batch) {
         
+        
+        subjtx = new Texture(Gdx.files.internal("graphic/player.png"));
+      //  subjtx = new Texture(Gdx.files.internal("C:\\Users\\User\\Documents\\GDX_projects\\core\\assets\\graphic\\player.png"));
+        subject = new Sprite(subjtx);
         batch.draw(subjtx, position.x*48, position.y*64);
     }
     

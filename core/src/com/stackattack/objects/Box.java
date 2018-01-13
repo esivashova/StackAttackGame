@@ -26,8 +26,7 @@ public class Box {
         color = _color; 
         field = _field;
         
-        subjtx = new Texture(color);
-        subject = new Sprite(subjtx);
+      
     }
     
     //--------------------------------------
@@ -38,6 +37,8 @@ public class Box {
     
     public void paint(SpriteBatch batch) {
         
+        subjtx = new Texture(color);
+        subject = new Sprite(subjtx);
 //        subject.setPosition(position.x*10, position.y*10);
 //        subject.draw(batch);  
         batch.draw(subjtx, position.x*32, position.y*32);
