@@ -14,6 +14,8 @@ import java.util.Random;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import java.io.*;
+
 public class StackAttackGame extends Game{
     
     public StackAttackGame() {
@@ -116,7 +118,7 @@ public class StackAttackGame extends Game{
             2. Высота поля
         */
         
-        field = new GameField(this, 16, 10);
+        field = new GameField(this, 16, 9);
         player = new Player(field, 1, 1, this);
     }
     
@@ -157,7 +159,52 @@ public class StackAttackGame extends Game{
                 break;
         }
         
-        player.setPosition(new Point(xPlayer, targetHeight + 1));
+        player.setPosition(new Point(xPlayer, targetHeight));
+        
+        int counterBox = 0;
+        String data = new String("Boxes:\n");
+        for(ArrayList<Box> bx : this.field.getBoxes())
+        {
+            for(Box b : bx)
+            {
+                if(b != null)
+                {
+                    data += "\n";
+                    data += String.valueOf(counterBox);
+                    data += "\t";
+                    data += b.getColor();
+                    data += "\t";
+                    data += String.valueOf(b.getPosition().x);
+                    data += "; ";
+                    data += String.valueOf(b.getPosition().y);
+                    data += "\n";
+                    counterBox++;
+                }
+            }
+        }
+        
+        data += "\n";
+        data += "Player";
+        data += "\t";
+        data += String.valueOf(this.player.getPosition().x);
+        data += "; ";
+        data += String.valueOf(this.player.getPosition().y);
+        data += "\n";
+    
+        
+         OutputStream os = null;
+        try {
+            os = new FileOutputStream(new File("C:\\Users\\User\\Documents\\GDX_projects\\log.txt"));
+            os.write(data.getBytes(), 0, data.length());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     private void finish() {
