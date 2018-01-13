@@ -41,7 +41,7 @@ public class Box {
         subject = new Sprite(subjtx);
 //        subject.setPosition(position.x*10, position.y*10);
 //        subject.draw(batch);  
-        batch.draw(subjtx, position.x*32, position.y*32);
+        batch.draw(subjtx, position.x*64, position.y*64, 64, 64);
     }
     
     //--------------------------------------

@@ -49,10 +49,10 @@ public class Player {
     public void paint(SpriteBatch batch) {
         
         
-        subjtx = new Texture(Gdx.files.internal("graphic/player.png"));
+        subjtx = new Texture(Gdx.files.internal("graphic/playerR.png"));
       //  subjtx = new Texture(Gdx.files.internal("C:\\Users\\User\\Documents\\GDX_projects\\core\\assets\\graphic\\player.png"));
         subject = new Sprite(subjtx);
-        batch.draw(subjtx, position.x*48, position.y*64);
+        batch.draw(subjtx, position.x*64, position.y*128, 64, 128);
     }
     
     //---------------------------------------------------
