@@ -15,6 +15,13 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class StackAttackGame extends Game{
+    
+    public StackAttackGame() {
+        
+        super();
+        start();
+        generateGame();
+    }
 //	SpriteBatch batch;
 //	Texture img;
 	
@@ -100,7 +107,7 @@ public class StackAttackGame extends Game{
     
     //----------------------------------------
     
-    public void start(/*TreeMap<String, Integer> attributes*/) {
+    private void start(/*TreeMap<String, Integer> attributes*/) {
         
         /*
             Состав атрибутов:
@@ -110,7 +117,7 @@ public class StackAttackGame extends Game{
         */
         
         field = new GameField(this, 16, 10);
-        player = new Player(field, 1, 1);
+        player = new Player(field, 1, 1, this);
     }
     
     private void generateGame() {
