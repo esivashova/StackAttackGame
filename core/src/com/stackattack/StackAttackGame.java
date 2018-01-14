@@ -73,30 +73,23 @@ public class StackAttackGame extends Game{
             
             return batch;
         }
-       
-        
-        private void createTextures() {
-            playerTx = new Texture(Gdx.files.local("graphic/playerR.png"));
-            boxRed = new Texture(Gdx.files.internal("graphic/red.png"));
-            boxGrey = new Texture(Gdx.files.internal("graphic/grey.png"));
-            boxYellow = new Texture(Gdx.files.internal("graphic/yellow.png"));
-            boxGreen = new Texture(Gdx.files.internal("graphic/green.png"));
-            boxBlue = new Texture(Gdx.files.internal("graphic/blue.png"));
-        }
+
 
         @Override
         public void create() {
             batch = new SpriteBatch();
             
             pref = Gdx.app.getPreferences("Score");
-            playerTx = new Texture(Gdx.files.local("graphic/playerR.png"));
+            
+            playerTxRight = new Texture(Gdx.files.local("graphic/playerR.png"));
+            playerTxLeft = new Texture(Gdx.files.local("graphic/playerL.png"));
             boxRed = new Texture(Gdx.files.internal("graphic/red.png"));
             boxGrey = new Texture(Gdx.files.internal("graphic/grey.png"));
             boxYellow = new Texture(Gdx.files.internal("graphic/yellow.png"));
             boxGreen = new Texture(Gdx.files.internal("graphic/green.png"));
             boxBlue = new Texture(Gdx.files.internal("graphic/blue.png"));
             
-            player.setTexture(playerTx);
+            player.setTexture(playerTxRight);
             
             for(ArrayList<Box> bx : this.field.getBoxes())
             {
@@ -472,30 +465,34 @@ public class StackAttackGame extends Game{
     
     public Texture getTextureByColor(String col) {
         
-        if(col == "grey")
+        if(col.equals("grey"))
             return boxGrey;
                 
-        if(col == "red")
+        if(col.equals("red"))
             return boxRed;
                 
-        if(col == "blue")
+        if(col.equals("blue"))
             return boxBlue;
              
-        if(col == "yellow")
+        if(col.equals("yellow"))
             return boxYellow;
                 
-        if(col == "green")
+        if(col.equals("green"))
             return boxGreen;
         
    
         return null;
     }
     
-    public Texture getPlayerTexture() {
-        return playerTx;
+    public Texture getPlayerTexture(boolean dir) {
+        if(dir)
+            return playerTxRight;
+        else
+            return playerTxLeft;
     }
     
-    Texture playerTx;
+    Texture playerTxLeft;
+    Texture playerTxRight;
     Texture boxRed;
     Texture boxGrey;
     Texture boxYellow;
