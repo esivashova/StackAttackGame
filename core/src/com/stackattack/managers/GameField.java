@@ -5,6 +5,7 @@
  */
 package com.stackattack.managers;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -415,20 +416,25 @@ public class GameField implements Screen {
         }
     }
     
+    private long time = 0;
+    
     private void lowerFlyingObjects() {
         
         for(ArrayList<Box> _boxes : boxes) {
             for(Box b : _boxes) {
-                
-                if(b.getPosition().y != 0
+                if(b != null) {
+                    if(b.getPosition().y != 0
                         && findNeighbour(b, DIRECTION.DOWN).size() == 0)
-                    b.move(DIRECTION.DOWN);
+                        b.move(DIRECTION.DOWN);
+                }
             }
         }
         
         if(game.getPlayer().getPosition().y != 0
                 && findNeighbour(game.getPlayer(), DIRECTION.DOWN).size() == 0)
             game.getPlayer().makeMove(DIRECTION.DOWN);
+        
+        time = TimeUtils.nanoTime();
     }
     
     @Override
@@ -538,6 +544,10 @@ public class GameField implements Screen {
 //        snake.snakeSize = snake.snake_body.size;
         //gameOver();
         checkPlayerActions();
+        
+         if(TimeUtils.nanoTime() - time > 1000000000)
+            lowerFlyingObjects();
+         
         game.getBatch().end();
 
     }
