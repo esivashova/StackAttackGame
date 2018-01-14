@@ -336,6 +336,16 @@ public class StackAttackGame extends Game{
         }
         
         @Override
+        public void removeBottomRow(GameEvent e) {
+            
+            for(int i = 0; i < field.getWidth(); i++) {
+                field.getBoxes().get(0).set(i, null);
+            }
+            
+            increaseScore(1);
+        }
+        
+        @Override
         public void activateDoubleJump(GameEvent e) {
             player.setHeightToJump(2);
             doubleJumpTime = TimeUtils.millis();
