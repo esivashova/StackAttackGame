@@ -5,9 +5,9 @@ import java.util.EventObject;
 /*
  * Событие, связанное с изменением состояния игры
  */
-public class GameEvent extends EventObject {
+public class MoveEvent extends EventObject {
     
-    public GameEvent(Object source) { 
+    public MoveEvent(Object source) { 
         super(source); 
     } 
 } 
