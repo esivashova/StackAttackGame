@@ -40,8 +40,9 @@ public class Box {
     
     private Sprite subject; 
     
-    public void paint(SpriteBatch batch) {
+    public void paint(Texture boxTx, SpriteBatch batch) {
         
+        subjtx = boxTx;
 //        subject.setPosition(position.x*10, position.y*10);
 //        subject.draw(batch);  
         batch.draw(subjtx, position.x*64, position.y*64, 64, 64);
