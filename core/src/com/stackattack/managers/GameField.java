@@ -5,6 +5,7 @@
  */
 package com.stackattack.managers;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.stackattack.MainMenu;
 import com.stackattack.StackAttackGame;
 import com.stackattack.objects.Box;
 import com.stackattack.objects.Player;
@@ -19,6 +21,10 @@ import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import java.util.ArrayList;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**
@@ -98,7 +104,7 @@ public class GameField implements Screen {
                 && pos.y >= 0 && pos.y < height) {
             
             if(findBox(pos) == null) {
-                boxes.get(pos.y).add(pos.x, box);
+                boxes.get(pos.y).set(pos.x, box);
                 return true;
             }
         }
@@ -456,11 +462,44 @@ public class GameField implements Screen {
     }
     
     public void paintBoxes() {
-        
+        String data = new String("\n\nPAINTED BOXES:\n");
+        int counterBox = 0;
         for(ArrayList<Box> _boxes : boxes) {
             for(Box b : _boxes) {
-                if(b != null)
+                if(b != null) {
                     b.paint(game.getBatch());
+                
+        
+                    data += "\n";
+                    data += String.valueOf(counterBox);
+                    data += "\t";
+                    //if(b.hasColor())
+                    data += b.getColor();
+                    data += "\t";
+                    //if(b.hasPosition()) {
+                    data += String.valueOf(b.getPosition().x);
+                    data += "; ";
+                    data += String.valueOf(b.getPosition().y);
+                    //}
+                    data += "\n";
+                    counterBox++;
+                
+            
+                }
+            }
+        }
+        
+         OutputStream os = null;
+        try {
+            os = new FileOutputStream(new File("C:\\Users\\User\\Documents\\GDX_projects\\paint.txt"));
+            os.write(data.getBytes(), 0, data.length());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -492,8 +531,79 @@ public class GameField implements Screen {
         //snake.frameTimer();
 //        snake.snakeSize = snake.snake_body.size;
         //gameOver();
+        checkPlayerActions();
         game.getBatch().end();
 
+    }
+    
+    private int keyDelay;
+    
+    private void checkPlayerActions()
+    {
+//        keyDelay++;
+//        if (keyDelay >= 5) {
+//            keyDelay = 0;
+//        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            fireMoveIsDone(DIRECTION.LEFT_UP);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            fireMoveIsDone(DIRECTION.UP);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            fireMoveIsDone(DIRECTION.RIGHT_UP);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+            fireMoveIsDone(DIRECTION.LEFT);
+        }
+         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            fireMoveIsDone(DIRECTION.DOWN);
+        }
+          if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            fireMoveIsDone(DIRECTION.RIGHT);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new MainMenu(game));
+        }
+    }
+    
+     // ------------------------ События и слушатели -------------------------
+  
+    // Список слушателей
+    private ArrayList _listenersList = new ArrayList(); 
+ 
+    /**
+     * Присоединяет слушателя
+     * 
+     * @param l слушатель
+     */
+    public void addGameListener(GameListener l) { 
+        _listenersList.add(l); 
+    }
+    
+    /**
+     * Отсоединяет слушателя
+     * 
+     * @param l слушатель
+     */
+    public void removeGameListener(GameListener l) { 
+        _listenersList.remove(l); 
+    } 
+    
+    
+    /**
+     * 
+     * 
+     * @param  
+     */
+    private void fireMoveIsDone(DIRECTION dir) {
+        
+        GameEvent event = new GameEvent(this);
+        for (Object listener : _listenersList)
+        {
+            ((GameListener)listener).moveIsDone(event, dir);
+        }
     }
     
    // private void
@@ -541,14 +651,5 @@ public class GameField implements Screen {
     
      // ------------------------- Слушатели хода --------------------------------
     
-    /**
-    * Класс представляет слушателя события, возникающего при при совершении хода.
-    */
-    public class GameEventObserver implements GameListener {
-
-        @Override
-        public void gameStarted(GameEvent e) {
-            
-        }
-    }
+    
 }
