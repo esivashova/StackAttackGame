@@ -103,18 +103,26 @@ public class Box {
         if(canBeMoved(dir)) {
             switch (dir) {
                 case LEFT:
+                    
+                    field.removeBox(position);
                     position.x--;
+                    field.addBox(this, position);
+                    
                     break;
 
                 case RIGHT:
+                    field.removeBox(position);
                     position.x++;
+                    field.addBox(this, position);
                     break;
 
                 case UP: //fantstic
                     break;
 
                 case DOWN:
+                    field.removeBox(position);
                     position.y--;
+                    field.addBox(this, position);
                     break;
 
                 case LEFT_UP: //fantastic
