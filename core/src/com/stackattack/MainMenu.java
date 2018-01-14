@@ -21,7 +21,7 @@ public class MainMenu implements Screen {
     private static final int EXIT_BUTTON_HEIGHT = 150;
     private static final int START_BUTTON_Y = 200;
     private static final int EXIT_BUTTON_Y = 200;
-    StackAttackGame game = new StackAttackGame();
+   StackAttackGame game;
 
     OrthographicCamera camera;
     BitmapFont debug;
