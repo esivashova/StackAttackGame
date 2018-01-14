@@ -117,6 +117,21 @@ public class GameField implements Screen {
         return false;
     }
     
+    public void removeColor(String color) {
+        
+        for(int i = 0; i < boxes.size(); i++) {
+            
+            for(int j = 0; j < boxes.get(i).size(); i++) {
+                
+                if(boxes.get(i).get(j) != null) {
+                    
+                    if(boxes.get(i).get(j).getColor().equals(color))
+                        boxes.get(i).set(j, null);
+                }
+            }
+        }
+    }
+    
     public void removeBox(Point pos) {
         
         if(pos.x >= 0 && pos.x < width

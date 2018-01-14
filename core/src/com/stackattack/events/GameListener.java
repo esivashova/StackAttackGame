@@ -12,4 +12,5 @@ public interface GameListener extends EventListener {
     public void activateDoubleJump(GameEvent e);
     public void addPoints(GameEvent e, int points);
     public void removeBottomRow(GameEvent e);
+    public void removeColor(GameEvent e, String color);
 }

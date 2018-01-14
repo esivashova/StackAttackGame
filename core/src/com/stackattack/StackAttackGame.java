@@ -175,6 +175,13 @@ public class StackAttackGame extends Game{
             newBox.setPosition(new Point(i, 0));
             field.addBox(newBox, newBox.getPosition());
         }
+        
+        for(int i = 0; i < 5; i++) {
+            
+            Box newBox = generateRandomBox();
+            newBox.setPosition(new Point(i, 1));
+            field.addBox(newBox, newBox.getPosition());
+        }
 //        // Генерация коробок
 //        int amountOfColumns = 0;
 //        
@@ -343,6 +350,12 @@ public class StackAttackGame extends Game{
             }
             
             increaseScore(1);
+        }
+        
+        @Override
+        public void removeColor(GameEvent e, String color) {
+            
+            field.removeColor(color);
         }
         
         @Override
