@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.StackAttackGame;
+import com.stackattack.events.GameEvent;
+import com.stackattack.events.GameListener;
 import com.stackattack.managers.DIRECTION;
 import com.stackattack.managers.GameField;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.awt.Point;
  */
 public class Player {
     
-    public Player(GameField f, int _liftedWeight, int _heightToJump, StackAttackGame _game) {
+    public Player(GameField f, int _liftedWeight, int _heightToJump) {
         
         field = f;
         
@@ -33,26 +35,25 @@ public class Player {
             heightToJump = _heightToJump;
         else
             heightToJump = 1;
-        
-        game = _game;
-       // subjtx = new Texture(Gdx.files.internal("graphic/player.png"));
-      //  subjtx = new Texture(Gdx.files.internal("C:\\Users\\User\\Documents\\GDX_projects\\core\\assets\\graphic\\player.png"));
-        //subject = new Sprite(subjtx);
+       
+        field.addGameListener(new GameEventObserver());
     }
     
     //--------------------------------------
     
     private Texture subjtx;
-    private StackAttackGame game; 
+    
+    public void setTexture(Texture playerTx) {
+        subjtx = playerTx;
+        subject = new Sprite(subjtx);
+    }
+            
+    
     private Sprite subject; 
     
     public void paint(SpriteBatch batch) {
-        
-        
-        subjtx = new Texture(Gdx.files.internal("graphic/playerR.png"));
-      //  subjtx = new Texture(Gdx.files.internal("C:\\Users\\User\\Documents\\GDX_projects\\core\\assets\\graphic\\player.png"));
-        subject = new Sprite(subjtx);
-        batch.draw(subjtx, position.x*64, position.y*128, 64, 128);
+
+        batch.draw(subjtx, position.x*64, position.y*64, 64, 128);
     }
     
     //---------------------------------------------------
@@ -202,5 +203,23 @@ public class Player {
     private void die() {
         
         // send event to GameModel to stop the game
+    }
+    
+    
+    /**
+    * Класс представляет слушателя события, возникающего при при совершении хода.
+    */
+    public class GameEventObserver implements GameListener {
+
+        @Override
+        public void gameStarted(GameEvent e) {
+            
+        }
+        
+        @Override
+        public void moveIsDone(GameEvent e, DIRECTION dir) {
+
+            makeMove(dir);
+        }
     }
 }

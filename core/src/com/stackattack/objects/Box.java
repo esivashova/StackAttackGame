@@ -26,19 +26,22 @@ public class Box {
         color = _color; 
         field = _field;
         
-      
+        //subjtx = boxTx;
+        //subject = new Sprite(subjtx);
     }
     
     //--------------------------------------
     
     private Texture subjtx;
     
+    public void setTexture(Texture boxTx) {
+        subjtx = boxTx;
+    }
+    
     private Sprite subject; 
     
     public void paint(SpriteBatch batch) {
         
-        subjtx = new Texture(color);
-        subject = new Sprite(subjtx);
 //        subject.setPosition(position.x*10, position.y*10);
 //        subject.draw(batch);  
         batch.draw(subjtx, position.x*64, position.y*64, 64, 64);
@@ -51,6 +54,14 @@ public class Box {
     public int getWeight() {
         
         return weight;
+    }
+    
+    public boolean hasColor() {
+        return (color != null);
+    }
+    
+    public boolean hasPosition() {
+        return (position != null);
     }
     
     private String color;
