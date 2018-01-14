@@ -41,6 +41,10 @@ public class GameField implements Screen {
     private Texture backgroundTx;
     private Sprite background;
     
+    private BitmapFont score;
+    private BitmapFont lives;
+    private BitmapFont doubleJump;
+    
     private SpriteBatch batch;
     
     public void setBatch(SpriteBatch b) {
@@ -449,6 +453,10 @@ public class GameField implements Screen {
           backgroundTx = new Texture("graphic/background.png");
           background = new Sprite(backgroundTx);
           
+          score = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
+          lives = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
+          doubleJump = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
+          
 //          paint(game.getField().getBoxes());
 //          
 //          game.getPlayer().paint(game.getBatch());
@@ -471,6 +479,18 @@ public class GameField implements Screen {
 //
 //        snake.snakeSprites();
 
+    }
+    
+    public void drawScore() {
+        score.draw(game.getBatch(), "Score: " + game.getScore().getValue(), 700, 700);
+    }
+    
+    public void drawLives() {
+        lives.draw(game.getBatch(), "Lives: " + game.getPlayer().getAmountOfLives(), 50, 700);
+    }
+    
+    public void drawDoubleJump() {
+        doubleJump.draw(game.getBatch(), "DOUBLE JUMP", 325, 700);
     }
     
     public void paintBoxes() {
@@ -528,6 +548,12 @@ public class GameField implements Screen {
         drawBackground();
         
         paintBoxes();
+        
+        drawScore();
+        drawLives();
+        
+        if(game.getPlayer().getHeightToJump() == 2)
+            drawDoubleJump();
           
        game.getPlayer().paint(game.getPlayerTexture(), game.getBatch());
 //        spawnSubjects();
