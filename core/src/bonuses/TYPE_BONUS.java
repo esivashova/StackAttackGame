@@ -13,7 +13,7 @@ public enum TYPE_BONUS {
     
     ADD_LIFE,
     DOUBLE_JUMP,
-    DOUBLE_POINTS,
+    ADD_POINTS,
     REMOVE_BOTTOM_ROW,
     REMOVE_COLOR,
     WNOTHING
