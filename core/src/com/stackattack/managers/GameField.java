@@ -117,7 +117,7 @@ public class GameField implements Screen {
                 && pos.y >= 0 && pos.y < height) {
             
             if(findBox(pos) != null) 
-                boxes.get(pos.y).remove(pos.x);  
+                boxes.get(pos.y).set(pos.x, null);  
         }
     }
     
@@ -295,8 +295,11 @@ public class GameField implements Screen {
                 {
                     if(boxes.get(player.getPosition().y).get(i) != null)
                         _neighboures.add(findBox(new Point(i, player.getPosition().y)));
-                    else
+                    else {
+                        System.out.println("раньше времени\n");
+                        System.out.println(_neighboures.size());
                         return _neighboures;
+                    }
                     
                     temp = findBox(new Point(i, player.getPosition().y));
                     
@@ -307,7 +310,8 @@ public class GameField implements Screen {
                             break;
                     }
                 }
-                
+                System.out.println("norm\n");
+                System.out.println(_neighboures.size());
                 return _neighboures;
 
             case UP: 
@@ -337,12 +341,14 @@ public class GameField implements Screen {
             case LEFT_UP:
 
                 for(int i = player.getPosition().x - 1; i >= 0; i--) {
-                    if(boxes.get(player.getPosition().y + 1 + player.getHeightToJump()).get(i) != null)
-                        _neighboures.add(findBox(new Point(i, player.getPosition().y + 1 + player.getHeightToJump())));
-                    else
+                    if(boxes.get(player.getPosition().y + player.getHeightToJump()).get(i) != null)
+                        _neighboures.add(findBox(new Point(i, player.getPosition().y + player.getHeightToJump())));
+                    else {
+                        System.out.println(_neighboures.size());
                         return _neighboures;
+                    }
                     
-                    temp = findBox(new Point(i, player.getPosition().y + 1 + player.getHeightToJump()));
+                    temp = findBox(new Point(i, player.getPosition().y + player.getHeightToJump()));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
                          if(boxes.get(j).get(temp.getPosition().x) != null)
@@ -351,19 +357,19 @@ public class GameField implements Screen {
                             break;
                     }
                 }
-                
+                System.out.println(_neighboures.size());
                 return _neighboures;
 
             case RIGHT_UP: 
 
                 for(int i = player.getPosition().x + 1; i < width; i++)
                 {
-                    if(boxes.get(player.getPosition().y + 1 + player.getHeightToJump()).get(i) != null)
-                        _neighboures.add(findBox(new Point(i, player.getPosition().y + 1 + player.getHeightToJump())));
+                    if(boxes.get(player.getPosition().y + player.getHeightToJump()).get(i) != null)
+                        _neighboures.add(findBox(new Point(i, player.getPosition().y + player.getHeightToJump())));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, player.getPosition().y + 1 + player.getHeightToJump()));
+                    temp = findBox(new Point(i, player.getPosition().y + player.getHeightToJump()));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
                          if(boxes.get(j).get(temp.getPosition().x) != null)
