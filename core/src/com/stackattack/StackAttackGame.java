@@ -331,6 +331,11 @@ public class StackAttackGame extends Game{
         }
         
         @Override
+        public void addPoints(GameEvent e, int points) {
+            increaseScore(points);
+        }
+        
+        @Override
         public void activateDoubleJump(GameEvent e) {
             player.setHeightToJump(2);
             doubleJumpTime = TimeUtils.millis();
