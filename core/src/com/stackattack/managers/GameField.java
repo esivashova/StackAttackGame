@@ -507,7 +507,7 @@ public class GameField implements Screen {
         for(ArrayList<Box> _boxes : boxes) {
             for(Box b : _boxes) {
                 if(b != null) {
-                    b.paint(game.getBatch());
+                    b.paint(game.getTextureByColor(b.getColor()), game.getBatch());
                 
         
                     data += "\n";
@@ -557,7 +557,7 @@ public class GameField implements Screen {
         
         paintBoxes();
           
-       game.getPlayer().paint(game.getBatch());
+       game.getPlayer().paint(game.getPlayerTexture(), game.getBatch());
 //        spawnSubjects();
 //        drawScore();
 //        snake.drawBody();
