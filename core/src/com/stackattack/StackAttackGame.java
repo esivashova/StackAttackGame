@@ -5,11 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Preferences;
 import com.stackattack.objects.Player;
 import com.stackattack.objects.Box;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.stackattack.managers.GameField;
+import com.stackattack.events.GameEvent;
+import com.stackattack.events.GameListener;
 import java.util.TreeMap;
 import java.util.Random;
 import java.awt.Point;
@@ -25,7 +28,7 @@ public class StackAttackGame extends Game{
        
 //        if(firstTime) {
             start(); 
-            generateGame();
+            
 //        }
     }
 //	SpriteBatch batch;
@@ -56,10 +59,12 @@ public class StackAttackGame extends Game{
 //            
 //        }
     
+        private Preferences pref;
+        
+//        public final int WIDTH = 1366;
+//        public final int HEIGHT = 768;
         
         
-        public final int WIDTH = 1366;
-        public final int HEIGHT = 768;
 
         private SpriteBatch batch;
         
@@ -142,7 +147,7 @@ public class StackAttackGame extends Game{
     
     //----------------------------------------
     
-    private void start(/*TreeMap<String, Integer> attributes*/) {
+    public void start(/*TreeMap<String, Integer> attributes*/) {
         
         /*
             Состав атрибутов:
@@ -153,6 +158,9 @@ public class StackAttackGame extends Game{
         
         field = new GameField(this, 16, 10);
         player = new Player(field, 1, 1);
+        player.addGameListener(new GameEventObserver(this));
+        
+        generateGame();
     }
     
     private void generateGame() {
@@ -282,8 +290,34 @@ public class StackAttackGame extends Game{
 //        }
     }
     
-    private void finish() {
+//    private void finish() {
+//        
+//        if (snake.die()) {
+//            pref.putFloat("score", game.sc.getSc());
+//            game.setScreen(new GameOverScreen(game));
+//        
+//    
+//    }
+      
+    //private Score sc;
+    
+        /**
+    * Класс представляет слушателя события, возникающего при при совершении хода.
+    */
+    public class GameEventObserver implements GameListener {
+
+        public GameEventObserver(StackAttackGame _game) {
+            super();
+            game = _game;
+        }
         
+        private StackAttackGame game;
+        
+        @Override
+        public void gameFinished(GameEvent e) {
+            //pref.putFloat("score", sc.getSc());
+            setScreen(new GameOverScreen(this.game));
+        }
     }
     
     
@@ -400,6 +434,10 @@ public class StackAttackGame extends Game{
         
    
         return null;
+    }
+    
+    public Texture getPlayerTexture() {
+        return playerTx;
     }
     
     Texture playerTx;
