@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Preferences;
 import com.stackattack.objects.Player;
 import com.stackattack.objects.Box;
+import com.stackattack.objects.Score;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.stackattack.managers.GameField;
@@ -87,6 +88,7 @@ public class StackAttackGame extends Game{
         public void create() {
             batch = new SpriteBatch();
             
+            pref = Gdx.app.getPreferences("Score");
             playerTx = new Texture(Gdx.files.local("graphic/playerR.png"));
             boxRed = new Texture(Gdx.files.internal("graphic/red.png"));
             boxGrey = new Texture(Gdx.files.internal("graphic/grey.png"));
@@ -159,6 +161,7 @@ public class StackAttackGame extends Game{
         field = new GameField(this, 16, 10);
         player = new Player(field, 1, 1);
         player.addGameListener(new GameEventObserver(this));
+        score = new Score();
         
         generateGame();
     }
@@ -299,8 +302,16 @@ public class StackAttackGame extends Game{
 //    
 //    }
       
-    //private Score sc;
+    private Score score;
     
+    public Score getScore() {
+        return score;
+    }
+    
+    public void increaseScore(int sc) {
+        score.setValue(score.getValue() + sc);
+    }
+            
         /**
     * Класс представляет слушателя события, возникающего при при совершении хода.
     */
@@ -315,7 +326,7 @@ public class StackAttackGame extends Game{
         
         @Override
         public void gameFinished(GameEvent e) {
-            //pref.putFloat("score", sc.getSc());
+            pref.putFloat("score", score.getValue());
             setScreen(new GameOverScreen(this.game));
         }
     }

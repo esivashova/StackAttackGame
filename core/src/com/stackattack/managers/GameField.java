@@ -402,41 +402,12 @@ public class GameField implements Screen {
     private void checkIfRowIsFilled() {
         
         if(existingBoxesSize(0) == width) {
-            
-//            System.out.print(existingBoxesSize(0));
-//            System.out.print(" ; ");
-//            System.out.print(width);
-//            
-//            ArrayList<ArrayList<Box>> boxesCopy = new ArrayList<ArrayList<Box>>(boxes);
-//            
-//            for(int i = 0; i < height - 1; i++)
-//            {
-//                boxes.set(i, boxesCopy.get(i + 1));
-//            }
-            
-           // ArrayList<Box> temp = new ArrayList<Box>();
+           
             for(int i = 0; i < width; i++) {
                 boxes.get(0).set(i, null);
             }
             
-            //boxes.set(height - 1, temp);
-            
-//            for(ArrayList<Box> _boxes : boxes) {
-//                for(Box b : _boxes) {
-//                    if(b != null)
-//                        b.move(DIRECTION.DOWN);
-//                }
-//            }
-            
-//            for(int i = 0; i < height; i++) {
-//            boxes.add(i, new ArrayList<Box>());
-//            
-//            for(int j = 0; j < width; j++) {
-//                boxes.get(i).add(j, null);
-//            }
-        
-            
-            //game.getPlayer().makeMove(DIRECTION.DOWN);
+            game.increaseScore(1);
         }
     }
     
