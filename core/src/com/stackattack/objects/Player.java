@@ -43,6 +43,16 @@ public class Player {
     
     //--------------------------------------
     
+    private int amountOfLives = 1;
+    
+    public int getAmountOfLives() {
+        return amountOfLives;
+    }
+    
+    public void setAmountOfLives(int delta) {
+        amountOfLives += delta;
+    }
+    
     private Texture subjtx;
     
     public void setTexture(Texture playerTx) {
@@ -218,12 +228,24 @@ public class Player {
     public void checkSituation() {
         
         if(field.findNeighbour(this, DIRECTION.UP).size() >= 1)
-            die();
+            die(field.findNeighbour(this, DIRECTION.UP));
     }
     
-    private void die() {
-        fireGameFinished();
-        // send event to GameModel to stop the game
+    private void die(ArrayList<Box> boxes) {
+        
+        amountOfLives--;
+        
+        if(amountOfLives > 0) {
+            
+            for(Box b : boxes) {
+                field.removeBox(b.getPosition());
+            }
+        }
+          
+        else {
+            fireGameFinished();
+            // send event to GameModel to stop the game
+        }
     }
     
     
