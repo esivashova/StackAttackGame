@@ -49,7 +49,7 @@ public class Player {
         return amountOfLives;
     }
     
-    public void setAmountOfLives(int delta) {
+    public void addAmountOfLives(int delta) {
         amountOfLives += delta;
     }
     
@@ -263,6 +263,11 @@ public class Player {
         public void moveIsDone(MoveEvent e, DIRECTION dir) {
 
             makeMove(dir);
+        }
+        
+        @Override
+        public void addLife(MoveEvent e) {
+            addAmountOfLives(1);
         }
     }
     
