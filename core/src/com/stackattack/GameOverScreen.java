@@ -26,10 +26,11 @@ public class GameOverScreen implements Screen{
 
 	@Override
 	public void show() {
-		scoreFont = new BitmapFont();
-		scoreFont.setColor(Color.WHITE);
-		backFont = new BitmapFont();
-		backFont.setColor(Color.BLUE);
+                scoreFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"),Gdx.files.internal("fonts/score.png"),false);
+		//scoreFont = new BitmapFont();
+		//scoreFont.setColor(Color.WHITE);
+		backFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"),Gdx.files.internal("fonts/font.png"),false);
+		//backFont.setColor(Color.ORANGE);
 	
 		
 		Preferences pref = Gdx.app.getPreferences("Score");
@@ -43,8 +44,8 @@ public class GameOverScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
 
-		scoreFont.draw(game.getBatch(), "You score: " + score, 600, 500);
-		backFont.draw(game.getBatch(), "Press any key to back menu", 550,350);
+		scoreFont.draw(game.getBatch(), "You score: " + score, 550, 450);
+		backFont.draw(game.getBatch(), "Press any key to back menu", 500,300);
 		
 		game.getBatch().end();
 		
