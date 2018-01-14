@@ -297,8 +297,7 @@ public class GameField implements Screen {
                     if(boxes.get(player.getPosition().y).get(i) != null)
                         _neighboures.add(findBox(new Point(i, player.getPosition().y)));
                     else {
-                        System.out.println("раньше времени\n");
-                        System.out.println(_neighboures.size());
+
                         return _neighboures;
                     }
                     
@@ -311,8 +310,7 @@ public class GameField implements Screen {
                             break;
                     }
                 }
-                System.out.println("norm\n");
-                System.out.println(_neighboures.size());
+   
                 return _neighboures;
 
             case UP: 
@@ -345,7 +343,7 @@ public class GameField implements Screen {
                     if(boxes.get(player.getPosition().y + player.getHeightToJump()).get(i) != null)
                         _neighboures.add(findBox(new Point(i, player.getPosition().y + player.getHeightToJump())));
                     else {
-                        System.out.println(_neighboures.size());
+                        
                         return _neighboures;
                     }
                     
@@ -358,7 +356,7 @@ public class GameField implements Screen {
                             break;
                     }
                 }
-                System.out.println(_neighboures.size());
+               
                 return _neighboures;
 
             case RIGHT_UP: 
@@ -386,37 +384,67 @@ public class GameField implements Screen {
         return _neighboures;
     }
     
+    private int existingBoxesSize(int _height) {
+        
+        int exisitingBoxesCounter = 0;
+        
+        for(Box b : boxes.get(_height)) {
+            if(b != null)
+                exisitingBoxesCounter++;
+        }
+        
+        return exisitingBoxesCounter;
+    }
+    
     //-------------------------------------------------------
     
     private void checkIfRowIsFilled() {
         
-        if(boxes.get(0).size() == width) {
+        if(existingBoxesSize(0) == width) {
             
-            ArrayList<ArrayList<Box>> boxesCopy = new ArrayList<ArrayList<Box>>(boxes);
+//            System.out.print(existingBoxesSize(0));
+//            System.out.print(" ; ");
+//            System.out.print(width);
+//            
+//            ArrayList<ArrayList<Box>> boxesCopy = new ArrayList<ArrayList<Box>>(boxes);
+//            
+//            for(int i = 0; i < height - 1; i++)
+//            {
+//                boxes.set(i, boxesCopy.get(i + 1));
+//            }
             
-            for(int i = 0; i < height - 1; i++)
-            {
-                boxes.set(i, boxesCopy.get(i + 1));
-            }
-            
-            ArrayList<Box> temp = new ArrayList<Box>();
+           // ArrayList<Box> temp = new ArrayList<Box>();
             for(int i = 0; i < width; i++) {
-                temp.add(i, null);
+                boxes.get(0).set(i, null);
             }
             
-            boxes.set(height - 1, new ArrayList<Box>());
+            //boxes.set(height - 1, temp);
             
-            for(ArrayList<Box> _boxes : boxes) {
-                for(Box b : _boxes) {
-                    b.move(DIRECTION.DOWN);
-                }
-            }
+//            for(ArrayList<Box> _boxes : boxes) {
+//                for(Box b : _boxes) {
+//                    if(b != null)
+//                        b.move(DIRECTION.DOWN);
+//                }
+//            }
             
-            game.getPlayer().makeMove(DIRECTION.DOWN);
+//            for(int i = 0; i < height; i++) {
+//            boxes.add(i, new ArrayList<Box>());
+//            
+//            for(int j = 0; j < width; j++) {
+//                boxes.get(i).add(j, null);
+//            }
+        
+            
+            //game.getPlayer().makeMove(DIRECTION.DOWN);
         }
     }
     
-    private long time = 0;
+    private long timeToFly = 0;
+    private long timeToNewBox = 0;
+    
+    public void setTimeToNewBox(long time) {
+        timeToNewBox = time;
+    }
     
     private void lowerFlyingObjects() {
         
@@ -434,7 +462,7 @@ public class GameField implements Screen {
                 && findNeighbour(game.getPlayer(), DIRECTION.DOWN).size() == 0)
             game.getPlayer().makeMove(DIRECTION.DOWN);
         
-        time = TimeUtils.nanoTime();
+        timeToFly = TimeUtils.nanoTime();
     }
     
     @Override
@@ -515,6 +543,7 @@ public class GameField implements Screen {
             }
         }
     }
+    
 
     @Override
     public void render(float delta) {
@@ -545,8 +574,20 @@ public class GameField implements Screen {
         //gameOver();
         checkPlayerActions();
         
-         if(TimeUtils.nanoTime() - time > 1000000000)
+         if(TimeUtils.nanoTime() - timeToFly > 800000000)
             lowerFlyingObjects();
+         
+         if(TimeUtils.millis() - timeToNewBox > 7000) {
+             Box newBox = game.createNewBox();
+            
+//            System.out.println(newBox.getPosition().x);
+//            System.out.print(" ; ");
+//            System.out.print(newBox.getPosition().y);
+//            System.out.println("\n");
+             newBox.setTexture(game.getTextureByColor(newBox.getColor()));
+         }
+         
+        checkIfRowIsFilled();
          
         game.getBatch().end();
 
