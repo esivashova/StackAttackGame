@@ -103,6 +103,7 @@ public class Player {
     
     public boolean makeMove(DIRECTION dir) {
         
+        
         if(canMove(dir)) {
             
             ArrayList<Box> boxes = field.findNeighbour(this, dir);
@@ -128,7 +129,7 @@ public class Player {
 
                 case UP: 
                     
-                    position.y++;
+                    position.y += heightToJump;
                     break;
 
                 case DOWN:
@@ -138,23 +139,23 @@ public class Player {
 
                 case LEFT_UP:
                     
-                    position.y++;
+                    position.y += heightToJump;
                     
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
-                            box.move(dir);
+                            box.move(DIRECTION.LEFT);
                   
                     position.x--;
                     break;
 
                 case RIGHT_UP: 
                     
-                    position.y++;
-                    
+   
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
-                            box.move(dir);
+                            box.move(DIRECTION.RIGHT);
                   
+                    position.y += heightToJump;
                     position.x++;
                     break;
             }
@@ -169,23 +170,40 @@ public class Player {
         
         switch (dir) {
             case LEFT:
+                
+                if(field.findNeighbour(this, dir).size() > 0 && position.x - 1 <= 0)
+                    return false;
+                
                 return (position.x - 1 >= 0 && field.findNeighbour(this, dir).size() <= liftedWeight);
                 
             case RIGHT:
+                
+                if(field.findNeighbour(this, dir).size() > 0 && position.x + 1 >= field.getWidth()-1)
+                    return false;
+                
                 return (position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() <= liftedWeight);
                 
             case UP: 
-                return (position.y + 1 + heightToJump <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0 /*<= liftedWeight*/);
+                
+                return (position.y + heightToJump + 1 <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0 /*<= liftedWeight*/);
                 
             case DOWN:
                 return (position.y - 1 >= 0 && field.findNeighbour(this, dir).size() <= 0);
                
             case LEFT_UP:
-                return (position.y + 1 + heightToJump <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0
+                
+                if(field.findNeighbour(this, dir).size() > 0 && position.x - 1 <= 0)
+                    return false;
+                
+                return (position.y + 1 + heightToJump <= field.getHeight()-1 /*&& field.findNeighbour(this, dir).size() <= 0*/
                         && position.x - 1 >= 0 && field.findNeighbour(this, dir).size() <= liftedWeight);
                 
             case RIGHT_UP: 
-                return (position.y + 1 + heightToJump <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0
+                
+                if(field.findNeighbour(this, dir).size() > 0 && position.x + 1 >= field.getWidth()-1)
+                    return false;
+                
+                return (position.y + 1 + heightToJump <= field.getHeight()-1 /*&& field.findNeighbour(this, dir).size() <= 0*/
                         && position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() <= liftedWeight);
         }
         
