@@ -585,6 +585,10 @@ public class GameField implements Screen {
              newBox.setTexture(game.getTextureByColor(newBox.getColor()));
          }
          
+         if(TimeUtils.millis() - game.getDoubleJumpTime() > 100000) {
+            game.disactivateDoubleJump();
+         }
+         
         checkIfRowIsFilled();
         
         game.getPlayer().checkSituation();

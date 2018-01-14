@@ -329,8 +329,24 @@ public class StackAttackGame extends Game{
             pref.putFloat("score", score.getValue());
             setScreen(new GameOverScreen(this.game));
         }
+        
+        @Override
+        public void activateDoubleJump(GameEvent e) {
+            player.setHeightToJump(2);
+            doubleJumpTime = TimeUtils.millis();
+        }
     }
     
+    private long doubleJumpTime = 0;
+   
+    public long getDoubleJumpTime() {
+        return doubleJumpTime;
+    }
+    
+    public void disactivateDoubleJump() {
+        player.setHeightToJump(1);
+        doubleJumpTime = 0;
+    }
     
     // -------------------------------- Рандом --------------------------------
     
