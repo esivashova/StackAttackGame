@@ -85,6 +85,11 @@ public class Player {
         return heightToJump;
     }
     
+    public void setHeightToJump(int h) {
+        
+        heightToJump = h;
+    }
+    
     private final static int HEIGHT = 2;
     
     //--------------------------------------------------
