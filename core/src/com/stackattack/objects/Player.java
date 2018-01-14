@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.StackAttackGame;
-import com.stackattack.events.GameEvent;
-import com.stackattack.events.GameListener;
+import com.stackattack.events.MoveEvent;
+import com.stackattack.events.MoveListener;
 import com.stackattack.managers.DIRECTION;
 import com.stackattack.managers.GameField;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class Player {
         else
             heightToJump = 1;
        
-        field.addGameListener(new GameEventObserver());
+        field.addGameListener(new MoveEventObserver());
     }
     
     //--------------------------------------
@@ -227,15 +227,15 @@ public class Player {
     /**
     * Класс представляет слушателя события, возникающего при при совершении хода.
     */
-    public class GameEventObserver implements GameListener {
+    public class MoveEventObserver implements MoveListener {
 
         @Override
-        public void gameStarted(GameEvent e) {
+        public void gameStarted(MoveEvent e) {
             
         }
         
         @Override
-        public void moveIsDone(GameEvent e, DIRECTION dir) {
+        public void moveIsDone(MoveEvent e, DIRECTION dir) {
 
             makeMove(dir);
         }

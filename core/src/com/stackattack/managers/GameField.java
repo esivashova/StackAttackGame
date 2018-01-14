@@ -18,8 +18,8 @@ import com.stackattack.MainMenu;
 import com.stackattack.StackAttackGame;
 import com.stackattack.objects.Box;
 import com.stackattack.objects.Player;
-import com.stackattack.events.GameEvent;
-import com.stackattack.events.GameListener;
+import com.stackattack.events.MoveEvent;
+import com.stackattack.events.MoveListener;
 import java.util.ArrayList;
 import java.awt.Point;
 import java.io.File;
@@ -588,6 +588,8 @@ public class GameField implements Screen {
          }
          
         checkIfRowIsFilled();
+        
+        game.getPlayer().checkSituation();
          
         game.getBatch().end();
 
@@ -635,7 +637,7 @@ public class GameField implements Screen {
      * 
      * @param l слушатель
      */
-    public void addGameListener(GameListener l) { 
+    public void addGameListener(MoveListener l) { 
         _listenersList.add(l); 
     }
     
@@ -644,7 +646,7 @@ public class GameField implements Screen {
      * 
      * @param l слушатель
      */
-    public void removeGameListener(GameListener l) { 
+    public void removeGameListener(MoveListener l) { 
         _listenersList.remove(l); 
     } 
     
@@ -656,10 +658,10 @@ public class GameField implements Screen {
      */
     private void fireMoveIsDone(DIRECTION dir) {
         
-        GameEvent event = new GameEvent(this);
+        MoveEvent event = new MoveEvent(this);
         for (Object listener : _listenersList)
         {
-            ((GameListener)listener).moveIsDone(event, dir);
+            ((MoveListener)listener).moveIsDone(event, dir);
         }
     }
     
