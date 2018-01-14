@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.objects.Player;
 import com.stackattack.objects.Box;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.stackattack.managers.GameField;
 import java.util.TreeMap;
 import java.util.Random;
@@ -156,54 +157,61 @@ public class StackAttackGame extends Game{
     
     private void generateGame() {
         
-        // Генерация коробок
-        int amountOfColumns = 0;
-        
-        while(amountOfColumns < field.getWidth()/4)
-            amountOfColumns = random.nextInt((field.getWidth()*3)/4);
-        
-        ArrayList<Integer> sequence = generateSequence(amountOfColumns);
-        int count = 0;
-        
-        String data = new String("Sequence: ");
-        for(int x : sequence) {
-            data += String.valueOf(x);
-            data += "; ";
+        for(int i = 0; i < field.getWidth() - 2; i++) {
+            
+            if(i==5) continue;
+            Box newBox = generateRandomBox();
+            newBox.setPosition(new Point(i, 0));
+            field.addBox(newBox, newBox.getPosition());
         }
-        
-        for(int i = 0; i < amountOfColumns; i++) {
-            
-            int columnHeight = 0;
-            
-            while(columnHeight <= 0)
-                columnHeight = random.nextInt(field.getHeight()/2);
-            
-            for(int j = 0; j < columnHeight; j++) {
-                
-                boolean hui = false;
-                Box newBox = generateRandomBox();
-                newBox.setPosition(new Point(sequence.get(i), j));
-                if(
-                !field.addBox(newBox, newBox.getPosition()))
-                    hui = true;
-                
-                data += "\n";
-                 
-                    data += String.valueOf(count);
-                       data += "\t";
-                    data += newBox.getColor();
-                    data += "\t";
-                    data += String.valueOf(newBox.getPosition().x);
-                    data += "; ";
-                    data += String.valueOf(newBox.getPosition().y);
-                    data += "\n";
-                    if(hui) {
-                        data += "\t"; 
-                    data += "она не добавилась блять";
-                    }
-                    count++;
-            }
-        }
+//        // Генерация коробок
+//        int amountOfColumns = 0;
+//        
+//        while(amountOfColumns < field.getWidth()/4)
+//            amountOfColumns = random.nextInt((field.getWidth()*3)/4);
+//        
+//        ArrayList<Integer> sequence = generateSequence(amountOfColumns);
+//        int count = 0;
+//        
+//        String data = new String("Sequence: ");
+//        for(int x : sequence) {
+//            data += String.valueOf(x);
+//            data += "; ";
+//        }
+//        
+//        for(int i = 0; i < amountOfColumns; i++) {
+//            
+//            int columnHeight = 0;
+//            
+//            while(columnHeight <= 0)
+//                columnHeight = random.nextInt(field.getHeight()/2);
+//            
+//            for(int j = 0; j < columnHeight; j++) {
+//                
+//                boolean hui = false;
+//                Box newBox = generateRandomBox();
+//                newBox.setPosition(new Point(sequence.get(i), j));
+//                if(
+//                !field.addBox(newBox, newBox.getPosition()))
+//                    hui = true;
+//                
+//                data += "\n";
+//                 
+//                    data += String.valueOf(count);
+//                       data += "\t";
+//                    data += newBox.getColor();
+//                    data += "\t";
+//                    data += String.valueOf(newBox.getPosition().x);
+//                    data += "; ";
+//                    data += String.valueOf(newBox.getPosition().y);
+//                    data += "\n";
+//                    if(hui) {
+//                        data += "\t"; 
+//                    data += "она не добавилась";
+//                    }
+//                    count++;
+//            }
+//        }
         
         // Генерация позиции игрока
         int xPlayer = random.nextInt(field.getWidth() - 1);
@@ -226,7 +234,7 @@ public class StackAttackGame extends Game{
 //            data += "; ";
 //        }
         
-        data += "\n";
+      //  data += "\n";
         
         int counterBox = 0;
 //        data += "Boxes:\n";
@@ -250,28 +258,28 @@ public class StackAttackGame extends Game{
 //            }
 //        }
         
-        data += "\n";
-        data += "Player";
-        data += "\t";
-        data += String.valueOf(this.player.getPosition().x);
-        data += "; ";
-        data += String.valueOf(this.player.getPosition().y);
-        data += "\n";
+//        data += "\n";
+//        data += "Player";
+//        data += "\t";
+//        data += String.valueOf(this.player.getPosition().x);
+//        data += "; ";
+//        data += String.valueOf(this.player.getPosition().y);
+//        data += "\n";
     
         
-         OutputStream os = null;
-        try {
-            os = new FileOutputStream(new File("C:\\Users\\User\\Documents\\GDX_projects\\log.txt"));
-            os.write(data.getBytes(), 0, data.length());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//         OutputStream os = null;
+//        try {
+//            os = new FileOutputStream(new File("C:\\Users\\User\\Documents\\GDX_projects\\log.txt"));
+//            os.write(data.getBytes(), 0, data.length());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }finally{
+//            try {
+//                os.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
     
     private void finish() {
@@ -311,8 +319,18 @@ public class StackAttackGame extends Game{
     private void placeBox(Box box) {
         
         int column = random.nextInt(field.getWidth());
-        
+        box.setPosition(new Point(column, field.getHeight() - 1));
         field.addBox(box, new Point(column, field.getHeight() - 1));
+    }
+    
+    public Box createNewBox() {
+        
+        Box newBox = generateRandomBox();
+        placeBox(newBox);
+        
+        field.setTimeToNewBox(TimeUtils.millis());
+        
+        return newBox;
     }
     
     //----------------------------------------
@@ -363,7 +381,7 @@ public class StackAttackGame extends Game{
         return null;
     }
     
-    private Texture getTextureByColor(String col) {
+    public Texture getTextureByColor(String col) {
         
         if(col == "grey")
             return boxGrey;
