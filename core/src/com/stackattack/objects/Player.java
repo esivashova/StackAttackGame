@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.StackAttackGame;
+import com.stackattack.events.GameEvent;
+import com.stackattack.events.GameListener;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
 import com.stackattack.managers.DIRECTION;
@@ -51,8 +53,9 @@ public class Player {
     
     private Sprite subject; 
     
-    public void paint(SpriteBatch batch) {
+    public void paint(Texture playerBx, SpriteBatch batch) {
 
+        subjtx = playerBx;
         batch.draw(subjtx, position.x*64, position.y*64, 64, 128);
     }
     
@@ -219,7 +222,7 @@ public class Player {
     }
     
     private void die() {
-        
+        fireGameFinished();
         // send event to GameModel to stop the game
     }
     
@@ -238,6 +241,45 @@ public class Player {
         public void moveIsDone(MoveEvent e, DIRECTION dir) {
 
             makeMove(dir);
+        }
+    }
+    
+    
+    // ------------------------ События и слушатели -------------------------
+  
+    // Список слушателей
+    private ArrayList _listenersList = new ArrayList(); 
+ 
+    /**
+     * Присоединяет слушателя
+     * 
+     * @param l слушатель
+     */
+    public void addGameListener(GameListener l) { 
+        _listenersList.add(l); 
+    }
+    
+    /**
+     * Отсоединяет слушателя
+     * 
+     * @param l слушатель
+     */
+    public void removeGameListener(GameListener l) { 
+        _listenersList.remove(l); 
+    } 
+    
+    
+    /**
+     * 
+     * 
+     * @param  
+     */
+    private void fireGameFinished() {
+        
+        GameEvent event = new GameEvent(this);
+        for (Object listener : _listenersList)
+        {
+            ((GameListener)listener).gameFinished(event);
         }
     }
 }
