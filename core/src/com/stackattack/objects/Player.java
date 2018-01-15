@@ -14,7 +14,7 @@ import com.stackattack.events.GameListener;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
 import navigation.DIRECTION;
-import com.stackattack.managers.GameField;
+import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 import java.awt.Point;
 
@@ -277,8 +277,12 @@ public class Player {
     
     public void checkSituation() {
         
-        if(field.findNeighbour(this, DIRECTION.UP).size() >= 1)
-            die(field.findNeighbour(this, DIRECTION.UP));
+        if(field.findNeighbour(this, DIRECTION.UP).size() >= 1) {
+            
+            if(!field.findNeighbour(this, DIRECTION.UP).get(0).canBeBroken()
+                    || !Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                die(field.findNeighbour(this, DIRECTION.UP));
+        }
     }
     
     private void die(ArrayList<Box> boxes) {
