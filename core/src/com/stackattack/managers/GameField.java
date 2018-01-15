@@ -514,7 +514,7 @@ public class GameField implements Screen {
         for(ArrayList<Box> _boxes : boxes) {
             for(Box b : _boxes) {
                 if(b != null) {
-                    b.paint(game.getTextureByColor(b.getColor()), game.getBatch());
+                    b.paint(game.getTextureByColor(b.getColor(), b.canBeBroken()), game.getBatch());
                 
         
                     data += "\n";
@@ -602,7 +602,7 @@ public class GameField implements Screen {
 //            System.out.print(" ; ");
 //            System.out.print(newBox.getPosition().y);
 //            System.out.println("\n");
-             newBox.setTexture(game.getTextureByColor(newBox.getColor()));
+             newBox.setTexture(game.getTextureByColor(newBox.getColor(), newBox.canBeBroken()));
          }
          
          if(TimeUtils.millis() - game.getDoubleJumpTime() > 100000) {
@@ -627,23 +627,53 @@ public class GameField implements Screen {
 //        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            fireMoveIsDone(DIRECTION.LEFT_UP);
+            
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                fireBoxIsSelected(DIRECTION.LEFT_UP);
+            else
+                fireMoveIsDone(DIRECTION.LEFT_UP);
         }
+        
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-            fireMoveIsDone(DIRECTION.UP);
+            
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                fireBoxIsSelected(DIRECTION.UP);
+            else
+                fireMoveIsDone(DIRECTION.UP);
         }
+        
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            fireMoveIsDone(DIRECTION.RIGHT_UP);
+           
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                fireBoxIsSelected(DIRECTION.RIGHT_UP);
+            else
+                fireMoveIsDone(DIRECTION.RIGHT_UP);
         }
+        
         if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
-            fireMoveIsDone(DIRECTION.LEFT);
+            
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                fireBoxIsSelected(DIRECTION.LEFT);
+            else
+                fireMoveIsDone(DIRECTION.LEFT);
         }
-         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            fireMoveIsDone(DIRECTION.DOWN);
+        
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+             
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                fireBoxIsSelected(DIRECTION.DOWN);
+            else 
+                fireMoveIsDone(DIRECTION.DOWN);
         }
-          if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            fireMoveIsDone(DIRECTION.RIGHT);
+        
+        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                fireBoxIsSelected(DIRECTION.RIGHT);
+            else
+                fireMoveIsDone(DIRECTION.RIGHT);
         }
+        
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             game.setScreen(new MainMenu(game));
         }
@@ -684,6 +714,20 @@ public class GameField implements Screen {
         for (Object listener : _listenersList)
         {
             ((MoveListener)listener).moveIsDone(event, dir);
+        }
+    }
+    
+    /**
+     * 
+     * 
+     * @param  
+     */
+    private void fireBoxIsSelected(DIRECTION dir) {
+        
+        MoveEvent event = new MoveEvent(this);
+        for (Object listener : _listenersList)
+        {
+            ((MoveListener)listener).boxIsSelected(event, dir);
         }
     }
     
