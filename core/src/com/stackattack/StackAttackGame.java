@@ -83,11 +83,24 @@ public class StackAttackGame extends Game{
             
             playerTxRight = new Texture(Gdx.files.local("graphic/playerR.png"));
             playerTxLeft = new Texture(Gdx.files.local("graphic/playerL.png"));
+            
             boxRed = new Texture(Gdx.files.internal("graphic/red.png"));
             boxGrey = new Texture(Gdx.files.internal("graphic/grey.png"));
             boxYellow = new Texture(Gdx.files.internal("graphic/yellow.png"));
             boxGreen = new Texture(Gdx.files.internal("graphic/green.png"));
             boxBlue = new Texture(Gdx.files.internal("graphic/blue.png"));
+            
+            boxRedBr = new Texture(Gdx.files.internal("graphic/redBr.png"));
+            boxGreyBr = new Texture(Gdx.files.internal("graphic/greyBr.png"));
+            boxYellowBr = new Texture(Gdx.files.internal("graphic/yellowBr.png"));
+            boxGreenBr = new Texture(Gdx.files.internal("graphic/greenBr.png"));
+            boxBlueBr = new Texture(Gdx.files.internal("graphic/blueBr.png"));
+
+            points = new Texture(Gdx.files.internal("graphic/points.png"));
+            minusRow = new Texture(Gdx.files.internal("graphic/minusRow.png"));
+            colorTx = new Texture(Gdx.files.internal("graphic/color.png"));
+            life = new Texture(Gdx.files.internal("graphic/life.png"));
+            doubleJump = new Texture(Gdx.files.internal("graphic/doubleJump.png"));
             
             player.setTexture(playerTxRight);
             
@@ -493,9 +506,21 @@ public class StackAttackGame extends Game{
     
     Texture playerTxLeft;
     Texture playerTxRight;
+    
     Texture boxRed;
     Texture boxGrey;
     Texture boxYellow;
     Texture boxGreen;
     Texture boxBlue;
+    Texture boxRedBr;
+    Texture boxGreyBr;
+    Texture boxYellowBr;
+    Texture boxGreenBr;
+    Texture boxBlueBr;
+    
+    Texture points;
+    Texture minusRow;
+    Texture colorTx;
+    Texture life;
+    Texture doubleJump;
 }
