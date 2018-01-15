@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bonuses;
+package com.stackattack.bonuses;
 import com.badlogic.gdx.graphics.Texture;
 import com.stackattack.objects.Box;
 

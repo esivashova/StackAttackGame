@@ -3,25 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bonuses;
-import com.stackattack.objects.Box;
+package com.stackattack.bonuses;
+
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
+import com.stackattack.objects.Box;
 import java.util.ArrayList;
 
 /**
  *
  * @author User
  */
-public class DoubleJump extends Bonus{
+public class RemovingBottomRow extends Bonus{
     
-    public DoubleJump(Box b) {
+    public RemovingBottomRow(Box b) {
         super(b);
     }
     
     public void activate() {
         
-        fireActivateDoubleJump();
+        fireRemoveBottomRow();
     }
     
     // ------------------------ События и слушатели -------------------------
@@ -53,12 +54,12 @@ public class DoubleJump extends Bonus{
      * 
      * @param  
      */
-    private void fireActivateDoubleJump() {
+    private void fireRemoveBottomRow() {
         
         GameEvent event = new GameEvent(this);
         for (Object listener : _listenersList)
         {
-            ((GameListener)listener).activateDoubleJump(event);
+            ((GameListener)listener).removeBottomRow(event);
         }
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bonuses;
+package com.stackattack.bonuses;
 import com.stackattack.objects.Box;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
@@ -13,17 +13,17 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public class AdditionPoints extends Bonus{
+public class DoubleJump extends Bonus{
     
-    public AdditionPoints(Box b) {
+    public DoubleJump(Box b) {
         super(b);
-
     }
     
-    public void increasePoints() {
+    public void activate() {
         
-        fireAddPoints();
+        fireActivateDoubleJump();
     }
+    
     // ------------------------ События и слушатели -------------------------
   
     // Список слушателей
@@ -53,12 +53,12 @@ public class AdditionPoints extends Bonus{
      * 
      * @param  
      */
-    private void fireAddPoints() {
+    private void fireActivateDoubleJump() {
         
         GameEvent event = new GameEvent(this);
         for (Object listener : _listenersList)
         {
-            ((GameListener)listener).addPoints(event, 5);
+            ((GameListener)listener).activateDoubleJump(event);
         }
     }
 }

@@ -3,28 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bonuses;
-
+package com.stackattack.bonuses;
+import com.stackattack.objects.Box;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
-import com.stackattack.objects.Box;
 import java.util.ArrayList;
 
 /**
  *
  * @author User
  */
-public class RemovingBottomRow extends Bonus{
+public class AdditionPoints extends Bonus{
     
-    public RemovingBottomRow(Box b) {
+    public AdditionPoints(Box b) {
         super(b);
+
     }
     
-    public void activate() {
+    public void increasePoints() {
         
-        fireRemoveBottomRow();
+        fireAddPoints();
     }
-    
     // ------------------------ События и слушатели -------------------------
   
     // Список слушателей
@@ -54,12 +53,12 @@ public class RemovingBottomRow extends Bonus{
      * 
      * @param  
      */
-    private void fireRemoveBottomRow() {
+    private void fireAddPoints() {
         
         GameEvent event = new GameEvent(this);
         for (Object listener : _listenersList)
         {
-            ((GameListener)listener).removeBottomRow(event);
+            ((GameListener)listener).addPoints(event, 5);
         }
     }
 }
