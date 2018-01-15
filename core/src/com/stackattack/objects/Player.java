@@ -383,8 +383,7 @@ public class Player {
                 return (position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() <= liftedWeight);
                 
             case UP: 
-                
-                //!!!
+
                 return (position.y + heightToJump + 1 <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0 
                         && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN).size() > 0/*<= liftedWeight*/));
                 
@@ -397,7 +396,8 @@ public class Player {
                     return false;
                 
                 return (position.y + 1 + heightToJump <= field.getHeight()-1 /*&& field.findNeighbour(this, dir).size() <= 0*/
-                        && position.x - 1 >= 0 && field.findNeighbour(this, dir).size() <= liftedWeight);
+                        && position.x - 1 >= 0 && field.findNeighbour(this, dir).size() <= liftedWeight
+                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN).size() > 0));
                 
             case RIGHT_UP: 
                 
@@ -405,7 +405,8 @@ public class Player {
                     return false;
                 
                 return (position.y + 1 + heightToJump <= field.getHeight()-1 /*&& field.findNeighbour(this, dir).size() <= 0*/
-                        && position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() <= liftedWeight);
+                        && position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() <= liftedWeight
+                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN).size() > 0));
         }
         
         return false;
