@@ -1,5 +1,7 @@
 package com.stackattack;
 
+import com.stackattack.screens.MainMenu;
+import com.stackattack.screens.GameOverScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,7 +13,7 @@ import com.stackattack.objects.Box;
 import com.stackattack.objects.Score;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.stackattack.managers.GameField;
+import com.stackattack.screens.GameField;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import java.util.TreeMap;

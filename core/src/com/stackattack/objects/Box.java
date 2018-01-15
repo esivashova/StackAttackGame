@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import navigation.DIRECTION;
-import com.stackattack.managers.GameField;
+import com.stackattack.screens.GameField;
 import java.awt.Point;
 
 /**
