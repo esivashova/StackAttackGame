@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.stackattack.objects.bonuses;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * Класс, представляющий собой бонус
  */
 public abstract class Bonus extends GameObject implements MovableObject {
     
@@ -26,6 +22,8 @@ public abstract class Bonus extends GameObject implements MovableObject {
         
         super(f);
     }
+    
+    //---------------------------------------------------------
     
     protected Box box;
     
@@ -37,6 +35,7 @@ public abstract class Bonus extends GameObject implements MovableObject {
         box = b;
     }
     
+    //---------------------------------------------------------
     
     protected TYPE_BONUS type;
     
@@ -44,16 +43,20 @@ public abstract class Bonus extends GameObject implements MovableObject {
         return type;
     }
     
+    //---------------------------------------------------------
+    
     @Override
      public void paint(Texture bonusTx, SpriteBatch batch) {
         
-        subjtx = bonusTx;
-//        subject.setPosition(position.x*10, position.y*10);
-//        subject.draw(batch);  
+        subjtx = bonusTx; 
         batch.draw(subjtx, position.x*64, position.y*64, 64, 64);
     }
     
+    //---------------------------------------------------------
+     
     public abstract void activate();
+    
+    //---------------------------------------------------------
     
     @Override
     protected boolean checkPosition(Point pos) {
@@ -62,9 +65,10 @@ public abstract class Bonus extends GameObject implements MovableObject {
                 && pos.y >= 0 && pos.y < field.getHeight());
     }
     
+    //---------------------------------------------------------
+    
     @Override
     public boolean move(DIRECTION dir) {
-        Point pos;
         
         if(canBeMoved(dir)) {
             switch (dir) {
@@ -107,6 +111,8 @@ public abstract class Bonus extends GameObject implements MovableObject {
         else
             return false;
     }
+    
+    //---------------------------------------------------------
     
     // Список слушателей
     protected ArrayList _listMoveList = new ArrayList(); 

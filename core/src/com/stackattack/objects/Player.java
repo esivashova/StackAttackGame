@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.stackattack.objects;
 import com.stackattack.objects.bonuses.Bonus;
 import com.badlogic.gdx.*;
@@ -21,7 +17,7 @@ import java.awt.Point;
 
 /**
  *
- * @author User
+ * Класс игрока
  */
 public class Player extends GameObject {
     
@@ -55,6 +51,8 @@ public class Player extends GameObject {
     public void addAmountOfLives(int delta) {
         amountOfLives += delta;
     }
+    
+    //--------------------------------------
     
     @Override
     public void setTexture(Texture playerTx) {
@@ -121,7 +119,6 @@ public class Player extends GameObject {
         if(canMove(dir)) {
             
             ArrayList<Box> boxes = field.findNeighbour(this, dir, false);
-            Bonus temp;
             
             switch (dir) {
                 case LEFT:
@@ -161,9 +158,7 @@ public class Player extends GameObject {
                     break;
 
                 case LEFT_UP:
-     
-                    
-                    
+    
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
                             flag = box.move(DIRECTION.LEFT);
@@ -199,13 +194,7 @@ public class Player extends GameObject {
         
         switch (dir) {
             case LEFT:
-                
-//                if(field.findUpNeighbour(this, dir).size() > 0) {
-//                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! " +
-//                +field.findUpNeighbour(this, dir).get(0).getPosition().x + " " + field.findUpNeighbour(this, dir).get(0).getPosition().y);
-//                }
-                
-                
+
                 if((field.findNeighbour(this, dir, false).size() > 0 
                         || field.findNeighbour(this, dir, true).size() > 0) 
                         && position.x - 1 <= 0)
@@ -259,6 +248,8 @@ public class Player extends GameObject {
         
         return false;
     }
+    
+    //-------------------------------------- 
     
     private void destroyBox(DIRECTION dir) {
         
@@ -317,11 +308,8 @@ public class Player extends GameObject {
                 die(field.findNeighbour(this, DIRECTION.UP, false));
         }
         
-        //Bonus temp;
-        
-       // System.out.println("STEP " + field.getBonuses().size());
         if(field.getBonuses().get(position.y).get(position.x) != null) {
-           // temp = field.getBonuses().get(position.y).get(position.x);
+ 
            MoveEventObserver temp = new MoveEventObserver();
                     
             if(field.getBonuses().get(position.y).get(position.x).getType() == TYPE_BONUS.ADD_LIFE) {
@@ -333,7 +321,6 @@ public class Player extends GameObject {
             }
 
             field.getBonuses().get(position.y).get(position.x).activate();
-            
             field.removeBonus(new Point(position.x, position.y));
         }
         
@@ -349,10 +336,11 @@ public class Player extends GameObject {
             }
 
             field.getBonuses().get(position.y + 1).get(position.x).activate();
-            
             field.removeBonus(new Point(position.x, position.y + 1));
         }
     }
+    
+    //--------------------------------------
     
     private void die(ArrayList<Box> boxes) {
         
@@ -366,21 +354,18 @@ public class Player extends GameObject {
         }
           
         else {
-            fireGameFinished();
+            
             // send event to GameModel to stop the game
+            fireGameFinished();
         }
     }
     
+    //------------------------------------------------
     
     /**
     * Класс представляет слушателя события, возникающего при при совершении хода.
     */
     public class MoveEventObserver implements MoveListener {
-
-        @Override
-        public void gameStarted(MoveEvent e) {
-            
-        }
         
         @Override
         public void moveIsDone(MoveEvent e, DIRECTION dir) {
@@ -403,7 +388,6 @@ public class Player extends GameObject {
     public void addLife() {
             addAmountOfLives(1);
         }
-    
     
     // ------------------------ События и слушатели -------------------------
   
@@ -429,11 +413,6 @@ public class Player extends GameObject {
     } 
     
     
-    /**
-     * 
-     * 
-     * @param  
-     */
     private void fireGameFinished() {
         
         GameEvent event = new GameEvent(this);

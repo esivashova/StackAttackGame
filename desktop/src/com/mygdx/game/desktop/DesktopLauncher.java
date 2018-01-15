@@ -9,13 +9,10 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
                 config.title = "StackAttack";
-		//config.resizable = false;
 		config.foregroundFPS = 60;
 		config.addIcon("menu/icon.png", Files.FileType.Internal);
 		config.width = 1024;
 		config.height = 660; 
-		//config.x = -1;
-		//config.y = -1;
 		config.fullscreen = false;
 		new LwjglApplication(new StackAttackGame(), config);
 	}

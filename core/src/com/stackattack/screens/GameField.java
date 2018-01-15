@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.stackattack.screens;
 import com.stackattack.navigation.DIRECTION;
 import com.badlogic.gdx.Gdx;
@@ -22,35 +18,13 @@ import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
 import java.util.ArrayList;
 import java.awt.Point;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 
 /**
  *
- * @author User
+ * Класс поля
  */
 public class GameField implements Screen {
-    
-    final float appWidth = 1280;
-    final float appHeight = 720;
-
-    private Texture backgroundTx;
-    private Sprite background;
-    
-    private BitmapFont score;
-    private BitmapFont lives;
-    private BitmapFont doubleJump;
-    
-    private SpriteBatch batch;
-   
-    
-    public void setBatch(SpriteBatch b) {
-        
-        batch = b;
-    }
     
     public GameField(StackAttackGame _game, int _width, int _height) {
         
@@ -107,7 +81,24 @@ public class GameField implements Screen {
         return height;
     }
     
-    //----------------------------------------------
+    //---------------------------------------------------------
+    
+    private Texture backgroundTx;
+    private Sprite background;
+    
+    private BitmapFont score;
+    private BitmapFont lives;
+    private BitmapFont doubleJump;
+    
+    private SpriteBatch batch;
+   
+    
+    public void setBatch(SpriteBatch b) {
+        
+        batch = b;
+    }
+    
+    //------------------- Коробки ---------------------------
     
     private ArrayList<ArrayList<Box>> boxes = new ArrayList<ArrayList<Box>>();
     
@@ -129,6 +120,16 @@ public class GameField implements Screen {
         return false;
     }
     
+    public void removeBox(Point pos) {
+        
+        if(pos.x >= 0 && pos.x < width
+                && pos.y >= 0 && pos.y < height) {
+            
+            if(findBox(pos) != null) 
+                boxes.get(pos.y).set(pos.x, null);  
+        }
+    }
+    
     public void removeColor(String color) {
         
          System.out.println("#1: " + boxes.size()+ "; " /*+ pos.y*/);
@@ -145,15 +146,7 @@ public class GameField implements Screen {
         }
     }
     
-    public void removeBox(Point pos) {
-        
-        if(pos.x >= 0 && pos.x < width
-                && pos.y >= 0 && pos.y < height) {
-            
-            if(findBox(pos) != null) 
-                boxes.get(pos.y).set(pos.x, null);  
-        }
-    }
+    //------------------- Поиск коробки ---------------------------
     
     public Box findBox(Point pos) {
         
@@ -176,6 +169,9 @@ public class GameField implements Screen {
         else
             return null;
     }
+    
+    
+    //------------------- Поиск соседей ---------------------------
     
     public ArrayList<Box> findNeighbour(Box box, DIRECTION dir) {
         
@@ -778,6 +774,8 @@ public class GameField implements Screen {
         return _neighboures;
     }
     
+    //----------------------------------------------
+    
     private int existingBoxesSize(int _height) {
         
         int exisitingBoxesCounter = 0;
@@ -789,6 +787,8 @@ public class GameField implements Screen {
         
         return exisitingBoxesCounter;
     }
+    
+    //----------------------------------------------
     
     private ArrayList<ArrayList<Bonus>> bonuses = new ArrayList<ArrayList<Bonus>>();
     
@@ -813,40 +813,23 @@ public class GameField implements Screen {
     
     public boolean removeBonus(Point pos) {
         
-       // System.out.println("NEW DIVIDE: " + pos.x + "; " + pos.y);
         if(pos.x >= 0 && pos.x < width
                 && pos.y >= 0 && pos.y < height) {
             
-            //if(findBonus(pos) != null) {
                 bonuses.get(pos.y).set(pos.x, null); 
-               // System.out.println("NSCHEL: ");
                 return true;
-           // }
         }
         return false;
     }
     
     public Bonus findBonus(Point pos) {
         
-        int counterX = 0;
-        for(ArrayList<Bonus> _b : bonuses) {
-            for(Bonus b : _b) {
-                if(b != null) {
-                    counterX++;
-                    System.out.println("123: " + pos.y + "; " + pos.x);
-                }
-                }
-                }
-        //System.out.println("UUUUU: "+ counterX);
         if(pos.x >= 0 && pos.x < width
                 && pos.y >= 0 && pos.y < height) {
             
             if(bonuses.get(pos.y).size() > 0) {
-              // System.out.println("NSCHEL: ");
-               //System.out.println("LALA: " + pos.x + "; " + pos.y);
-               //System.out.println(bonuses.get(pos.y).get(pos.x).getBox().getColor());
+              
                 if(bonuses.get(pos.y).get(pos.x) != null) {
-                   // System.out.println("NSCHEL: ");
                     return bonuses.get(pos.y).get(pos.x);
                 }
                 
@@ -875,6 +858,8 @@ public class GameField implements Screen {
             game.increaseScore(1);
         }
     }
+    
+    //----------------------------------------------
     
     private long timeToFly = 0;
     private long timeToNewBox = 0;
@@ -912,43 +897,17 @@ public class GameField implements Screen {
         timeToFly = TimeUtils.nanoTime();
     }
     
+    //----------------------------------------------
+    
     @Override
     public void show() {
 
-//        pref = Gdx.app.getPreferences("Score");
-//
-//        game.sc = new Score();
-//        score = new BitmapFont();
-//        score.setColor(Color.RED);
-//
-          backgroundTx = new Texture("graphic/background.png");
-          background = new Sprite(backgroundTx);
-          
-          score = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
-          lives = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
-          doubleJump = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
-          
-//          paint(game.getField().getBoxes());
-//          
-//          game.getPlayer().paint(game.getBatch());
-//
-//        snake = new Snake(game);
-//        snake.snakeBodyRectangle();
-//        snake.startCoordinate();
-//
-//        apple1 = new Apple1();
-//        apple2 = new Apple2();
-//        apple3 = new Apple3();
-//        stump = new Stump();
-//        regionAcceleration = new RegionAcceleration();
-//        regionSlowdown = new RegionSlowdown();
-//        pear = new Pear();
-//     
-//        snake.passSubjects(apple1,apple2,apple3,stump,regionAcceleration, regionSlowdown, pear);
-//        
-//        snake.snakeHeadRectangle();
-//
-//        snake.snakeSprites();
+        backgroundTx = new Texture("graphic/background.png");
+        background = new Sprite(backgroundTx);
+
+        score = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
+        lives = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
+        doubleJump = new BitmapFont(Gdx.files.internal("fonts/title.fnt"),Gdx.files.internal("fonts/title.png"),false);
 
     }
     
@@ -965,45 +924,13 @@ public class GameField implements Screen {
     }
     
     public void paintBoxes() {
-        String data = new String("\n\nPAINTED BOXES:\n");
-        int counterBox = 0;
+
         for(ArrayList<Box> _boxes : boxes) {
             for(Box b : _boxes) {
                 if(b != null) {
                     
                     b.paint(game.getTextureByColor(b.getColor(), b.canBeBroken(), b.getBonus()), game.getBatch());
-                
-        
-                    data += "\n";
-                    data += String.valueOf(counterBox);
-                    data += "\t";
-                    //if(b.hasColor())
-                    data += b.getColor();
-                    data += "\t";
-                    //if(b.hasPosition()) {
-                    data += String.valueOf(b.getPosition().x);
-                    data += "; ";
-                    data += String.valueOf(b.getPosition().y);
-                    //}
-                    data += "\n";
-                    counterBox++;
-                
-            
                 }
-            }
-        }
-        
-         OutputStream os = null;
-        try {
-            os = new FileOutputStream(new File("C:\\Users\\User\\Documents\\GDX_projects\\paint.txt"));
-            os.write(data.getBytes(), 0, data.length());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -1054,59 +981,68 @@ public class GameField implements Screen {
             drawDoubleJump();
           
         game.getPlayer().paint(game.getBatch());
-//        spawnSubjects();
-//        drawScore();
-//        snake.drawBody();
-//        snake.moveHead();
-//        snake.moveBody();
-//        snake.bodyRectangle();
-//        rectanglesPosition();
-//        snake.isPressed();
-//        snake.collisionWithSubjects();
-//        snake.collisionWithEdges();
-//        snake.collisionWithBody();
-        //snake.frameTimer();
-//        snake.snakeSize = snake.snake_body.size;
-        //gameOver();
+
         checkPlayerActions();
         
-         if(TimeUtils.nanoTime() - timeToFly > 800000000)
+        if(TimeUtils.nanoTime() - timeToFly > 800000000)
             lowerFlyingObjects();
          
-         if(TimeUtils.millis() - timeToNewBox > 5000) {
-             Box newBox = game.createNewBox();
+        if(TimeUtils.millis() - timeToNewBox > 5000) {
+            Box newBox = game.createNewBox();
             
-//            System.out.println(newBox.getPosition().x);
-//            System.out.print(" ; ");
-//            System.out.print(newBox.getPosition().y);
-//            System.out.println("\n");
-             newBox.setTexture(game.getTextureByColor(newBox.getColor(), newBox.canBeBroken(), newBox.getBonus()));
-         }
+
+            newBox.setTexture(game.getTextureByColor(newBox.getColor(), newBox.canBeBroken(), newBox.getBonus()));
+        }
          
-         if(TimeUtils.millis() - game.getDoubleJumpTime() > 30000) {
+        if(TimeUtils.millis() - game.getDoubleJumpTime() > 30000) {
             game.disactivateDoubleJump();
-         }
+        }
          
         checkIfRowIsFilled();
-        
-           
-        
+
         game.getPlayer().checkSituation();
-        
-         
+          
         game.getBatch().end();
 
     }
     
-    private int keyDelay;
+    public void drawBackground() {
+        
+        background.setPosition(0, 0);
+        background.draw(game.getBatch());
+    }
+    
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+    
+    @Override
+    public void dispose() {
+
+        backgroundTx.dispose();
+    }
+    
+    //----------------------------------------------
     
     private void checkPlayerActions()
     {
-//        keyDelay++;
-//        if (keyDelay >= 5) {
-//            keyDelay = 0;
-//        }
-
+        
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             
             if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
@@ -1183,12 +1119,8 @@ public class GameField implements Screen {
         _listenersList.remove(l); 
     } 
     
-    
-    /**
-     * 
-     * 
-     * @param  
-     */
+   //----------------------------------------------
+
     private void fireMoveIsDone(DIRECTION dir) {
         
         MoveEvent event = new MoveEvent(this);
@@ -1198,11 +1130,6 @@ public class GameField implements Screen {
         }
     }
     
-    /**
-     * 
-     * 
-     * @param  
-     */
     private void fireBoxIsSelected(DIRECTION dir) {
         
         MoveEvent event = new MoveEvent(this);
@@ -1211,52 +1138,4 @@ public class GameField implements Screen {
             ((MoveListener)listener).boxIsSelected(event, dir);
         }
     }
-    
-   // private void
-    
-    public void drawBackground() {
-        
-        background.setPosition(0, 0);
-        background.draw(game.getBatch());
-        //batch.draw(backgroundTx, 0, 0, 1024, 660);
-    }
-    
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-    
-    @Override
-    public void dispose() {
-//        snake.snake_headtx.dispose();
-//        apple1.subjtx.dispose();
-//        apple2.subjtx.dispose();
-//        apple3.subjtx.dispose();
-//        stump.subjtx.dispose();
-//        regionAcceleration.subjtx.dispose();
-//        regionSlowdown.subjtx.dispose();
-//        pear.subjtx.dispose();
-        backgroundTx.dispose();
-//        score.dispose();
-    }
-    
-    
-     // ------------------------- Слушатели хода --------------------------------
-    
-    
 }

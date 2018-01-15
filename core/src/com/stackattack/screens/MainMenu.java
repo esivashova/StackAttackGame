@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.stackattack.StackAttackGame;
 
+/**
+ *
+ * Экран меню
+ */
 public class MainMenu implements Screen {
 
     private final float appWidth = 1024;

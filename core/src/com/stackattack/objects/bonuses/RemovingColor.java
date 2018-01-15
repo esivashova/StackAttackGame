@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.stackattack.objects.bonuses;
 
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.screens.GameField;
-import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * Бонус - уничтожаются ящики определенного цвета 
+ * (зависит от цвета ящика, в котором был бонус)
  */
 public class RemovingColor extends Bonus{
     
@@ -28,16 +24,8 @@ public class RemovingColor extends Bonus{
         fireRemoveBottomRow(box.getColor());
     }
     
-    // ------------------------ События и слушатели -------------------------
-  
-   
+    //---------------------------------------------------------
     
-    
-    /**
-     * 
-     * 
-     * @param  
-     */
     private void fireRemoveBottomRow(String color) {
         
         GameEvent event = new GameEvent(this);

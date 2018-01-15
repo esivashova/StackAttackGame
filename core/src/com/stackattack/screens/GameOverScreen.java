@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.stackattack.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -13,6 +9,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.stackattack.StackAttackGame;
 
+/**
+ *
+ * Экран, появляющийся после окончания игры
+ */
 public class GameOverScreen implements Screen{
 	StackAttackGame game;
 	BitmapFont scoreFont,backFont;
@@ -27,15 +27,10 @@ public class GameOverScreen implements Screen{
 	@Override
 	public void show() {
                 scoreFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"),Gdx.files.internal("fonts/score.png"),false);
-		//scoreFont = new BitmapFont();
-		//scoreFont.setColor(Color.WHITE);
 		backFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"),Gdx.files.internal("fonts/font.png"),false);
-		//backFont.setColor(Color.ORANGE);
 	
-		
 		Preferences pref = Gdx.app.getPreferences("Score");
 		score = (int) pref.getFloat("score", 0);
-	
 	}
 
 	@Override

@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.stackattack.objects.bonuses;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
 import com.stackattack.screens.GameField;
-import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * Бонус - дополнительная жизнь
  */
 public class AdditionLife extends Bonus{
     
@@ -25,16 +20,10 @@ public class AdditionLife extends Bonus{
     public void activate() {
         
         fireAddLife();
-        //field.getGame().getPlayer().addLife();
     }
     
+    //---------------------------------------------
     
-    
-    /**
-     * 
-     * 
-     * @param  
-     */
     private void fireAddLife() {
         
         MoveEvent event = new MoveEvent(this);

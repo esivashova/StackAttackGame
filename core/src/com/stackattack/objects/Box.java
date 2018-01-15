@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.stackattack.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +10,7 @@ import java.awt.Point;
 
 /**
  *
- * @author User
+ * Класс ящика
  */
 public class Box extends GameObject implements MovableObject{
     
@@ -30,9 +26,6 @@ public class Box extends GameObject implements MovableObject{
         color = _color; 
         field = _field;
         
-        //subjtx = boxTx;
-        //subject = new Sprite(subjtx);
-        
         canBeBroken = canBr;
         bonus = b;
     }
@@ -43,9 +36,7 @@ public class Box extends GameObject implements MovableObject{
     @Override
     public void paint(Texture boxTx, SpriteBatch batch) {
         
-        subjtx = boxTx;
-//        subject.setPosition(position.x*10, position.y*10);
-//        subject.draw(batch);  
+        subjtx = boxTx; 
         batch.draw(subjtx, position.x*64, position.y*64, 64, 64);
     }
     
