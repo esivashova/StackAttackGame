@@ -5,7 +5,9 @@
  */
 package com.stackattack.bonuses;
 import com.badlogic.gdx.graphics.Texture;
+import com.stackattack.screens.GameField;
 import com.stackattack.objects.Box;
+import java.awt.Point;
 
 /**
  *
@@ -13,11 +15,21 @@ import com.stackattack.objects.Box;
  */
 public abstract class Bonus {
     
-    public Bonus(Box b) {
-        box = b;
+    public Bonus(GameField f) {
+        field = f;
     }
     
     protected Box box;
+    
+    public Box getBox() {
+        return box;
+    }
+    
+     public void setBox(Box b) {
+        box = b;
+    }
+    
+    protected GameField field;
     
     protected TYPE_BONUS type;
     
@@ -31,6 +43,24 @@ public abstract class Bonus {
         tx = _tx;
     }
     
-    public void activate() {
+    public abstract void activate();
+    
+    private Point position;
+    
+    public Point getPosition() {
+        
+        return position;
+    }
+    
+    public void setPosition(Point pos) {
+        
+        if(checkPosition(pos))
+            position = pos;
+    }
+    
+    private boolean checkPosition(Point pos) {
+        
+        return (pos.x >= 0 && pos.x < field.getWidth()
+                && pos.y >= 0 && pos.y < field.getHeight());
     }
 }

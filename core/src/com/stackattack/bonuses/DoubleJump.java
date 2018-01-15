@@ -7,6 +7,7 @@ package com.stackattack.bonuses;
 import com.stackattack.objects.Box;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
+import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 
 /**
@@ -15,8 +16,8 @@ import java.util.ArrayList;
  */
 public class DoubleJump extends Bonus{
     
-    public DoubleJump(Box b) {
-        super(b);
+    public DoubleJump(GameField f) {
+        super(f);
     }
     
     @Override

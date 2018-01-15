@@ -7,6 +7,7 @@ package com.stackattack.bonuses;
 import com.stackattack.objects.Box;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
+import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 
 /**
@@ -15,10 +16,8 @@ import java.util.ArrayList;
  */
 public class AdditionLife extends Bonus{
     
-    public AdditionLife(Box b) {
-        super(b);
-        
-        
+    public AdditionLife(GameField f) {
+        super(f);
     }
     
     @Override

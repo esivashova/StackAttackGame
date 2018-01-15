@@ -8,6 +8,7 @@ package com.stackattack.bonuses;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.objects.Box;
+import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +17,8 @@ import java.util.ArrayList;
  */
 public class RemovingColor extends Bonus{
     
-    public RemovingColor(Box b) {
-        super(b);
+    public RemovingColor(GameField f) {
+        super(f);
     }
     
     @Override
