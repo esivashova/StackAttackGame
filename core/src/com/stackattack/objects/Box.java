@@ -16,9 +16,12 @@ import java.awt.Point;
  *
  * @author User
  */
-public class Box {
+public class Box extends GameObject implements MovableObject{
     
     public Box(GameField _field, int _weight, String _color, boolean canBr, Bonus b) {
+        
+        super(_field);
+        
         if(_weight > 0)
             weight = _weight;
         else
@@ -36,14 +39,8 @@ public class Box {
     
     //--------------------------------------
     
-    private Texture subjtx;
     
-    public void setTexture(Texture boxTx) {
-        subjtx = boxTx;
-    }
-    
-    private Sprite subject; 
-    
+    @Override
     public void paint(Texture boxTx, SpriteBatch batch) {
         
         subjtx = boxTx;
@@ -59,14 +56,6 @@ public class Box {
     public int getWeight() {
         
         return weight;
-    }
-    
-    public boolean hasColor() {
-        return (color != null);
-    }
-    
-    public boolean hasPosition() {
-        return (position != null);
     }
     
     private String color;
@@ -98,31 +87,14 @@ public class Box {
     
     //-----------------------------------------------
     
-    private Point position;
-    
-    public Point getPosition() {
-        
-        return position;
-    }
-    
-    public void setPosition(Point pos) {
-        
-        if(checkPosition(pos))
-            position = pos;
-    }
-    
-    private boolean checkPosition(Point pos) {
+    @Override
+    protected boolean checkPosition(Point pos) {
         
         return (pos.x >= 0 && pos.x < field.getWidth()
                 && pos.y >= 0 && pos.y < field.getHeight());
     }
     
-    //-----------------------------------------------
-    
-    private GameField field;
-    
-    //-----------------------------------------------
-    
+    @Override
     public boolean move(DIRECTION dir) {
         
         Point pos;
@@ -183,6 +155,7 @@ public class Box {
         return false;
     }
     
+    @Override
     public boolean canBeMoved(DIRECTION dir) {
         
         switch (dir) {

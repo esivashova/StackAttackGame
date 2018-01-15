@@ -23,9 +23,11 @@ import java.awt.Point;
  *
  * @author User
  */
-public class Player {
+public class Player extends GameObject {
     
     public Player(GameField f, int _liftedWeight, int _heightToJump) {
+        
+        super(f);
         
         field = f;
         
@@ -54,8 +56,7 @@ public class Player {
         amountOfLives += delta;
     }
     
-    private Texture subjtx;
-    
+    @Override
     public void setTexture(Texture playerTx) {
         subjtx = playerTx;
         subject = new Sprite(subjtx);
@@ -63,8 +64,12 @@ public class Player {
             
     private boolean direction = true;
     
-    private Sprite subject; 
-    
+
+    @Override
+    public void paint(Texture tx, SpriteBatch batch) {
+        
+    }
+            
     public void paint(SpriteBatch batch) {
 
         subjtx = field.getPlayerTexture(direction);
@@ -96,20 +101,8 @@ public class Player {
     
     //--------------------------------------------------
     
-    private Point position;
-    
-    public Point getPosition() {
-        
-        return position;
-    }
-    
-    public void setPosition(Point pos) {
-        
-        if(checkPosition(pos))
-            position = pos;
-    }
-    
-    private boolean checkPosition(Point pos) {
+    @Override
+    protected boolean checkPosition(Point pos) {
         
         return (pos.x >= 0 && pos.x < field.getWidth()
                 && pos.y >= 0 && pos.y < field.getHeight()-1);
@@ -131,36 +124,7 @@ public class Player {
             
             switch (dir) {
                 case LEFT:
-                     
-//                    System.out.println("STEP " + field.getBonuses().size());
-//                    if(field.getBonuses().get(position.x - 1).get(position.y) != null) {
-//                        
-//                        temp = field.getBonuses().get(position.x - 1).get(position.y);
-//                        
-//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                            AdditionLife temp2 = (AdditionLife)temp;
-//                            temp2.addGameListener(new MoveEventObserver());
-//                        }
-//                        
-//                        field.getBonuses().get(position.x - 1).get(position.y).activate();
-//                        field.removeBonus(new Point(position.x - 1, position.y));
-//                    }
-//                    
-//                    if(position.y + 1 < field.getHeight() - 1) {
-//                        if(field.getBonuses().get(position.x - 1).get(position.y + 1) != null) {
-//
-//                            temp = field.getBonuses().get(position.x - 1).get(position.y + 1);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x - 1).get(position.y + 1).activate();
-//                            field.removeBonus(new Point(position.x - 1, position.y + 1));
-//                        }
-//                    }
-                    
+ 
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
                             box.move(dir);
@@ -170,35 +134,7 @@ public class Player {
                     break;
                         
                 case RIGHT:
-                    
-//                    if(field.getBonuses().get(position.x + 1).get(position.y) != null) {
-//                        
-//                        temp = field.getBonuses().get(position.x + 1).get(position.y);
-//                        
-//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                            AdditionLife temp2 = (AdditionLife)temp;
-//                            temp2.addGameListener(new MoveEventObserver());
-//                        }
-//                        
-//                        field.getBonuses().get(position.x + 1).get(position.y).activate();
-//                        field.removeBonus(new Point(position.x + 1, position.y));
-//                    }
-//                    
-//                    if(position.y + 1 < field.getHeight() - 1) {
-//                        if(field.getBonuses().get(position.x + 1).get(position.y + 1) != null) {
-//                        
-//                            temp = field.getBonuses().get(position.x + 1).get(position.y + 1);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x + 1).get(position.y + 1).activate();
-//                            field.removeBonus(new Point(position.x + 1, position.y + 1));
-//                        }
-//                    }
-                    
+ 
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
                             box.move(dir);
@@ -208,103 +144,17 @@ public class Player {
                     break;
 
                 case UP: 
-                    
-//                    if(position.y + heightToJump < field.getHeight() - 1) {
-//                        if(field.getBonuses().get(position.x).get(position.y + heightToJump) != null) {
-//
-//                            temp = field.getBonuses().get(position.x).get(position.y + heightToJump);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x).get(position.y + heightToJump).activate();
-//                            field.removeBonus(new Point(position.x, position.y + heightToJump));
-//                        }
-//                    }
-//                    
-//                    if(position.y + heightToJump + 1 < field.getHeight() - 1) {
-//                        if(field.getBonuses().get(position.x).get(position.y + heightToJump + 1) != null) {
-//
-//                            temp = field.getBonuses().get(position.x).get(position.y + heightToJump + 1);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x).get(position.y + heightToJump + 1).activate();
-//                            field.removeBonus(new Point(position.x, position.y + heightToJump + 1));
-//                        }
-//                    }
-                    
+ 
                     position.y += heightToJump;
                     break;
 
                 case DOWN:
                     
-//                    if(field.getBonuses().get(position.x).get(position.y - 1) != null) {
-//                        
-//                        temp = field.getBonuses().get(position.x).get(position.y - 1);
-//                        
-//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                            AdditionLife temp2 = (AdditionLife)temp;
-//                            temp2.addGameListener(new MoveEventObserver());
-//                        }
-//                        
-//                        field.getBonuses().get(position.x).get(position.y - 1).activate();
-//                        field.removeBonus(new Point(position.x, position.y - 1));
-//                    }
-//                    
-//                    if(field.getBonuses().get(position.x).get(position.y) != null) {
-//                        
-//                        temp = field.getBonuses().get(position.x).get(position.y);
-//                        
-//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                            AdditionLife temp2 = (AdditionLife)temp;
-//                            temp2.addGameListener(new MoveEventObserver());
-//                        }
-//                        
-//                        field.getBonuses().get(position.x).get(position.y).activate();
-//                        field.removeBonus(new Point(position.x, position.y));
-//                    }
-                    
                     position.y--;
                     break;
 
                 case LEFT_UP:
-                    
-//                   if(position.y + heightToJump < field.getHeight() - 1) {
-//                        if(field.getBonuses().get(position.x - 1).get(position.y + heightToJump) != null) {
-//
-//                            temp = field.getBonuses().get(position.x - 1).get(position.y + heightToJump);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x - 1).get(position.y + heightToJump).activate();
-//                            field.removeBonus(new Point(position.x - 1, position.y + heightToJump));
-//                        }
-//                    }
-//                    
-//                    if(position.y + heightToJump + 1 < field.getHeight() - 1) {
-//                        if(field.getBonuses().get(position.x - 1).get(position.y + heightToJump + 1) != null) {
-//
-//                            temp = field.getBonuses().get(position.x - 1).get(position.y + heightToJump + 1);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x - 1).get(position.y + heightToJump + 1).activate();
-//                            field.removeBonus(new Point(position.x - 1, position.y + heightToJump + 1));
-//                        }
-//                    }
-                    
+     
                     position.y += heightToJump;
                     
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
@@ -316,38 +166,6 @@ public class Player {
                     break;
 
                 case RIGHT_UP: 
-                    
-   
-//                    if(position.y + heightToJump < field.getHeight() - 1) {
-//                        if(field.getBonuses().get(position.x + 1).get(position.y + heightToJump) != null) {
-//
-//                            temp = field.getBonuses().get(position.x + 1).get(position.y + heightToJump);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x + 1).get(position.y + heightToJump).activate();
-//                            field.removeBonus(new Point(position.x + 1, position.y + heightToJump));
-//                        }
-//                    }
-//                    
-//                    if(position.y + heightToJump + 1 < field.getHeight() + 1) {
-//                        if(field.getBonuses().get(position.x + 1).get(position.y + heightToJump + 1) != null) {
-//
-//                            temp = field.getBonuses().get(position.x + 1).get(position.y + heightToJump + 1);
-//
-//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
-//                                AdditionLife temp2 = (AdditionLife)temp;
-//                                temp2.addGameListener(new MoveEventObserver());
-//                            }
-//
-//                            field.getBonuses().get(position.x + 1).get(position.y + heightToJump + 1).activate();
-//                            field.removeBonus(new Point(position.x + 1, position.y + heightToJump + 1));
-//                        }
-//                    }
-                    
                     
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
@@ -370,10 +188,10 @@ public class Player {
         switch (dir) {
             case LEFT:
                 
-                if(field.findUpNeighbour(this, dir).size() > 0) {
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! " +
-                +field.findUpNeighbour(this, dir).get(0).getPosition().x + " " + field.findUpNeighbour(this, dir).get(0).getPosition().y);
-                }
+//                if(field.findUpNeighbour(this, dir).size() > 0) {
+//                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! " +
+//                +field.findUpNeighbour(this, dir).get(0).getPosition().x + " " + field.findUpNeighbour(this, dir).get(0).getPosition().y);
+//                }
                 
                 
                 if((field.findNeighbour(this, dir, false).size() > 0 
