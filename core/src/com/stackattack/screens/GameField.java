@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -17,9 +16,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.StackAttackGame;
 import com.stackattack.objects.Box;
+import com.stackattack.bonuses.Bonus;
 import com.stackattack.objects.Player;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
+import com.stackattack.bonuses.TYPE_BONUS;
 import java.util.ArrayList;
 import java.awt.Point;
 import java.io.File;
@@ -415,6 +416,59 @@ public class GameField implements Screen {
         return exisitingBoxesCounter;
     }
     
+    private ArrayList<ArrayList<Bonus>> bonuses = new ArrayList<ArrayList<Bonus>>();
+    
+    public ArrayList<ArrayList<Bonus>> getBonuses() {
+        
+        return bonuses;
+    }
+    
+    public boolean addBonus(Bonus bonus, Point pos) {
+        
+        if(pos.x >= 0 && pos.x < width
+                && pos.y >= 0 && pos.y < height) {
+            
+            if(findBonus(pos) == null) {
+                bonuses.get(pos.y).set(pos.x, bonus);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    public void removeBonus(Point pos) {
+        
+        if(pos.x >= 0 && pos.x < width
+                && pos.y >= 0 && pos.y < height) {
+            
+            if(findBonus(pos) != null) 
+                bonuses.get(pos.y).set(pos.x, null);  
+        }
+    }
+    
+    public Bonus findBonus(Point pos) {
+        
+        if(pos.x >= 0 && pos.x < width
+                && pos.y >= 0 && pos.y < height) {
+            
+            if(bonuses.get(pos.y).size() > 0) {
+                
+                if(bonuses.get(pos.y).get(pos.x) != null)
+                    return bonuses.get(pos.y).get(pos.x);
+                
+                else
+                    return null;
+            }
+            
+            else
+                return null;
+        }
+        
+        else
+            return null;
+    }
+    
     //-------------------------------------------------------
     
     private void checkIfRowIsFilled() {
@@ -513,7 +567,8 @@ public class GameField implements Screen {
         for(ArrayList<Box> _boxes : boxes) {
             for(Box b : _boxes) {
                 if(b != null) {
-                    b.paint(game.getTextureByColor(b.getColor(), b.canBeBroken()), game.getBatch());
+                    
+                    b.paint(game.getTextureByColor(b.getColor(), b.canBeBroken(), b.getBonus()), game.getBatch());
                 
         
                     data += "\n";
@@ -550,6 +605,18 @@ public class GameField implements Screen {
         }
     }
     
+    public void paintBonuses() {
+        
+        for(ArrayList<Box> _boxes : boxes) {
+            for(Box b : _boxes) {
+                if(b != null) {
+                    if(b.getBonus() != null)
+                        b.getBonus().paint(game.getBonusTexture(b.getBonus().getType()), game.getBatch());
+                }
+            }
+        }
+    }
+    
     public Texture getPlayerTexture(boolean dir) {
         
         return game.getPlayerTexture(dir);
@@ -567,6 +634,7 @@ public class GameField implements Screen {
         drawBackground();
         
         paintBoxes();
+        paintBonuses();
         
         drawScore();
         drawLives();
@@ -601,7 +669,7 @@ public class GameField implements Screen {
 //            System.out.print(" ; ");
 //            System.out.print(newBox.getPosition().y);
 //            System.out.println("\n");
-             newBox.setTexture(game.getTextureByColor(newBox.getColor(), newBox.canBeBroken()));
+             newBox.setTexture(game.getTextureByColor(newBox.getColor(), newBox.canBeBroken(), newBox.getBonus()));
          }
          
          if(TimeUtils.millis() - game.getDoubleJumpTime() > 100000) {
