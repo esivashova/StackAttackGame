@@ -551,6 +551,11 @@ public class GameField implements Screen {
         }
     }
     
+    public Texture getPlayerTexture(boolean dir) {
+        
+        return game.getPlayerTexture(dir);
+    }
+    
 
     @Override
     public void render(float delta) {
@@ -570,7 +575,7 @@ public class GameField implements Screen {
         if(game.getPlayer().getHeightToJump() == 2)
             drawDoubleJump();
           
-       game.getPlayer().paint(game.getPlayerTexture(), game.getBatch());
+        game.getPlayer().paint(game.getBatch());
 //        spawnSubjects();
 //        drawScore();
 //        snake.drawBody();

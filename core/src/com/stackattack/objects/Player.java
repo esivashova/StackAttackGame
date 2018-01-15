@@ -60,12 +60,13 @@ public class Player {
         subject = new Sprite(subjtx);
     }
             
+    private boolean direction = true;
     
     private Sprite subject; 
     
-    public void paint(Texture playerBx, SpriteBatch batch) {
+    public void paint(SpriteBatch batch) {
 
-        subjtx = playerBx;
+        subjtx = field.getPlayerTexture(direction);
         batch.draw(subjtx, position.x*64, position.y*64, 64, 128);
     }
     
@@ -134,6 +135,7 @@ public class Player {
                             box.move(dir);
                   
                     position.x--;
+                    direction = false;
                     break;
                         
                 case RIGHT:
@@ -143,6 +145,7 @@ public class Player {
                             box.move(dir);
                   
                     position.x++;
+                    direction = true;
                     break;
 
                 case UP: 
@@ -164,6 +167,7 @@ public class Player {
                             box.move(DIRECTION.LEFT);
                   
                     position.x--;
+                    direction = false;
                     break;
 
                 case RIGHT_UP: 
@@ -175,6 +179,7 @@ public class Player {
                   
                     position.y += heightToJump;
                     position.x++;
+                    direction = true;
                     break;
             }
             
