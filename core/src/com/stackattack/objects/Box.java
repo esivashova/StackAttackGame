@@ -160,16 +160,19 @@ public class Box extends GameObject implements MovableObject{
         
         switch (dir) {
             case LEFT:
-                return (position.x - 1 >= 0 && field.findNeighbour(this, dir).size() < 1);
+                return (position.x - 1 >= 0 && field.findNeighbour(this, dir).size() < 1
+                        && field.findNeighbourBonuses(this, dir).size() < 1);
                 
             case RIGHT:
-                return (position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() < 1);
+                return (position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() < 1
+                        && field.findNeighbourBonuses(this, dir).size() < 1);
                 
             case UP: //fantstic
                 break;
                 
             case DOWN:
-                return (position.y - 1 >= 0 && field.findNeighbour(this, dir).size() < 1);
+                return (position.y - 1 >= 0 && field.findNeighbour(this, dir).size() < 1
+                        && field.findNeighbourBonuses(this, dir).size() < 1);
                
             case LEFT_UP: //fantastic
                 break;
