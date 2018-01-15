@@ -131,9 +131,10 @@ public class GameField implements Screen {
     
     public void removeColor(String color) {
         
+         System.out.println("#1: " + boxes.size()+ "; " /*+ pos.y*/);
         for(int i = 0; i < boxes.size(); i++) {
             
-            for(int j = 0; j < boxes.get(i).size(); i++) {
+            for(int j = 0; j < boxes.get(i).size(); j++) {
                 
                 if(boxes.get(i).get(j) != null) {
                     
@@ -451,13 +452,13 @@ public class GameField implements Screen {
     
     public boolean removeBonus(Point pos) {
         
-        System.out.println("NEW DIVIDE: " + pos.x + "; " + pos.y);
+       // System.out.println("NEW DIVIDE: " + pos.x + "; " + pos.y);
         if(pos.x >= 0 && pos.x < width
                 && pos.y >= 0 && pos.y < height) {
             
             //if(findBonus(pos) != null) {
                 bonuses.get(pos.y).set(pos.x, null); 
-                System.out.println("NSCHEL: ");
+               // System.out.println("NSCHEL: ");
                 return true;
            // }
         }
@@ -475,16 +476,16 @@ public class GameField implements Screen {
                 }
                 }
                 }
-        System.out.println("UUUUU: "+ counterX);
+        //System.out.println("UUUUU: "+ counterX);
         if(pos.x >= 0 && pos.x < width
                 && pos.y >= 0 && pos.y < height) {
             
             if(bonuses.get(pos.y).size() > 0) {
-               System.out.println("NSCHEL: ");
-               System.out.println("LALA: " + pos.x + "; " + pos.y);
+              // System.out.println("NSCHEL: ");
+               //System.out.println("LALA: " + pos.x + "; " + pos.y);
                //System.out.println(bonuses.get(pos.y).get(pos.x).getBox().getColor());
                 if(bonuses.get(pos.y).get(pos.x) != null) {
-                    System.out.println("NSCHEL: ");
+                   // System.out.println("NSCHEL: ");
                     return bonuses.get(pos.y).get(pos.x);
                 }
                 
@@ -701,7 +702,7 @@ public class GameField implements Screen {
          if(TimeUtils.nanoTime() - timeToFly > 800000000)
             lowerFlyingObjects();
          
-         if(TimeUtils.millis() - timeToNewBox > 7000) {
+         if(TimeUtils.millis() - timeToNewBox > 5000) {
              Box newBox = game.createNewBox();
             
 //            System.out.println(newBox.getPosition().x);
@@ -711,7 +712,7 @@ public class GameField implements Screen {
              newBox.setTexture(game.getTextureByColor(newBox.getColor(), newBox.canBeBroken(), newBox.getBonus()));
          }
          
-         if(TimeUtils.millis() - game.getDoubleJumpTime() > 100000) {
+         if(TimeUtils.millis() - game.getDoubleJumpTime() > 30000) {
             game.disactivateDoubleJump();
          }
          
