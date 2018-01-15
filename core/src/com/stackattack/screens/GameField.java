@@ -424,7 +424,7 @@ public class GameField implements Screen {
         return _neighboures;
     }
     
-    public ArrayList<Box> findUpNeighbour(Player player, DIRECTION dir) {
+    public ArrayList<Box> findNeighbour(Bonus bonus, DIRECTION dir) {
         
         ArrayList<Box> _neighboures = new ArrayList<Box>();
         
@@ -434,15 +434,15 @@ public class GameField implements Screen {
             
             case LEFT:
 
-                for(int i = player.getPosition().x - 1; i >= 0; i--) {
-                    if(boxes.get(player.getPosition().y + 1).get(i) != null)
-                        _neighboures.add(findBox(new Point(i, player.getPosition().y + 1)));
+                for(int i = bonus.getPosition().x - 1; i >= 0; i--) {
+                    if(boxes.get(bonus.getPosition().y).get(i) != null)
+                        _neighboures.add(findBox(new Point(i, bonus.getPosition().y)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, player.getPosition().y + 1));
+                    temp = findBox(new Point(i, bonus.getPosition().y));
                     
-                    for(int j = temp.getPosition().y + 2; j < height; j++) {
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
                          if(boxes.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBox(new Point(temp.getPosition().x, j)));
                         else
@@ -454,16 +454,14 @@ public class GameField implements Screen {
 
             case RIGHT:
 
-                for(int i = player.getPosition().x + 1; i < width; i++)
+                for(int i = bonus.getPosition().x + 1; i < width; i++)
                 {
-                    if(boxes.get(player.getPosition().y).get(i) != null)
-                        _neighboures.add(findBox(new Point(i, player.getPosition().y)));
-                    else {
-
+                    if(boxes.get(bonus.getPosition().y).get(i) != null)
+                        _neighboures.add(findBox(new Point(i, bonus.getPosition().y)));
+                    else
                         return _neighboures;
-                    }
                     
-                    temp = findBox(new Point(i, player.getPosition().y));
+                    temp = findBox(new Point(i, bonus.getPosition().y));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
                          if(boxes.get(j).get(temp.getPosition().x) != null)
@@ -472,15 +470,15 @@ public class GameField implements Screen {
                             break;
                     }
                 }
-   
+                
                 return _neighboures;
 
             case UP: 
 
-                for(int i = player.getPosition().y + 1 + player.getHeightToJump(); i < height; i++)
+                for(int i = bonus.getPosition().y + 1; i < height; i++)
                 {
-                    if(boxes.get(i).get(player.getPosition().x) != null)
-                        _neighboures.add(findBox(new Point(player.getPosition().x, i)));
+                    if(boxes.get(i).get(bonus.getPosition().x) != null)
+                        _neighboures.add(findBox(new Point(bonus.getPosition().x, i)));
                     else
                         return _neighboures;
                 }
@@ -489,10 +487,10 @@ public class GameField implements Screen {
 
             case DOWN:
 
-                for(int i = player.getPosition().y - 1; i >= 0; i--)
+                for(int i = bonus.getPosition().y - 1; i >= 0; i--)
                 {
-                    if(boxes.get(i).get(player.getPosition().x) != null)
-                        _neighboures.add(findBox(new Point(player.getPosition().x, i)));
+                    if(boxes.get(i).get(bonus.getPosition().x) != null)
+                        _neighboures.add(findBox(new Point(bonus.getPosition().x, i)));
                     else
                         return _neighboures;
                 }
@@ -501,15 +499,13 @@ public class GameField implements Screen {
 
             case LEFT_UP:
 
-                for(int i = player.getPosition().x - 1; i >= 0; i--) {
-                    if(boxes.get(player.getPosition().y + player.getHeightToJump()).get(i) != null)
-                        _neighboures.add(findBox(new Point(i, player.getPosition().y + player.getHeightToJump())));
-                    else {
-                        
+                for(int i = bonus.getPosition().x - 1; i >= 0; i--) {
+                    if(boxes.get(bonus.getPosition().y + 1).get(i) != null)
+                        _neighboures.add(findBox(new Point(i, bonus.getPosition().y + 1)));
+                    else
                         return _neighboures;
-                    }
                     
-                    temp = findBox(new Point(i, player.getPosition().y + player.getHeightToJump()));
+                    temp = findBox(new Point(i, bonus.getPosition().y + 1));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
                          if(boxes.get(j).get(temp.getPosition().x) != null)
@@ -518,23 +514,259 @@ public class GameField implements Screen {
                             break;
                     }
                 }
-               
+                
                 return _neighboures;
 
             case RIGHT_UP: 
 
-                for(int i = player.getPosition().x + 1; i < width; i++)
+                for(int i = bonus.getPosition().x + 1; i < width; i++)
                 {
-                    if(boxes.get(player.getPosition().y + player.getHeightToJump()).get(i) != null)
-                        _neighboures.add(findBox(new Point(i, player.getPosition().y + player.getHeightToJump())));
+                    if(boxes.get(bonus.getPosition().y + 1).get(i) != null)
+                        _neighboures.add(findBox(new Point(i, bonus.getPosition().y + 1)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, player.getPosition().y + player.getHeightToJump()));
+                    temp = findBox(new Point(i, bonus.getPosition().y + 1));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
                          if(boxes.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBox(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+        }
+        
+        return _neighboures;
+    }
+    
+    public ArrayList<Bonus> findNeighbourBonuses(Box box, DIRECTION dir) {
+        
+        ArrayList<Bonus> _neighboures = new ArrayList<Bonus>();
+        
+        Box temp;
+        
+        switch (dir) {
+            
+            case LEFT:
+
+                for(int i = box.getPosition().x - 1; i >= 0; i--) {
+                    if(boxes.get(box.getPosition().y).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, box.getPosition().y)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, box.getPosition().y));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+
+            case RIGHT:
+
+                for(int i = box.getPosition().x + 1; i < width; i++)
+                {
+                    if(boxes.get(box.getPosition().y).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, box.getPosition().y)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, box.getPosition().y));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+
+            case UP: 
+
+                for(int i = box.getPosition().y + 1; i < height; i++)
+                {
+                    if(boxes.get(i).get(box.getPosition().x) != null)
+                        _neighboures.add(findBonus(new Point(box.getPosition().x, i)));
+                    else
+                        return _neighboures;
+                }
+                
+                return _neighboures;
+
+            case DOWN:
+
+                for(int i = box.getPosition().y - 1; i >= 0; i--)
+                {
+                    if(boxes.get(i).get(box.getPosition().x) != null)
+                        _neighboures.add(findBonus(new Point(box.getPosition().x, i)));
+                    else
+                        return _neighboures;
+                }
+                
+                return _neighboures;
+
+            case LEFT_UP:
+
+                for(int i = box.getPosition().x - 1; i >= 0; i--) {
+                    if(boxes.get(box.getPosition().y + 1).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, box.getPosition().y + 1)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, box.getPosition().y + 1));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+
+            case RIGHT_UP: 
+
+                for(int i = box.getPosition().x + 1; i < width; i++)
+                {
+                    if(boxes.get(box.getPosition().y + 1).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, box.getPosition().y + 1)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, box.getPosition().y + 1));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+        }
+        
+        return _neighboures;
+    }
+    
+    public ArrayList<Bonus> findNeighbourBonuses(Bonus bonus, DIRECTION dir) {
+        
+        ArrayList<Bonus> _neighboures = new ArrayList<Bonus>();
+        
+        Box temp;
+        
+        switch (dir) {
+            
+            case LEFT:
+
+                for(int i = bonus.getPosition().x - 1; i >= 0; i--) {
+                    if(boxes.get(bonus.getPosition().y).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, bonus.getPosition().y)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, bonus.getPosition().y));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+
+            case RIGHT:
+
+                for(int i = bonus.getPosition().x + 1; i < width; i++)
+                {
+                    if(boxes.get(bonus.getPosition().y).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, bonus.getPosition().y)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, bonus.getPosition().y));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+
+            case UP: 
+
+                for(int i = bonus.getPosition().y + 1; i < height; i++)
+                {
+                    if(boxes.get(i).get(bonus.getPosition().x) != null)
+                        _neighboures.add(findBonus(new Point(bonus.getPosition().x, i)));
+                    else
+                        return _neighboures;
+                }
+                
+                return _neighboures;
+
+            case DOWN:
+
+                for(int i = bonus.getPosition().y - 1; i >= 0; i--)
+                {
+                    if(boxes.get(i).get(bonus.getPosition().x) != null)
+                        _neighboures.add(findBonus(new Point(bonus.getPosition().x, i)));
+                    else
+                        return _neighboures;
+                }
+                
+                return _neighboures;
+
+            case LEFT_UP:
+
+                for(int i = bonus.getPosition().x - 1; i >= 0; i--) {
+                    if(boxes.get(bonus.getPosition().y + 1).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, bonus.getPosition().y + 1)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, bonus.getPosition().y + 1));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
+                        else
+                            break;
+                    }
+                }
+                
+                return _neighboures;
+
+            case RIGHT_UP: 
+
+                for(int i = bonus.getPosition().x + 1; i < width; i++)
+                {
+                    if(boxes.get(bonus.getPosition().y + 1).get(i) != null)
+                        _neighboures.add(findBonus(new Point(i, bonus.getPosition().y + 1)));
+                    else
+                        return _neighboures;
+                    
+                    temp = findBox(new Point(i, bonus.getPosition().y + 1));
+                    
+                    for(int j = temp.getPosition().y + 1; j < height; j++) {
+                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                            _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
                     }
