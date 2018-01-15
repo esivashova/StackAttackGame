@@ -20,6 +20,7 @@ public class RemovingColor extends Bonus{
         super(b);
     }
     
+    @Override
     public void activate() {
         
         fireRemoveBottomRow(box.getColor());

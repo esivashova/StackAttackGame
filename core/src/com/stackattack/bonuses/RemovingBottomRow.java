@@ -20,6 +20,7 @@ public class RemovingBottomRow extends Bonus{
         super(b);
     }
     
+    @Override
     public void activate() {
         
         fireRemoveBottomRow();

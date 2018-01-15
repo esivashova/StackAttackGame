@@ -20,7 +20,8 @@ public class AdditionPoints extends Bonus{
 
     }
     
-    public void increasePoints() {
+    @Override
+    public void activate() {
         
         fireAddPoints();
     }

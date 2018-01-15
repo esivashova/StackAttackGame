@@ -21,7 +21,8 @@ public class AdditionLife extends Bonus{
         
     }
     
-    public void increaseLife() {
+    @Override
+    public void activate() {
         
         fireAddLife();
     }

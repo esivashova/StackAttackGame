@@ -30,4 +30,7 @@ public abstract class Bonus {
     public void setTexture(Texture _tx) {
         tx = _tx;
     }
+    
+    public void activate() {
+    }
 }

@@ -19,6 +19,7 @@ public class DoubleJump extends Bonus{
         super(b);
     }
     
+    @Override
     public void activate() {
         
         fireActivateDoubleJump();
