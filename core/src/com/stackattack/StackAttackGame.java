@@ -292,11 +292,9 @@ public class StackAttackGame extends Game{
         if(chance == 3) {
             
             int bonusChance = random.nextInt(2);
-            System.out.println("bonus chance " + bonusChance);
             
             if(bonusChance == 1) {
                 // генерируем бонус
-                System.out.println("bonus # " + bonusChance);
                 bonusChance = random.nextInt(5);
                 newBonus = createBonus(bonusChance);
             }
