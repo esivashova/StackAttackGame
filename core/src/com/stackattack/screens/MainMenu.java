@@ -14,13 +14,7 @@ public class MainMenu implements Screen {
     private final float appWidth = 1024;
     private final float appHeight = 660;
 
-    private static final int START_BUTTON_WIDTH = 300;
-    private static final int START_BUTTON_HEIGHT = 150;
-    private static final int EXIT_BUTTON_WIDTH = 300;
-    private static final int EXIT_BUTTON_HEIGHT = 150;
-    private static final int START_BUTTON_Y = 200;
-    private static final int EXIT_BUTTON_Y = 200;
-   StackAttackGame game;
+    StackAttackGame game;
 
     OrthographicCamera camera;
     BitmapFont debug;
@@ -56,33 +50,44 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.getBatch().begin();
-        game.getBatch().draw(title, 350, 350);
+        game.getBatch().draw(title, 200, 300);
 
-        int x1 = 250;
-        if (Gdx.input.getX() < START_BUTTON_WIDTH && Gdx.input.getX() > x1 && Gdx.input.getY() < START_BUTTON_Y + START_BUTTON_HEIGHT && Gdx.input.getY()> START_BUTTON_Y) {
-            game.getBatch().draw(startbt_select, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
+        if (Gdx.input.getX() < 396 && Gdx.input.getX() > 100 && Gdx.input.getY() < 560 && Gdx.input.getY()> 432) {
+            
+            game.getBatch().draw(startbt_select, 100, 100, 296, 128);
+            
             if (Gdx.input.isTouched()) {
-               // game.setGameField(new GameField(game, 16, 10));
+               
                 game.start();
                 game.setScreen(game.getField());
             }
-        } else {
-            game.getBatch().draw(startbt, x1, START_BUTTON_Y, START_BUTTON_WIDTH, START_BUTTON_HEIGHT);
+        } 
+        
+        else {
+            
+            game.getBatch().draw(startbt,  100, 100, 296, 128);
         }
-        int x2 = 700;
-        if (Gdx.input.getX() < x2 + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x2 && Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT && Gdx.input.getY() > EXIT_BUTTON_Y) {
-            game.getBatch().draw(exitbt_select, x2, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+
+        if (Gdx.input.getX() < 924 && Gdx.input.getX() > 628 && Gdx.input.getY() < 560 && Gdx.input.getY() > 432) {
+            
+            game.getBatch().draw(exitbt_select, 628, 100, 296, 128);
+            
             if (Gdx.input.isTouched()) {
 
                 Gdx.app.exit();
             }
-        } else {
-            game.getBatch().draw(exitbt, x2, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+        } 
+        
+        else {
+            
+            game.getBatch().draw(exitbt, 628, 100, 296, 128);
         }
+        
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 
             Gdx.app.exit();
         }
+        
         game.getBatch().end();
 
     }
@@ -114,7 +119,6 @@ public class MainMenu implements Screen {
         startbt_select.dispose();
         exitbt.dispose();
         exitbt_select.dispose();
-
     }
 
 }
