@@ -110,7 +110,7 @@ public class StackAttackGame extends Game{
                 {
                     if(b != null)
                     {
-                        b.setTexture(getTextureByColor(b.getColor()));
+                        b.setTexture(getTextureByColor(b.getColor(), b.canBeBroken()));
                     }
                 }
             }
@@ -407,8 +407,14 @@ public class StackAttackGame extends Game{
     private Box generateRandomBox() {
         
         int color = random.nextInt(4);
+        
+        boolean canBeBroken = false;
+        
+        int chance = random.nextInt(4);
+        if(chance == 3)
+            canBeBroken = true;
             
-        return new Box(field, 1, getColorByNumber(color));   
+        return new Box(field, 1, getColorByNumber(color), canBeBroken);   
     }
     
     private void placeBox(Box box) {
@@ -476,24 +482,48 @@ public class StackAttackGame extends Game{
         return null;
     }
     
-    public Texture getTextureByColor(String col) {
+    public Texture getTextureByColor(String col, boolean canBeBroken) {
         
-        if(col.equals("grey"))
+        if(col.equals("grey")) {
+            
+            if(canBeBroken)
+                return boxGreyBr;
+            
             return boxGrey;
+        }
                 
-        if(col.equals("red"))
+        if(col.equals("red")) {
+            
+            if(canBeBroken)
+                return boxRedBr;
+            
             return boxRed;
+        }
                 
-        if(col.equals("blue"))
+        if(col.equals("blue")) {
+            
+            if(canBeBroken)
+                return boxBlueBr;
+            
             return boxBlue;
+        }
              
-        if(col.equals("yellow"))
+        if(col.equals("yellow")) {
+            
+            if(canBeBroken)
+                return boxYellowBr;
+            
             return boxYellow;
+        }
                 
-        if(col.equals("green"))
+        if(col.equals("green")) {
+            
+            if(canBeBroken)
+                return boxGreenBr;
+            
             return boxGreen;
-        
-   
+        }
+
         return null;
     }
     
