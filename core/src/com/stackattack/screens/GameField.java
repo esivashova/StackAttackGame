@@ -546,22 +546,22 @@ public class GameField implements Screen {
         
         ArrayList<Bonus> _neighboures = new ArrayList<Bonus>();
         
-        Box temp;
+        Bonus temp;
         
         switch (dir) {
             
             case LEFT:
 
                 for(int i = box.getPosition().x - 1; i >= 0; i--) {
-                    if(boxes.get(box.getPosition().y).get(i) != null)
+                    if(bonuses.get(box.getPosition().y).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, box.getPosition().y)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, box.getPosition().y));
+                    temp = findBonus(new Point(i, box.getPosition().y));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
@@ -574,15 +574,15 @@ public class GameField implements Screen {
 
                 for(int i = box.getPosition().x + 1; i < width; i++)
                 {
-                    if(boxes.get(box.getPosition().y).get(i) != null)
+                    if(bonuses.get(box.getPosition().y).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, box.getPosition().y)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, box.getPosition().y));
+                    temp = findBonus(new Point(i, box.getPosition().y));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
@@ -595,7 +595,7 @@ public class GameField implements Screen {
 
                 for(int i = box.getPosition().y + 1; i < height; i++)
                 {
-                    if(boxes.get(i).get(box.getPosition().x) != null)
+                    if(bonuses.get(i).get(box.getPosition().x) != null)
                         _neighboures.add(findBonus(new Point(box.getPosition().x, i)));
                     else
                         return _neighboures;
@@ -607,7 +607,7 @@ public class GameField implements Screen {
 
                 for(int i = box.getPosition().y - 1; i >= 0; i--)
                 {
-                    if(boxes.get(i).get(box.getPosition().x) != null)
+                    if(bonuses.get(i).get(box.getPosition().x) != null)
                         _neighboures.add(findBonus(new Point(box.getPosition().x, i)));
                     else
                         return _neighboures;
@@ -618,15 +618,15 @@ public class GameField implements Screen {
             case LEFT_UP:
 
                 for(int i = box.getPosition().x - 1; i >= 0; i--) {
-                    if(boxes.get(box.getPosition().y + 1).get(i) != null)
+                    if(bonuses.get(box.getPosition().y + 1).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, box.getPosition().y + 1)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, box.getPosition().y + 1));
+                    temp = findBonus(new Point(i, box.getPosition().y + 1));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
@@ -639,15 +639,15 @@ public class GameField implements Screen {
 
                 for(int i = box.getPosition().x + 1; i < width; i++)
                 {
-                    if(boxes.get(box.getPosition().y + 1).get(i) != null)
+                    if(bonuses.get(box.getPosition().y + 1).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, box.getPosition().y + 1)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, box.getPosition().y + 1));
+                    temp = findBonus(new Point(i, box.getPosition().y + 1));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
@@ -664,22 +664,22 @@ public class GameField implements Screen {
         
         ArrayList<Bonus> _neighboures = new ArrayList<Bonus>();
         
-        Box temp;
+        Bonus temp;
         
         switch (dir) {
             
             case LEFT:
 
                 for(int i = bonus.getPosition().x - 1; i >= 0; i--) {
-                    if(boxes.get(bonus.getPosition().y).get(i) != null)
+                    if(bonuses.get(bonus.getPosition().y).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, bonus.getPosition().y)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, bonus.getPosition().y));
+                    temp = findBonus(new Point(i, bonus.getPosition().y));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
@@ -692,15 +692,15 @@ public class GameField implements Screen {
 
                 for(int i = bonus.getPosition().x + 1; i < width; i++)
                 {
-                    if(boxes.get(bonus.getPosition().y).get(i) != null)
+                    if(bonuses.get(bonus.getPosition().y).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, bonus.getPosition().y)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, bonus.getPosition().y));
+                    temp = findBonus(new Point(i, bonus.getPosition().y));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
@@ -713,7 +713,7 @@ public class GameField implements Screen {
 
                 for(int i = bonus.getPosition().y + 1; i < height; i++)
                 {
-                    if(boxes.get(i).get(bonus.getPosition().x) != null)
+                    if(bonuses.get(i).get(bonus.getPosition().x) != null)
                         _neighboures.add(findBonus(new Point(bonus.getPosition().x, i)));
                     else
                         return _neighboures;
@@ -725,7 +725,7 @@ public class GameField implements Screen {
 
                 for(int i = bonus.getPosition().y - 1; i >= 0; i--)
                 {
-                    if(boxes.get(i).get(bonus.getPosition().x) != null)
+                    if(bonuses.get(i).get(bonus.getPosition().x) != null)
                         _neighboures.add(findBonus(new Point(bonus.getPosition().x, i)));
                     else
                         return _neighboures;
@@ -736,15 +736,15 @@ public class GameField implements Screen {
             case LEFT_UP:
 
                 for(int i = bonus.getPosition().x - 1; i >= 0; i--) {
-                    if(boxes.get(bonus.getPosition().y + 1).get(i) != null)
+                    if(bonuses.get(bonus.getPosition().y + 1).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, bonus.getPosition().y + 1)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, bonus.getPosition().y + 1));
+                    temp = findBonus(new Point(i, bonus.getPosition().y + 1));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
@@ -757,15 +757,15 @@ public class GameField implements Screen {
 
                 for(int i = bonus.getPosition().x + 1; i < width; i++)
                 {
-                    if(boxes.get(bonus.getPosition().y + 1).get(i) != null)
+                    if(bonuses.get(bonus.getPosition().y + 1).get(i) != null)
                         _neighboures.add(findBonus(new Point(i, bonus.getPosition().y + 1)));
                     else
                         return _neighboures;
                     
-                    temp = findBox(new Point(i, bonus.getPosition().y + 1));
+                    temp = findBonus(new Point(i, bonus.getPosition().y + 1));
                     
                     for(int j = temp.getPosition().y + 1; j < height; j++) {
-                         if(boxes.get(j).get(temp.getPosition().x) != null)
+                         if(bonuses.get(j).get(temp.getPosition().x) != null)
                             _neighboures.add(findBonus(new Point(temp.getPosition().x, j)));
                         else
                             break;
