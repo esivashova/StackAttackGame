@@ -4,24 +4,22 @@ import com.stackattack.screens.MainMenu;
 import com.stackattack.screens.GameOverScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Preferences;
 import com.stackattack.objects.Player;
 import com.stackattack.objects.Box;
 import com.stackattack.objects.Score;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.stackattack.bonuses.*;
 import com.stackattack.screens.GameField;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
-import java.util.TreeMap;
+import com.stackattack.bonuses.TYPE_BONUS;
 import java.util.Random;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import java.io.*;
 
 public class StackAttackGame extends Game{
     
@@ -112,7 +110,7 @@ public class StackAttackGame extends Game{
                 {
                     if(b != null)
                     {
-                        b.setTexture(getTextureByColor(b.getColor(), b.canBeBroken()));
+                        b.setTexture(getTextureByColor(b.getColor(), b.canBeBroken(), b.getBonus()));
                     }
                 }
             }
@@ -181,6 +179,11 @@ public class StackAttackGame extends Game{
             if(i==5) continue;
             Box newBox = generateRandomBox();
             newBox.setPosition(new Point(i, 0));
+            
+            if(newBox.getBonus() != null) {
+                newBox.getBonus().setPosition(new Point(i, 0));
+            }
+            
             field.addBox(newBox, newBox.getPosition());
         }
         
@@ -188,6 +191,11 @@ public class StackAttackGame extends Game{
             
             Box newBox = generateRandomBox();
             newBox.setPosition(new Point(i, 1));
+            
+            if(newBox.getBonus() != null) {
+                newBox.getBonus().setPosition(new Point(i, 1));
+            }
+            
             field.addBox(newBox, newBox.getPosition());
         }
 //        // Генерация коробок
@@ -411,12 +419,30 @@ public class StackAttackGame extends Game{
         int color = random.nextInt(4);
         
         boolean canBeBroken = false;
+        Bonus newBonus = null;
         
         int chance = random.nextInt(4);
-        if(chance == 3)
-            canBeBroken = true;
+        if(chance == 3) {
             
-        return new Box(field, 1, getColorByNumber(color), canBeBroken);   
+            int bonusChance = random.nextInt(2);
+            System.out.println("bonus chance " + bonusChance);
+            
+            if(bonusChance == 1) {
+                // генерируем бонус
+                System.out.println("bonus # " + bonusChance);
+                bonusChance = random.nextInt(5);
+                newBonus = createBonus(bonusChance);
+            }
+            
+            canBeBroken = true;
+        }
+           
+        Box newBox = new Box(field, 1, getColorByNumber(color), canBeBroken, newBonus);
+        
+        if(newBonus != null)
+            newBonus.setBox(newBox);
+        
+        return newBox;
     }
     
     private void placeBox(Box box) {
@@ -424,6 +450,10 @@ public class StackAttackGame extends Game{
         int column = random.nextInt(field.getWidth());
         box.setPosition(new Point(column, field.getHeight() - 1));
         field.addBox(box, new Point(column, field.getHeight() - 1));
+        
+        if(box.getBonus() != null) {
+            box.getBonus().setPosition(new Point(column, field.getHeight() - 1));
+        }
     }
     
     public Box createNewBox() {
@@ -434,6 +464,56 @@ public class StackAttackGame extends Game{
         field.setTimeToNewBox(TimeUtils.millis());
         
         return newBox;
+    }
+    
+    private Bonus createBonus(int num) {
+        switch(num) {
+            
+            case 0:
+                return new AdditionLife(field);
+                
+            case 1:
+                return new AdditionPoints(field);
+                
+            case 2:
+                return new DoubleJump(field);
+             
+            case 3:    
+                return new RemovingBottomRow(field);
+                
+            case 4:
+                return new RemovingColor(field);
+        }
+        
+        return null;
+    }
+    
+    public Texture getBonusTexture(TYPE_BONUS type) {
+        
+        
+        switch (type) {
+            case ADD_LIFE:
+                
+                return life;
+                
+            case DOUBLE_JUMP:
+                
+                return doubleJump;
+               
+            case ADD_POINTS:
+                
+                return points;
+                
+            case REMOVE_BOTTOM_ROW: 
+                
+                return minusRow;
+                
+            case REMOVE_COLOR: 
+                
+                return colorTx;
+        }
+        
+        return null;
     }
     
     //----------------------------------------
@@ -484,11 +564,11 @@ public class StackAttackGame extends Game{
         return null;
     }
     
-    public Texture getTextureByColor(String col, boolean canBeBroken) {
+    public Texture getTextureByColor(String col, boolean canBeBroken, Bonus bonus) {
         
         if(col.equals("grey")) {
             
-            if(canBeBroken)
+            if(canBeBroken && bonus == null)
                 return boxGreyBr;
             
             return boxGrey;
@@ -496,7 +576,7 @@ public class StackAttackGame extends Game{
                 
         if(col.equals("red")) {
             
-            if(canBeBroken)
+            if(canBeBroken && bonus == null)
                 return boxRedBr;
             
             return boxRed;
@@ -504,7 +584,7 @@ public class StackAttackGame extends Game{
                 
         if(col.equals("blue")) {
             
-            if(canBeBroken)
+            if(canBeBroken && bonus == null)
                 return boxBlueBr;
             
             return boxBlue;
@@ -512,7 +592,7 @@ public class StackAttackGame extends Game{
              
         if(col.equals("yellow")) {
             
-            if(canBeBroken)
+            if(canBeBroken && bonus == null)
                 return boxYellowBr;
             
             return boxYellow;
@@ -520,7 +600,7 @@ public class StackAttackGame extends Game{
                 
         if(col.equals("green")) {
             
-            if(canBeBroken)
+            if(canBeBroken && bonus == null)
                 return boxGreenBr;
             
             return boxGreen;
