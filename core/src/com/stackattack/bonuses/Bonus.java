@@ -6,8 +6,11 @@
 package com.stackattack.bonuses;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.stackattack.objects.GameObject;
+import com.stackattack.objects.MovableObject;
 import com.stackattack.events.GameListener;
 import com.stackattack.events.MoveListener;
+import com.stackattack.navigation.DIRECTION;
 import com.stackattack.screens.GameField;
 import com.stackattack.objects.Box;
 import java.awt.Point;
@@ -17,10 +20,11 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public abstract class Bonus {
+public abstract class Bonus extends GameObject implements MovableObject {
     
     public Bonus(GameField f) {
-        field = f;
+        
+        super(f);
     }
     
     protected Box box;
@@ -33,7 +37,6 @@ public abstract class Bonus {
         box = b;
     }
     
-    protected GameField field;
     
     protected TYPE_BONUS type;
     
@@ -41,39 +44,68 @@ public abstract class Bonus {
         return type;
     }
     
-    protected Texture tx;
-    
-    public void setTexture(Texture _tx) {
-        tx = _tx;
-    }
-    
+    @Override
      public void paint(Texture bonusTx, SpriteBatch batch) {
         
-        tx = bonusTx;
+        subjtx = bonusTx;
 //        subject.setPosition(position.x*10, position.y*10);
 //        subject.draw(batch);  
-        batch.draw(tx, position.x*64, position.y*64, 64, 64);
+        batch.draw(subjtx, position.x*64, position.y*64, 64, 64);
     }
     
     public abstract void activate();
     
-    private Point position;
-    
-    public Point getPosition() {
-        
-        return position;
-    }
-    
-    public void setPosition(Point pos) {
-        
-        if(checkPosition(pos))
-            position = pos;
-    }
-    
-    private boolean checkPosition(Point pos) {
+    @Override
+    protected boolean checkPosition(Point pos) {
         
         return (pos.x >= 0 && pos.x < field.getWidth()
                 && pos.y >= 0 && pos.y < field.getHeight());
+    }
+    
+    @Override
+    public boolean move(DIRECTION dir) {
+        Point pos;
+        
+        if(canBeMoved(dir)) {
+            switch (dir) {
+                case LEFT:
+                    break;
+
+                case RIGHT:
+                    break;
+
+                case UP: //fantstic
+                    break;
+
+                case DOWN:
+                    
+                    field.removeBonus(position);
+                    position.y--;
+                    
+                    field.addBonus(this, position);
+                    
+                    break;
+
+                case LEFT_UP: //fantastic
+                    break;
+
+                case RIGHT_UP: //fantastic
+                    break;
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean canBeMoved(DIRECTION dir) {
+        
+        if(dir == DIRECTION.DOWN) {
+            return (position.y - 1 >= 0 && field.findNeighbour(this, dir).size() < 1
+                    && field.findNeighbourBonuses(this, dir).size() < 1);
+        }
+        else
+            return false;
     }
     
     // Список слушателей
