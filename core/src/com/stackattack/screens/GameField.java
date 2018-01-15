@@ -550,15 +550,15 @@ public class GameField implements Screen {
     }
     
     public void drawScore() {
-        score.draw(game.getBatch(), "Score: " + game.getScore().getValue(), 700, 700);
+        score.draw(game.getBatch(), "Score: " + game.getScore().getValue(), 800, 650);
     }
     
     public void drawLives() {
-        lives.draw(game.getBatch(), "Lives: " + game.getPlayer().getAmountOfLives(), 50, 700);
+        lives.draw(game.getBatch(), "Lives: " + game.getPlayer().getAmountOfLives(), 50, 650);
     }
     
     public void drawDoubleJump() {
-        doubleJump.draw(game.getBatch(), "DOUBLE JUMP", 325, 700);
+        doubleJump.draw(game.getBatch(), "DOUBLE JUMP", 400, 650);
     }
     
     public void paintBoxes() {
@@ -639,7 +639,7 @@ public class GameField implements Screen {
         drawScore();
         drawLives();
         
-        if(game.getPlayer().getHeightToJump() == 2)
+        //if(game.getPlayer().getHeightToJump() == 2)
             drawDoubleJump();
           
         game.getPlayer().paint(game.getBatch());
@@ -804,6 +804,7 @@ public class GameField implements Screen {
         
         background.setPosition(0, 0);
         background.draw(game.getBatch());
+        //batch.draw(backgroundTx, 0, 0, 1024, 660);
     }
     
     @Override
