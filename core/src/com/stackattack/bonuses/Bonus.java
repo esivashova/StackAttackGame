@@ -5,6 +5,7 @@
  */
 package com.stackattack.bonuses;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.screens.GameField;
 import com.stackattack.objects.Box;
 import java.awt.Point;
@@ -41,6 +42,14 @@ public abstract class Bonus {
     
     public void setTexture(Texture _tx) {
         tx = _tx;
+    }
+    
+     public void paint(Texture bonusTx, SpriteBatch batch) {
+        
+        tx = bonusTx;
+//        subject.setPosition(position.x*10, position.y*10);
+//        subject.draw(batch);  
+        batch.draw(tx, position.x*64, position.y*64, 64, 64);
     }
     
     public abstract void activate();
