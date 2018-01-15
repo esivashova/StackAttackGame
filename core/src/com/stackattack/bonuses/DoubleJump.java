@@ -29,26 +29,6 @@ public class DoubleJump extends Bonus{
     
     // ------------------------ События и слушатели -------------------------
   
-    // Список слушателей
-    private ArrayList _listenersList = new ArrayList(); 
- 
-    /**
-     * Присоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void addGameListener(GameListener l) { 
-        _listenersList.add(l); 
-    }
-    
-    /**
-     * Отсоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void removeGameListener(GameListener l) { 
-        _listenersList.remove(l); 
-    } 
     
     
     /**
@@ -59,7 +39,7 @@ public class DoubleJump extends Bonus{
     private void fireActivateDoubleJump() {
         
         GameEvent event = new GameEvent(this);
-        for (Object listener : _listenersList)
+        for (Object listener : _listGameList)
         {
             ((GameListener)listener).activateDoubleJump(event);
         }

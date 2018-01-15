@@ -25,30 +25,9 @@ public class AdditionLife extends Bonus{
     public void activate() {
         
         fireAddLife();
+        //field.getGame().getPlayer().addLife();
     }
     
-    // ------------------------ События и слушатели -------------------------
-  
-    // Список слушателей
-    private ArrayList _listenersList = new ArrayList(); 
- 
-    /**
-     * Присоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void addGameListener(MoveListener l) { 
-        _listenersList.add(l); 
-    }
-    
-    /**
-     * Отсоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void removeGameListener(MoveListener l) { 
-        _listenersList.remove(l); 
-    } 
     
     
     /**
@@ -59,7 +38,7 @@ public class AdditionLife extends Bonus{
     private void fireAddLife() {
         
         MoveEvent event = new MoveEvent(this);
-        for (Object listener : _listenersList)
+        for (Object listener : _listMoveList)
         {
             ((MoveListener)listener).addLife(event);
         }
