@@ -376,6 +376,12 @@ public class StackAttackGame extends Game{
         }
         
         @Override
+        public void bonusBind(GameEvent e, Bonus bonus) {
+            bonus.addGameListener(new GameEventObserver(game));
+        }
+        
+        
+        @Override
         public void activateDoubleJump(GameEvent e) {
             player.setHeightToJump(2);
             doubleJumpTime = TimeUtils.millis();
