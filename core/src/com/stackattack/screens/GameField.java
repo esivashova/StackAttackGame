@@ -895,6 +895,16 @@ public class GameField implements Screen {
             }
         }
         
+        for(ArrayList<Bonus> _bon : bonuses) {
+            for(Bonus b : _bon) {
+                if(b != null) {
+                    if(b.getPosition().y != 0
+                        && findNeighbour(b, DIRECTION.DOWN).size() == 0)
+                        b.move(DIRECTION.DOWN);
+                }
+            }
+        }
+        
         if(game.getPlayer().getPosition().y != 0
                 && findNeighbour(game.getPlayer(), DIRECTION.DOWN, false).size() == 0)
             game.getPlayer().makeMove(DIRECTION.DOWN);
