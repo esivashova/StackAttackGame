@@ -8,12 +8,13 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.stackattack.StackAttackGame;
+import com.stackattack.bonuses.TYPE_BONUS;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
 import com.stackattack.navigation.DIRECTION;
+import com.stackattack.bonuses.*;
 import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 import java.awt.Point;
@@ -126,10 +127,40 @@ public class Player {
         if(canMove(dir)) {
             
             ArrayList<Box> boxes = field.findNeighbour(this, dir);
+            Bonus temp;
             
             switch (dir) {
                 case LEFT:
                      
+//                    System.out.println("STEP " + field.getBonuses().size());
+//                    if(field.getBonuses().get(position.x - 1).get(position.y) != null) {
+//                        
+//                        temp = field.getBonuses().get(position.x - 1).get(position.y);
+//                        
+//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                            AdditionLife temp2 = (AdditionLife)temp;
+//                            temp2.addGameListener(new MoveEventObserver());
+//                        }
+//                        
+//                        field.getBonuses().get(position.x - 1).get(position.y).activate();
+//                        field.removeBonus(new Point(position.x - 1, position.y));
+//                    }
+//                    
+//                    if(position.y + 1 < field.getHeight() - 1) {
+//                        if(field.getBonuses().get(position.x - 1).get(position.y + 1) != null) {
+//
+//                            temp = field.getBonuses().get(position.x - 1).get(position.y + 1);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x - 1).get(position.y + 1).activate();
+//                            field.removeBonus(new Point(position.x - 1, position.y + 1));
+//                        }
+//                    }
+                    
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
                             box.move(dir);
@@ -139,6 +170,34 @@ public class Player {
                     break;
                         
                 case RIGHT:
+                    
+//                    if(field.getBonuses().get(position.x + 1).get(position.y) != null) {
+//                        
+//                        temp = field.getBonuses().get(position.x + 1).get(position.y);
+//                        
+//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                            AdditionLife temp2 = (AdditionLife)temp;
+//                            temp2.addGameListener(new MoveEventObserver());
+//                        }
+//                        
+//                        field.getBonuses().get(position.x + 1).get(position.y).activate();
+//                        field.removeBonus(new Point(position.x + 1, position.y));
+//                    }
+//                    
+//                    if(position.y + 1 < field.getHeight() - 1) {
+//                        if(field.getBonuses().get(position.x + 1).get(position.y + 1) != null) {
+//                        
+//                            temp = field.getBonuses().get(position.x + 1).get(position.y + 1);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x + 1).get(position.y + 1).activate();
+//                            field.removeBonus(new Point(position.x + 1, position.y + 1));
+//                        }
+//                    }
                     
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
@@ -150,15 +209,101 @@ public class Player {
 
                 case UP: 
                     
+//                    if(position.y + heightToJump < field.getHeight() - 1) {
+//                        if(field.getBonuses().get(position.x).get(position.y + heightToJump) != null) {
+//
+//                            temp = field.getBonuses().get(position.x).get(position.y + heightToJump);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x).get(position.y + heightToJump).activate();
+//                            field.removeBonus(new Point(position.x, position.y + heightToJump));
+//                        }
+//                    }
+//                    
+//                    if(position.y + heightToJump + 1 < field.getHeight() - 1) {
+//                        if(field.getBonuses().get(position.x).get(position.y + heightToJump + 1) != null) {
+//
+//                            temp = field.getBonuses().get(position.x).get(position.y + heightToJump + 1);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x).get(position.y + heightToJump + 1).activate();
+//                            field.removeBonus(new Point(position.x, position.y + heightToJump + 1));
+//                        }
+//                    }
+                    
                     position.y += heightToJump;
                     break;
 
                 case DOWN:
                     
+//                    if(field.getBonuses().get(position.x).get(position.y - 1) != null) {
+//                        
+//                        temp = field.getBonuses().get(position.x).get(position.y - 1);
+//                        
+//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                            AdditionLife temp2 = (AdditionLife)temp;
+//                            temp2.addGameListener(new MoveEventObserver());
+//                        }
+//                        
+//                        field.getBonuses().get(position.x).get(position.y - 1).activate();
+//                        field.removeBonus(new Point(position.x, position.y - 1));
+//                    }
+//                    
+//                    if(field.getBonuses().get(position.x).get(position.y) != null) {
+//                        
+//                        temp = field.getBonuses().get(position.x).get(position.y);
+//                        
+//                        if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                            AdditionLife temp2 = (AdditionLife)temp;
+//                            temp2.addGameListener(new MoveEventObserver());
+//                        }
+//                        
+//                        field.getBonuses().get(position.x).get(position.y).activate();
+//                        field.removeBonus(new Point(position.x, position.y));
+//                    }
+                    
                     position.y--;
                     break;
 
                 case LEFT_UP:
+                    
+//                   if(position.y + heightToJump < field.getHeight() - 1) {
+//                        if(field.getBonuses().get(position.x - 1).get(position.y + heightToJump) != null) {
+//
+//                            temp = field.getBonuses().get(position.x - 1).get(position.y + heightToJump);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x - 1).get(position.y + heightToJump).activate();
+//                            field.removeBonus(new Point(position.x - 1, position.y + heightToJump));
+//                        }
+//                    }
+//                    
+//                    if(position.y + heightToJump + 1 < field.getHeight() - 1) {
+//                        if(field.getBonuses().get(position.x - 1).get(position.y + heightToJump + 1) != null) {
+//
+//                            temp = field.getBonuses().get(position.x - 1).get(position.y + heightToJump + 1);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x - 1).get(position.y + heightToJump + 1).activate();
+//                            field.removeBonus(new Point(position.x - 1, position.y + heightToJump + 1));
+//                        }
+//                    }
                     
                     position.y += heightToJump;
                     
@@ -173,6 +318,37 @@ public class Player {
                 case RIGHT_UP: 
                     
    
+//                    if(position.y + heightToJump < field.getHeight() - 1) {
+//                        if(field.getBonuses().get(position.x + 1).get(position.y + heightToJump) != null) {
+//
+//                            temp = field.getBonuses().get(position.x + 1).get(position.y + heightToJump);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x + 1).get(position.y + heightToJump).activate();
+//                            field.removeBonus(new Point(position.x + 1, position.y + heightToJump));
+//                        }
+//                    }
+//                    
+//                    if(position.y + heightToJump + 1 < field.getHeight() + 1) {
+//                        if(field.getBonuses().get(position.x + 1).get(position.y + heightToJump + 1) != null) {
+//
+//                            temp = field.getBonuses().get(position.x + 1).get(position.y + heightToJump + 1);
+//
+//                            if(temp.getType() == TYPE_BONUS.ADD_LIFE) {
+//                                AdditionLife temp2 = (AdditionLife)temp;
+//                                temp2.addGameListener(new MoveEventObserver());
+//                            }
+//
+//                            field.getBonuses().get(position.x + 1).get(position.y + heightToJump + 1).activate();
+//                            field.removeBonus(new Point(position.x + 1, position.y + heightToJump + 1));
+//                        }
+//                    }
+                    
+                    
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
                             box.move(DIRECTION.RIGHT);
@@ -239,6 +415,12 @@ public class Player {
             
             Box box = field.findNeighbour(this, dir).get(0);
             
+            if(box.getBonus() != null) {
+                field.addBonus(box.getBonus(), box.getBonus().getPosition());
+            }
+            
+            box.setBonus(null);
+            
             if(box.canBeBroken()) {
                 
                 field.removeBox(box.getPosition());
@@ -282,6 +464,42 @@ public class Player {
             if(!field.findNeighbour(this, DIRECTION.UP).get(0).canBeBroken()
                     || !Gdx.input.isKeyPressed(Input.Keys.SPACE))
                 die(field.findNeighbour(this, DIRECTION.UP));
+        }
+        
+        //Bonus temp;
+        
+       // System.out.println("STEP " + field.getBonuses().size());
+        if(field.getBonuses().get(position.y).get(position.x) != null) {
+           // temp = field.getBonuses().get(position.y).get(position.x);
+           MoveEventObserver temp = new MoveEventObserver();
+                    
+            if(field.getBonuses().get(position.y).get(position.x).getType() == TYPE_BONUS.ADD_LIFE) {
+               field.getBonuses().get(position.y).get(position.x).addGameListener(temp);
+            
+            }
+            else {
+                fireBonusBind(field.getBonuses().get(position.y).get(position.x));
+            }
+
+            field.getBonuses().get(position.y).get(position.x).activate();
+            
+            field.removeBonus(new Point(position.x, position.y));
+        }
+        
+        if(field.getBonuses().get(position.y + 1).get(position.x) != null) {
+            MoveEventObserver temp = new MoveEventObserver();
+                    
+            if(field.getBonuses().get(position.y + 1).get(position.x).getType() == TYPE_BONUS.ADD_LIFE) {
+               field.getBonuses().get(position.y + 1).get(position.x).addGameListener(temp);
+            
+            }
+            else {
+                fireBonusBind(field.getBonuses().get(position.y).get(position.x));
+            }
+
+            field.getBonuses().get(position.y + 1).get(position.x).activate();
+            
+            field.removeBonus(new Point(position.x, position.y + 1));
         }
     }
     
@@ -331,6 +549,10 @@ public class Player {
         }
     }
     
+    public void addLife() {
+            addAmountOfLives(1);
+        }
+    
     
     // ------------------------ События и слушатели -------------------------
   
@@ -367,6 +589,15 @@ public class Player {
         for (Object listener : _listenersList)
         {
             ((GameListener)listener).gameFinished(event);
+        }
+    }
+    
+    private void fireBonusBind(Bonus b) {
+        
+        GameEvent event = new GameEvent(this);
+        for (Object listener : _listenersList)
+        {
+            ((GameListener)listener).bonusBind(event, b);
         }
     }
 }
