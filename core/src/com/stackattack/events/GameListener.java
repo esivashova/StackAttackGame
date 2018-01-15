@@ -1,6 +1,7 @@
 package com.stackattack.events;
 
 import java.util.EventListener;
+import com.stackattack.bonuses.Bonus;
 
 
 /**
@@ -13,4 +14,5 @@ public interface GameListener extends EventListener {
     public void addPoints(GameEvent e, int points);
     public void removeBottomRow(GameEvent e);
     public void removeColor(GameEvent e, String color);
+    public void bonusBind(GameEvent e, Bonus bonus);
 }
