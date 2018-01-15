@@ -17,7 +17,7 @@ import java.awt.Point;
  */
 public class Box {
     
-    public Box(GameField _field, int _weight, String _color) {
+    public Box(GameField _field, int _weight, String _color, boolean canBr) {
         if(_weight > 0)
             weight = _weight;
         else
@@ -28,6 +28,8 @@ public class Box {
         
         //subjtx = boxTx;
         //subject = new Sprite(subjtx);
+        
+        canBeBroken = canBr;
     }
     
     //--------------------------------------
@@ -70,6 +72,14 @@ public class Box {
     public String getColor() {
         
         return color;
+    }
+    
+    //-----------------------------------------------
+    
+    private boolean canBeBroken;
+    
+    public boolean canBeBroken() {
+        return canBeBroken;
     }
     
     //-----------------------------------------------
