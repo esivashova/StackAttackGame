@@ -1,7 +1,7 @@
 package com.stackattack.events;
 
 import java.util.EventListener;
-import navigation.DIRECTION;
+import com.stackattack.navigation.DIRECTION;
 
 /**
  * Слушатель изменения состояния игры

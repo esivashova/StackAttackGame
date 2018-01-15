@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.stackattack.screens;
-import navigation.DIRECTION;
+import com.stackattack.navigation.DIRECTION;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.Input;

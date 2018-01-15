@@ -13,7 +13,7 @@ import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
-import navigation.DIRECTION;
+import com.stackattack.navigation.DIRECTION;
 import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 import java.awt.Point;
