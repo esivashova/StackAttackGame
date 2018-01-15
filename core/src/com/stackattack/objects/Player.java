@@ -126,7 +126,7 @@ public class Player {
         
         if(canMove(dir)) {
             
-            ArrayList<Box> boxes = field.findNeighbour(this, dir);
+            ArrayList<Box> boxes = field.findNeighbour(this, dir, false);
             Bonus temp;
             
             switch (dir) {
@@ -370,43 +370,61 @@ public class Player {
         switch (dir) {
             case LEFT:
                 
-                if(field.findNeighbour(this, dir).size() > 0 && position.x - 1 <= 0)
+                if(field.findUpNeighbour(this, dir).size() > 0) {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! " +
+                +field.findUpNeighbour(this, dir).get(0).getPosition().x + " " + field.findUpNeighbour(this, dir).get(0).getPosition().y);
+                }
+                
+                
+                if((field.findNeighbour(this, dir, false).size() > 0 
+                        || field.findNeighbour(this, dir, true).size() > 0) 
+                        && position.x - 1 <= 0)
                     return false;
                 
-                return (position.x - 1 >= 0 && field.findNeighbour(this, dir).size() <= liftedWeight);
+                return (position.x - 1 >= 0 && field.findNeighbour(this, dir, false).size() <= liftedWeight
+                        && field.findNeighbour(this, dir, true).size() < 1);
                 
             case RIGHT:
                 
-                if(field.findNeighbour(this, dir).size() > 0 && position.x + 1 >= field.getWidth()-1)
+                if((field.findNeighbour(this, dir, false).size() > 0
+                        || field.findNeighbour(this, dir, true).size() > 0)
+                        && position.x + 1 >= field.getWidth()-1)
                     return false;
                 
-                return (position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() <= liftedWeight);
+                return (position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir, false).size() <= liftedWeight
+                        && field.findNeighbour(this, dir, true).size() < 1);
                 
             case UP: 
 
-                return (position.y + heightToJump + 1 <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0 
-                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN).size() > 0/*<= liftedWeight*/));
+                return (position.y + heightToJump + 1 <= field.getHeight()-1 && field.findNeighbour(this, dir, false).size() <= 0 
+                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN, false).size() > 0/*<= liftedWeight*/));
                 
             case DOWN:
-                return (position.y - 1 >= 0 && field.findNeighbour(this, dir).size() <= 0);
+                return (position.y - 1 >= 0 && field.findNeighbour(this, dir, false).size() <= 0);
                
             case LEFT_UP:
                 
-                if(field.findNeighbour(this, dir).size() > 0 && position.x - 1 <= 0)
+                if((field.findNeighbour(this, dir, false).size() > 0
+                        || field.findNeighbour(this, dir, true).size() > 0)
+                        && position.x - 1 <= 0)
                     return false;
                 
                 return (position.y + 1 + heightToJump <= field.getHeight()-1 /*&& field.findNeighbour(this, dir).size() <= 0*/
-                        && position.x - 1 >= 0 && field.findNeighbour(this, dir).size() <= liftedWeight
-                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN).size() > 0));
+                        && position.x - 1 >= 0 && field.findNeighbour(this, dir, false).size() <= liftedWeight
+                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN, false).size() > 0)
+                        && field.findNeighbour(this, dir, true).size() < 1);
                 
             case RIGHT_UP: 
                 
-                if(field.findNeighbour(this, dir).size() > 0 && position.x + 1 >= field.getWidth()-1)
+                if((field.findNeighbour(this, dir, false).size() > 0
+                        || field.findNeighbour(this, dir, true).size() < 1)
+                        && position.x + 1 >= field.getWidth()-1)
                     return false;
                 
                 return (position.y + 1 + heightToJump <= field.getHeight()-1 /*&& field.findNeighbour(this, dir).size() <= 0*/
-                        && position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir).size() <= liftedWeight
-                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN).size() > 0));
+                        && position.x + 1 <= field.getWidth()-1 && field.findNeighbour(this, dir, false).size() <= liftedWeight
+                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN, false).size() > 0)
+                        && field.findNeighbour(this, dir, true).size() < 1);
         }
         
         return false;
@@ -416,7 +434,7 @@ public class Player {
         
         if(canDestroy(dir)) {
             
-            Box box = field.findNeighbour(this, dir).get(0);
+            Box box = field.findNeighbour(this, dir, false).get(0);
             
             if(box.getBonus() != null) {
                 field.addBonus(box.getBonus(), box.getBonus().getPosition());
@@ -455,18 +473,18 @@ public class Player {
     
     public boolean canDestroy(DIRECTION dir) {
 
-        return (field.findNeighbour(this, dir).size() > 0);
+        return (field.findNeighbour(this, dir, false).size() > 0);
     }
     
     //---------------------------------------------------
     
     public void checkSituation() {
         
-        if(field.findNeighbour(this, DIRECTION.UP).size() >= 1) {
+        if(field.findNeighbour(this, DIRECTION.UP, false).size() >= 1) {
             
-            if(!field.findNeighbour(this, DIRECTION.UP).get(0).canBeBroken()
+            if(!field.findNeighbour(this, DIRECTION.UP, false).get(0).canBeBroken()
                     || !Gdx.input.isKeyPressed(Input.Keys.SPACE))
-                die(field.findNeighbour(this, DIRECTION.UP));
+                die(field.findNeighbour(this, DIRECTION.UP, false));
         }
         
         //Bonus temp;
