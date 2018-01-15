@@ -233,6 +233,46 @@ public class Player {
         return false;
     }
     
+    private void destroyBox(DIRECTION dir) {
+        
+        if(canDestroy(dir)) {
+            
+            Box box = field.findNeighbour(this, dir).get(0);
+            
+            if(box.canBeBroken()) {
+                
+                field.removeBox(box.getPosition());
+            }
+        }
+        
+        switch (dir) {
+            case LEFT:
+                
+                direction = false;
+                break;
+                
+            case RIGHT:
+                
+                direction = true;
+                break;
+               
+            case LEFT_UP:
+                
+                direction = false;
+                break;
+                
+            case RIGHT_UP: 
+                
+                direction = true;
+        }
+    }
+ 
+    
+    public boolean canDestroy(DIRECTION dir) {
+
+        return (field.findNeighbour(this, dir).size() > 0);
+    }
+    
     //---------------------------------------------------
     
     public void checkSituation() {
@@ -273,6 +313,12 @@ public class Player {
         public void moveIsDone(MoveEvent e, DIRECTION dir) {
 
             makeMove(dir);
+        }
+        
+         @Override
+        public void boxIsSelected(MoveEvent e, DIRECTION dir) {
+
+            destroyBox(dir);
         }
         
         @Override
