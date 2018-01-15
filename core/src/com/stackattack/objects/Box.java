@@ -121,6 +121,8 @@ public class Box {
     
     public boolean move(DIRECTION dir) {
         
+        Point pos;
+        
         if(canBeMoved(dir)) {
             switch (dir) {
                 case LEFT:
@@ -129,12 +131,25 @@ public class Box {
                     position.x--;
                     field.addBox(this, position);
                     
+                    if(bonus != null) {
+                        pos = bonus.getPosition();
+                        pos.x--;
+                        bonus.setPosition(pos);
+                    }
+                        
                     break;
 
                 case RIGHT:
                     field.removeBox(position);
                     position.x++;
                     field.addBox(this, position);
+                    
+                    if(bonus != null) {
+                        pos = bonus.getPosition();
+                        pos.x++;
+                        bonus.setPosition(pos);
+                    }
+                    
                     break;
 
                 case UP: //fantstic
@@ -144,6 +159,13 @@ public class Box {
                     field.removeBox(position);
                     position.y--;
                     field.addBox(this, position);
+                    
+                    if(bonus != null) {
+                        pos = bonus.getPosition();
+                        pos.y--;
+                        bonus.setPosition(pos);
+                    }
+                    
                     break;
 
                 case LEFT_UP: //fantastic
