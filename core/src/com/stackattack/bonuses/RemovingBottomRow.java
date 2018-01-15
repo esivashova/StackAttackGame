@@ -7,7 +7,6 @@ package com.stackattack.bonuses;
 
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
-import com.stackattack.objects.Box;
 import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 
@@ -19,6 +18,8 @@ public class RemovingBottomRow extends Bonus{
     
     public RemovingBottomRow(GameField f) {
         super(f);
+        
+        type = TYPE_BONUS.REMOVE_BOTTOM_ROW;
     }
     
     @Override

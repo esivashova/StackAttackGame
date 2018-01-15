@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.stackattack.bonuses;
-import com.stackattack.objects.Box;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.screens.GameField;
@@ -18,6 +17,8 @@ public class AdditionPoints extends Bonus{
     
     public AdditionPoints(GameField f) {
         super(f);
+        
+        type = TYPE_BONUS.ADD_POINTS;
     }
     
     @Override
