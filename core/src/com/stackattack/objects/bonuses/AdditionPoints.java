@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stackattack.bonuses;
-
+package com.stackattack.objects.bonuses;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.screens.GameField;
@@ -14,20 +13,19 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public class RemovingColor extends Bonus{
+public class AdditionPoints extends Bonus{
     
-    public RemovingColor(GameField f) {
+    public AdditionPoints(GameField f) {
         super(f);
         
-        type = TYPE_BONUS.REMOVE_COLOR;
+        type = TYPE_BONUS.ADD_POINTS;
     }
     
     @Override
     public void activate() {
         
-        fireRemoveBottomRow(box.getColor());
+        fireAddPoints();
     }
-    
     // ------------------------ События и слушатели -------------------------
   
    
@@ -38,12 +36,12 @@ public class RemovingColor extends Bonus{
      * 
      * @param  
      */
-    private void fireRemoveBottomRow(String color) {
+    private void fireAddPoints() {
         
         GameEvent event = new GameEvent(this);
         for (Object listener : _listGameList)
         {
-            ((GameListener)listener).removeColor(event, color);
+            ((GameListener)listener).addPoints(event, 5);
         }
     }
 }

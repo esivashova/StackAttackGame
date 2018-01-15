@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.stackattack.navigation.DIRECTION;
 import com.stackattack.screens.GameField;
-import com.stackattack.bonuses.Bonus;
+import com.stackattack.objects.bonuses.Bonus;
 import java.awt.Point;
 
 /**

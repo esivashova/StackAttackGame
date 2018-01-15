@@ -1,5 +1,11 @@
 package com.stackattack;
 
+import com.stackattack.objects.bonuses.AdditionPoints;
+import com.stackattack.objects.bonuses.Bonus;
+import com.stackattack.objects.bonuses.RemovingColor;
+import com.stackattack.objects.bonuses.RemovingBottomRow;
+import com.stackattack.objects.bonuses.DoubleJump;
+import com.stackattack.objects.bonuses.AdditionLife;
 import com.stackattack.screens.MainMenu;
 import com.stackattack.screens.GameOverScreen;
 import com.badlogic.gdx.Game;
@@ -11,11 +17,10 @@ import com.stackattack.objects.Box;
 import com.stackattack.objects.Score;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.stackattack.bonuses.*;
 import com.stackattack.screens.GameField;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
-import com.stackattack.bonuses.TYPE_BONUS;
+import com.stackattack.objects.bonuses.TYPE_BONUS;
 import java.util.Random;
 import java.awt.Point;
 import java.util.ArrayList;

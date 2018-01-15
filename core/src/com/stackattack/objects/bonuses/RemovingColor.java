@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stackattack.bonuses;
+package com.stackattack.objects.bonuses;
+
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.screens.GameField;
@@ -13,22 +14,23 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public class DoubleJump extends Bonus{
+public class RemovingColor extends Bonus{
     
-    public DoubleJump(GameField f) {
+    public RemovingColor(GameField f) {
         super(f);
         
-        type = TYPE_BONUS.DOUBLE_JUMP;
+        type = TYPE_BONUS.REMOVE_COLOR;
     }
     
     @Override
     public void activate() {
         
-        fireActivateDoubleJump();
+        fireRemoveBottomRow(box.getColor());
     }
     
     // ------------------------ События и слушатели -------------------------
   
+   
     
     
     /**
@@ -36,12 +38,12 @@ public class DoubleJump extends Bonus{
      * 
      * @param  
      */
-    private void fireActivateDoubleJump() {
+    private void fireRemoveBottomRow(String color) {
         
         GameEvent event = new GameEvent(this);
         for (Object listener : _listGameList)
         {
-            ((GameListener)listener).activateDoubleJump(event);
+            ((GameListener)listener).removeColor(event, color);
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.stackattack.events;
 
 import java.util.EventListener;
-import com.stackattack.bonuses.Bonus;
+import com.stackattack.objects.bonuses.Bonus;
 
 
 /**

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stackattack.bonuses;
+package com.stackattack.objects.bonuses;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
 import com.stackattack.screens.GameField;

@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.stackattack.StackAttackGame;
 import com.stackattack.objects.Box;
-import com.stackattack.bonuses.Bonus;
+import com.stackattack.objects.bonuses.Bonus;
 import com.stackattack.objects.Player;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;

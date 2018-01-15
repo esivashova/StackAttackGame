@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 package com.stackattack.objects;
+import com.stackattack.objects.bonuses.Bonus;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.stackattack.bonuses.TYPE_BONUS;
+import com.stackattack.objects.bonuses.TYPE_BONUS;
 import com.stackattack.events.GameEvent;
 import com.stackattack.events.GameListener;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
 import com.stackattack.navigation.DIRECTION;
-import com.stackattack.bonuses.*;
 import com.stackattack.screens.GameField;
 import java.util.ArrayList;
 import java.awt.Point;
