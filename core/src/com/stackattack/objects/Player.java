@@ -116,6 +116,7 @@ public class Player extends GameObject {
     
     public boolean makeMove(DIRECTION dir) {
         
+        boolean flag = true;
         
         if(canMove(dir)) {
             
@@ -124,23 +125,29 @@ public class Player extends GameObject {
             
             switch (dir) {
                 case LEFT:
- 
+
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
-                        for(Box box : boxes) 
-                            box.move(dir);
-                  
-                    position.x--;
-                    direction = false;
+                        for(Box box : boxes) { 
+                            flag = box.move(dir);
+                        }
+                    
+                    if(flag) {
+                        position.x--;
+                        direction = false;
+                    }
                     break;
                         
                 case RIGHT:
  
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
-                        for(Box box : boxes) 
-                            box.move(dir);
+                       for(Box box : boxes) { 
+                            flag = box.move(dir);
+                        }
                   
-                    position.x++;
-                    direction = true;
+                    if(flag) {
+                        position.x++;
+                        direction = true;
+                    }
                     break;
 
                 case UP: 
@@ -155,25 +162,30 @@ public class Player extends GameObject {
 
                 case LEFT_UP:
      
-                    position.y += heightToJump;
+                    
                     
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
-                            box.move(DIRECTION.LEFT);
+                            flag = box.move(DIRECTION.LEFT);
                   
-                    position.x--;
-                    direction = false;
+                    if(flag) {
+                        position.y += heightToJump;
+                        position.x--;
+                        direction = false;
+                    }
                     break;
 
                 case RIGHT_UP: 
                     
                     if(boxes.size() <= liftedWeight && boxes.size() > 0)
                         for(Box box : boxes) 
-                            box.move(DIRECTION.RIGHT);
+                            flag = box.move(DIRECTION.RIGHT);
                   
-                    position.y += heightToJump;
-                    position.x++;
-                    direction = true;
+                    if(flag) {
+                        position.y += heightToJump;
+                        position.x++;
+                        direction = true;
+                    }
                     break;
             }
             
@@ -235,7 +247,7 @@ public class Player extends GameObject {
             case RIGHT_UP: 
                 
                 if((field.findNeighbour(this, dir, false).size() > 0
-                        || field.findNeighbour(this, dir, true).size() < 1)
+                        || field.findNeighbour(this, dir, true).size() > 0)
                         && position.x + 1 >= field.getWidth()-1)
                     return false;
                 
