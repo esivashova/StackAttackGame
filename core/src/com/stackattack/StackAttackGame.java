@@ -165,6 +165,7 @@ public class StackAttackGame extends Game{
         */
         
         field = new GameField(this, 16, 10);
+        field.setBatch(batch);
         player = new Player(field, 1, 1);
         player.addGameListener(new GameEventObserver(this));
         score = new Score();
