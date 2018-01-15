@@ -20,7 +20,6 @@ import com.stackattack.bonuses.Bonus;
 import com.stackattack.objects.Player;
 import com.stackattack.events.MoveEvent;
 import com.stackattack.events.MoveListener;
-import com.stackattack.bonuses.TYPE_BONUS;
 import java.util.ArrayList;
 import java.awt.Point;
 import java.io.File;
@@ -46,6 +45,7 @@ public class GameField implements Screen {
     private BitmapFont doubleJump;
     
     private SpriteBatch batch;
+   
     
     public void setBatch(SpriteBatch b) {
         
@@ -74,11 +74,23 @@ public class GameField implements Screen {
             }
         }
         
+        for(int i = 0; i < height; i++) {
+            bonuses.add(i, new ArrayList<Bonus>());
+            
+            for(int j = 0; j < width; j++) {
+                bonuses.get(i).add(j, null);
+            }
+        }
+        
     }
     
     //---------------------------------------------
     
     private StackAttackGame game;
+    
+    public StackAttackGame getGame() {
+        return game;
+    }
     
     //---------------------------------------------
     
@@ -437,25 +449,44 @@ public class GameField implements Screen {
     }
     
     
-    public void removeBonus(Point pos) {
+    public boolean removeBonus(Point pos) {
         
+        System.out.println("NEW DIVIDE: " + pos.x + "; " + pos.y);
         if(pos.x >= 0 && pos.x < width
                 && pos.y >= 0 && pos.y < height) {
             
-            if(findBonus(pos) != null) 
-                bonuses.get(pos.y).set(pos.x, null);  
+            //if(findBonus(pos) != null) {
+                bonuses.get(pos.y).set(pos.x, null); 
+                System.out.println("NSCHEL: ");
+                return true;
+           // }
         }
+        return false;
     }
     
     public Bonus findBonus(Point pos) {
         
+        int counterX = 0;
+        for(ArrayList<Bonus> _b : bonuses) {
+            for(Bonus b : _b) {
+                if(b != null) {
+                    counterX++;
+                    System.out.println("123: " + pos.y + "; " + pos.x);
+                }
+                }
+                }
+        System.out.println("UUUUU: "+ counterX);
         if(pos.x >= 0 && pos.x < width
                 && pos.y >= 0 && pos.y < height) {
             
             if(bonuses.get(pos.y).size() > 0) {
-                
-                if(bonuses.get(pos.y).get(pos.x) != null)
+               System.out.println("NSCHEL: ");
+               System.out.println("LALA: " + pos.x + "; " + pos.y);
+               //System.out.println(bonuses.get(pos.y).get(pos.x).getBox().getColor());
+                if(bonuses.get(pos.y).get(pos.x) != null) {
+                    System.out.println("NSCHEL: ");
                     return bonuses.get(pos.y).get(pos.x);
+                }
                 
                 else
                     return null;
@@ -615,6 +646,14 @@ public class GameField implements Screen {
                 }
             }
         }
+        
+        for(ArrayList<Bonus> _bon : bonuses) {
+            for(Bonus b : _bon) {
+                if(b != null) {
+                    b.paint(game.getBonusTexture(b.getType()), batch);
+                }
+            }
+        }
     }
     
     public Texture getPlayerTexture(boolean dir) {
@@ -639,7 +678,7 @@ public class GameField implements Screen {
         drawScore();
         drawLives();
         
-        //if(game.getPlayer().getHeightToJump() == 2)
+        if(game.getPlayer().getHeightToJump() == 2)
             drawDoubleJump();
           
         game.getPlayer().paint(game.getBatch());
@@ -678,7 +717,10 @@ public class GameField implements Screen {
          
         checkIfRowIsFilled();
         
+           
+        
         game.getPlayer().checkSituation();
+        
          
         game.getBatch().end();
 
