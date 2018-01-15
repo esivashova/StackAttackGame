@@ -384,7 +384,9 @@ public class Player {
                 
             case UP: 
                 
-                return (position.y + heightToJump + 1 <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0 /*<= liftedWeight*/);
+                //!!!
+                return (position.y + heightToJump + 1 <= field.getHeight()-1 && field.findNeighbour(this, dir).size() <= 0 
+                        && (position.y == 0 || field.findNeighbour(this, DIRECTION.DOWN).size() > 0/*<= liftedWeight*/));
                 
             case DOWN:
                 return (position.y - 1 >= 0 && field.findNeighbour(this, dir).size() <= 0);
@@ -494,7 +496,7 @@ public class Player {
             
             }
             else {
-                fireBonusBind(field.getBonuses().get(position.y).get(position.x));
+                fireBonusBind(field.getBonuses().get(position.y + 1).get(position.x));
             }
 
             field.getBonuses().get(position.y + 1).get(position.x).activate();
