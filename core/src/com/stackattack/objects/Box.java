@@ -92,6 +92,10 @@ public class Box {
         return bonus;
     }
     
+    public void setBonus(Bonus b) {
+        bonus = b;
+    }
+    
     //-----------------------------------------------
     
     private Point position;
