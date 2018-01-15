@@ -13,8 +13,8 @@ import com.stackattack.screens.GameField;
 
 public class MainMenu implements Screen {
 
-    private final float appWidth = 1280;
-    private final float appHeight = 720;
+    private final float appWidth = 1024;
+    private final float appHeight = 660;
 
     private static final int START_BUTTON_WIDTH = 300;
     private static final int START_BUTTON_HEIGHT = 150;
