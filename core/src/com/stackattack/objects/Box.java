@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.stackattack.navigation.DIRECTION;
 import com.stackattack.screens.GameField;
+import com.stackattack.bonuses.Bonus;
 import java.awt.Point;
 
 /**
@@ -17,7 +18,7 @@ import java.awt.Point;
  */
 public class Box {
     
-    public Box(GameField _field, int _weight, String _color, boolean canBr) {
+    public Box(GameField _field, int _weight, String _color, boolean canBr, Bonus b) {
         if(_weight > 0)
             weight = _weight;
         else
@@ -30,6 +31,7 @@ public class Box {
         //subject = new Sprite(subjtx);
         
         canBeBroken = canBr;
+        bonus = b;
     }
     
     //--------------------------------------
@@ -80,6 +82,14 @@ public class Box {
     
     public boolean canBeBroken() {
         return canBeBroken;
+    }
+    
+    //-----------------------------------------------
+    
+    private Bonus bonus;
+    
+    public Bonus getBonus() {
+        return bonus;
     }
     
     //-----------------------------------------------
