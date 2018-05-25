@@ -9,6 +9,6 @@ public class ModuleGameTest {
     
     @Test
     public void test() {
-        Assert.assertEquals( 1, 1);
+        Assert.assertEquals(1, 0);
     }
 }
