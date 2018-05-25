@@ -239,6 +239,22 @@ public class ModuleGame implements Module {
         
         return true;
     }
+    
+    public int keyUp(){
+        return 0; 
+    }
+    public int keyLeft(){
+        return 1; 
+    }
+    public int keyRight(){
+        return 2; 
+    }
+    public int keyLeftUp(){
+        return 3; 
+    }
+    public int keyRightUp(){
+        return 4; 
+    }
 
 
     @Override
