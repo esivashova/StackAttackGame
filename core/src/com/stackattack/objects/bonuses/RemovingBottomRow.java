@@ -28,7 +28,7 @@ public class RemovingBottomRow extends Bonus{
     private void fireRemoveBottomRow() {
         
         GameEvent event = new GameEvent(this);
-        for (Object listener : _listGameList)
+        for (Object listener : _listenersGameList)
         {
             ((GameListener)listener).removeBottomRow(event);
         }

@@ -27,7 +27,7 @@ public class AdditionPoints extends Bonus{
     private void fireAddPoints() {
         
         GameEvent event = new GameEvent(this);
-        for (Object listener : _listGameList)
+        for (Object listener : _listenersGameList)
         {
             ((GameListener)listener).addPoints(event, 5);
         }

@@ -39,8 +39,8 @@ public class GameOverScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
 
-		scoreFont.draw(game.getBatch(), "You score: " + score, 400, 450);
-		backFont.draw(game.getBatch(), "Press any key to back menu", 350,300);
+		scoreFont.draw(game.getBatch(), "Your score: " + score, 400, 450);
+		backFont.draw(game.getBatch(), "Press any key to back to menu", 350,300);
 		
 		game.getBatch().end();
 		

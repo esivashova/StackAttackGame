@@ -27,7 +27,7 @@ public class DoubleJump extends Bonus{
     private void fireActivateDoubleJump() {
         
         GameEvent event = new GameEvent(this);
-        for (Object listener : _listGameList)
+        for (Object listener : _listenersGameList)
         {
             ((GameListener)listener).activateDoubleJump(event);
         }

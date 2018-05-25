@@ -60,7 +60,7 @@ public class Player extends GameObject {
         subject = new Sprite(subjtx);
     }
             
-    private boolean direction = true;
+    private boolean directionTexture = true;
     
 
     @Override
@@ -70,7 +70,7 @@ public class Player extends GameObject {
             
     public void paint(SpriteBatch batch) {
 
-        subjtx = field.getPlayerTexture(direction);
+        subjtx = field.getPlayerTexture(directionTexture);
         batch.draw(subjtx, position.x*64, position.y*64, 64, 128);
     }
     
@@ -130,7 +130,7 @@ public class Player extends GameObject {
                     
                     if(flag) {
                         position.x--;
-                        direction = false;
+                        directionTexture = false;
                     }
                     break;
                         
@@ -143,7 +143,7 @@ public class Player extends GameObject {
                   
                     if(flag) {
                         position.x++;
-                        direction = true;
+                        directionTexture = true;
                     }
                     break;
 
@@ -166,7 +166,7 @@ public class Player extends GameObject {
                     if(flag) {
                         position.y += heightToJump;
                         position.x--;
-                        direction = false;
+                        directionTexture = false;
                     }
                     break;
 
@@ -179,7 +179,7 @@ public class Player extends GameObject {
                     if(flag) {
                         position.y += heightToJump;
                         position.x++;
-                        direction = true;
+                        directionTexture = true;
                     }
                     break;
             }
@@ -190,7 +190,7 @@ public class Player extends GameObject {
         return false;
     }
     
-    public boolean canMove(DIRECTION dir) {
+    private boolean canMove(DIRECTION dir) {
         
         switch (dir) {
             case LEFT:
@@ -251,7 +251,7 @@ public class Player extends GameObject {
     
     //-------------------------------------- 
     
-    private void destroyBox(DIRECTION dir) {
+    public void destroyBox(DIRECTION dir) {
         
         if(canDestroy(dir)) {
             
@@ -272,27 +272,27 @@ public class Player extends GameObject {
         switch (dir) {
             case LEFT:
                 
-                direction = false;
+                directionTexture = false;
                 break;
                 
             case RIGHT:
                 
-                direction = true;
+                directionTexture = true;
                 break;
                
             case LEFT_UP:
                 
-                direction = false;
+                directionTexture = false;
                 break;
                 
             case RIGHT_UP: 
                 
-                direction = true;
+                directionTexture = true;
         }
     }
  
     
-    public boolean canDestroy(DIRECTION dir) {
+    private boolean canDestroy(DIRECTION dir) {
 
         return (field.findNeighbour(this, dir, false).size() > 0);
     }
@@ -386,8 +386,8 @@ public class Player extends GameObject {
     }
     
     public void addLife() {
-            addAmountOfLives(1);
-        }
+        addAmountOfLives(1);
+    }
     
     // ------------------------ События и слушатели -------------------------
   
@@ -402,16 +402,6 @@ public class Player extends GameObject {
     public void addGameListener(GameListener l) { 
         _listenersList.add(l); 
     }
-    
-    /**
-     * Отсоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void removeGameListener(GameListener l) { 
-        _listenersList.remove(l); 
-    } 
-    
     
     private void fireGameFinished() {
         

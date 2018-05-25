@@ -115,7 +115,7 @@ public abstract class Bonus extends GameObject implements MovableObject {
     //---------------------------------------------------------
     
     // Список слушателей
-    protected ArrayList _listMoveList = new ArrayList(); 
+    protected ArrayList _listenersMoveList = new ArrayList(); 
  
     /**
      * Присоединяет слушателя
@@ -123,20 +123,11 @@ public abstract class Bonus extends GameObject implements MovableObject {
      * @param l слушатель
      */
     public void addGameListener(MoveListener l) { 
-        _listMoveList.add(l); 
+        _listenersMoveList.add(l); 
     }
-    
-    /**
-     * Отсоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void removeGameListener(MoveListener l) { 
-        _listMoveList.remove(l); 
-    } 
-    
+      
     // Список слушателей
-    protected ArrayList _listGameList = new ArrayList(); 
+    protected ArrayList _listenersGameList = new ArrayList(); 
  
     /**
      * Присоединяет слушателя
@@ -144,15 +135,6 @@ public abstract class Bonus extends GameObject implements MovableObject {
      * @param l слушатель
      */
     public void addGameListener(GameListener l) { 
-        _listGameList.add(l); 
-    }
-    
-    /**
-     * Отсоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void removeGameListener(GameListener l) { 
-        _listGameList.remove(l); 
+        _listenersGameList.add(l); 
     }
 }

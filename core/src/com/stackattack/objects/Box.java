@@ -2,7 +2,6 @@
 package com.stackattack.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.stackattack.navigation.DIRECTION;
 import com.stackattack.screens.GameField;
 import com.stackattack.objects.bonuses.Bonus;

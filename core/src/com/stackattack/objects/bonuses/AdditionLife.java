@@ -27,7 +27,7 @@ public class AdditionLife extends Bonus{
     private void fireAddLife() {
         
         MoveEvent event = new MoveEvent(this);
-        for (Object listener : _listMoveList)
+        for (Object listener : _listenersMoveList)
         {
             ((MoveListener)listener).addLife(event);
         }
