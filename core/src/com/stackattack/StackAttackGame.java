@@ -8,8 +8,10 @@ import com.stackattack.objects.bonuses.DoubleJump;
 import com.stackattack.objects.bonuses.AdditionLife;
 import com.stackattack.screens.MainMenu;
 import com.stackattack.screens.GameOverScreen;
+import com.stackattack.modules.Module;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Preferences;
 import com.stackattack.objects.Player;
@@ -107,6 +109,24 @@ public class StackAttackGame extends Game{
     public void setPlayer(Player p) {
         
         player = p;
+    }
+    
+    //--------------------------------------
+    
+    private Module module = null;
+    
+    public Module getModule() {
+        
+        return module;
+    }
+    
+    public void setModule(Module m) {
+        
+        module = m;
+    }
+    
+    public void runModule() {
+        module.run();
     }
     
     //--------------------------------------
@@ -234,7 +254,7 @@ public class StackAttackGame extends Game{
         @Override
         public void removeColor(GameEvent e, String color) {
             
-            field.removeColor(color);
+            field.removeColorBoxes(color);
         }
         
         @Override

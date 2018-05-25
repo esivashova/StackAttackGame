@@ -1,6 +1,7 @@
 
 package com.stackattack.screens;
 import com.stackattack.navigation.DIRECTION;
+import com.stackattack.modules.ModuleEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.Input;
@@ -61,10 +62,6 @@ public class GameField implements Screen {
     //---------------------------------------------
     
     private StackAttackGame game;
-    
-    public StackAttackGame getGame() {
-        return game;
-    }
     
     //---------------------------------------------
     
@@ -130,7 +127,7 @@ public class GameField implements Screen {
         }
     }
     
-    public void removeColor(String color) {
+    public void removeColorBoxes(String color) {
         
          System.out.println("#1: " + boxes.size()+ "; " /*+ pos.y*/);
         for(int i = 0; i < boxes.size(); i++) {
@@ -967,6 +964,15 @@ public class GameField implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(this.game.getModule() != null &&
+            TimeUtils.nanoTime() - timeToFly > 800000000) {
+            this.game.runModule();
+        }
+        
+        if(Gdx.input.isKeyPressed(Input.Keys.M)){{
+            ModuleEngine.main(null, this.game);
+        }}
+        
         game.getBatch().begin(); //BEGIN
 
         drawBackground();
@@ -982,7 +988,8 @@ public class GameField implements Screen {
           
         game.getPlayer().paint(game.getBatch());
 
-        checkPlayerActions();
+        if(this.game.getModule() == null)
+            checkPlayerActions();
         
         if(TimeUtils.nanoTime() - timeToFly > 800000000)
             lowerFlyingObjects();
@@ -1109,15 +1116,6 @@ public class GameField implements Screen {
     public void addGameListener(MoveListener l) { 
         _listenersList.add(l); 
     }
-    
-    /**
-     * Отсоединяет слушателя
-     * 
-     * @param l слушатель
-     */
-    public void removeGameListener(MoveListener l) { 
-        _listenersList.remove(l); 
-    } 
     
    //----------------------------------------------
 
